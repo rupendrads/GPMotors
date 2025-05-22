@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://gpmotorstedd.co.uk
+
+# Sitemaps
+Sitemap: https://gpmotorstedd.co.uk/sitemap.xml
