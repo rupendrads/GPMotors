@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   PhoneIcon, 
   MapPinIcon, 
@@ -45,12 +45,42 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeNestedDropdown, setActiveNestedDropdown] = useState(null);
 
+  // Close mobile menu when screen size changes to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMobileMenuOpen(false);
+        setActiveDropdown(null);
+        setActiveNestedDropdown(null);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+    setActiveDropdown(null);
+    setActiveNestedDropdown(null);
   };
 
   const handleDropdownToggle = (dropdownName) => {
     setActiveDropdown(activeDropdown === dropdownName ? null : dropdownName);
+    setActiveNestedDropdown(null);
   };
 
   const handleNestedDropdownToggle = (nestedDropdownName) => {
@@ -174,15 +204,14 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="w-full">
-
+    <>
       {/* Main Navigation */}
-      <nav className="bg-white shadow-lg sticky top-0 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center py-4">
+      <nav className="bg-white shadow-lg sticky w-full top-0 z-50">
+        <div className="container ">
+          <div className="flex justify-between items-center h-16 lg:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center">
-              <div className="text-2xl font-bold">
+            <Link href="/" className="flex items-center flex-shrink-0">
+              <div className="text-xl sm:text-2xl font-bold">
                 <span className="text-gray-800">GP</span>
                 <span className="text-red-600 ml-1">MOTORS</span>
               </div>
@@ -190,12 +219,12 @@ export default function Navbar() {
 
             {/* Desktop Navigation - Centered */}
             <div className="hidden lg:flex items-center justify-center flex-1 mx-8">
-              <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-6 xl:space-x-8">
                 {navItems?.map((item, index) => (
                   <div key={index} className="relative group">
                     <Link
                       href={item?.href || '#'}
-                      className="flex items-center text-gray-700 hover:text-red-600 font-medium transition-colors duration-200 py-2 relative group"
+                      className="flex items-center text-gray-700 hover:text-red-600 font-medium transition-colors duration-200 py-2 relative group text-sm xl:text-base"
                       onMouseEnter={() => item?.hasDropdown && setActiveDropdown(item.name)}
                     >
                       {item?.name || 'Unnamed'}
@@ -205,7 +234,7 @@ export default function Navbar() {
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-200 group-hover:w-full"></span>
                     </Link>
 
-                    {/* Dropdown Menu with Top-to-Bottom Animation */}
+                    {/* Desktop Dropdown Menu */}
                     {item?.hasDropdown && item?.dropdownItems && (
                       <div 
                         className="absolute top-full left-0 mt-0 w-64 bg-white shadow-lg border border-gray-100 rounded-md 
@@ -236,10 +265,10 @@ export default function Navbar() {
                                   )}
                                 </Link>
 
-                                {/* Nested Dropdown Menu with Left-to-Right Animation */}
+                                {/* Nested Dropdown Menu */}
                                 {dropdownItem?.hasNested && dropdownItem?.nestedItems && activeNestedDropdown === dropdownItem.name && (
                                   <div 
-                                    className="absolute top-0 left-full  w-56 bg-white border border-gray-100 rounded-md 
+                                    className="absolute top-0 left-full w-56 bg-white shadow-lg border border-gray-100 rounded-md 
                                                opacity-0 invisible translate-x-[-10px] 
                                                group-hover/nested:opacity-100 group-hover/nested:visible group-hover/nested:translate-x-0 
                                                transition-all duration-300 ease-out z-60"
@@ -273,21 +302,22 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* CTA Button - Right Side */}
-            <div className="hidden lg:flex">
+            {/* CTA Button - Desktop */}
+            <div className="hidden lg:flex flex-shrink-0">
               <Link
                 href="/quote"
-                className="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition-colors duration-200 font-medium text-sm uppercase tracking-wide"
+                className="bg-red-600 text-white px-4 xl:px-6 py-2 xl:py-3 rounded-md hover:bg-red-700 transition-colors duration-200 font-medium text-xs xl:text-sm uppercase tracking-wide whitespace-nowrap"
               >
                 Book Appointment
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="lg:hidden">
+            <div className="lg:hidden flex-shrink-0">
               <button
                 onClick={toggleMobileMenu}
-                className="text-gray-700 hover:text-red-600 transition-colors duration-200"
+                className="text-gray-700 hover:text-red-600 transition-colors duration-200 p-2"
+                aria-label="Toggle mobile menu"
               >
                 {isMobileMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
@@ -298,121 +328,152 @@ export default function Navbar() {
             </div>
           </div>
         </div>
+      </nav>
 
-        {/* Mobile Menu with Slide-Down Animation */}
-        <div
-          className={`lg:hidden bg-white border-t overflow-hidden transition-all duration-300 ease-in-out ${
-            isMobileMenuOpen ? "max-h-screen opacity-100 translate-y-0" : "max-h-0 opacity-0 translate-y-[-10px]"
-          }`}
-        >
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex flex-col space-y-2">
-              {navItems?.map((item, index) => {
-                const ItemIcon = item?.icon;
-                return (
-                  <div key={index}>
-                    <div className="flex items-center justify-between">
-                      <Link
-                        href={item?.href || '#'}
-                        onClick={() => !item?.hasDropdown && setIsMobileMenuOpen(false)}
-                        className="flex items-center space-x-3 text-gray-700 hover:text-red-600 font-medium py-3 transition-colors duration-200 flex-1"
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={toggleMobileMenu}
+        />
+      )}
+
+      {/* Mobile Menu - Positioned outside the nav element */}
+      <div
+        className={`fixed top-0 left-0 right-0 bottom-0 bg-white z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Mobile Header */}
+        <div className="bg-white shadow-sm border-b border-gray-200">
+          <div className="flex justify-between items-center h-16 px-4">
+            <Link href="/" className="flex items-center">
+              <div className="text-xl font-bold">
+                <span className="text-gray-800">GP</span>
+                <span className="text-red-600 ml-1">MOTORS</span>
+              </div>
+            </Link>
+            <button
+              onClick={toggleMobileMenu}
+              className="text-gray-700 hover:text-red-600 transition-colors duration-200 p-2"
+              aria-label="Close mobile menu"
+            >
+              <XMarkIcon className="h-6 w-6" />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Content */}
+        <div className="h-full overflow-y-auto pt-0">
+          <div className="px-4 py-6 space-y-1">
+            {navItems?.map((item, index) => {
+              const ItemIcon = item?.icon;
+              return (
+                <div key={index} className="border-b border-gray-100 last:border-b-0">
+                  <div className="flex items-center justify-between py-3">
+                    <Link
+                      href={item?.href || '#'}
+                      onClick={() => !item?.hasDropdown && setIsMobileMenuOpen(false)}
+                      className="flex items-center space-x-3 text-gray-700 hover:text-red-600 font-medium transition-colors duration-200 flex-1"
+                    >
+                      {ItemIcon && <ItemIcon className="h-5 w-5 flex-shrink-0" />}
+                      <span className="text-base">{item?.name || 'Unnamed'}</span>
+                    </Link>
+                    {item?.hasDropdown && (
+                      <button
+                        onClick={() => handleDropdownToggle(item.name)}
+                        className="p-2 text-gray-500 hover:text-red-600 flex-shrink-0"
+                        aria-label={`Toggle ${item.name} dropdown`}
                       >
-                        {ItemIcon && <ItemIcon className="h-5 w-5" />}
-                        <span>{item?.name || 'Unnamed'}</span>
-                      </Link>
-                      {item?.hasDropdown && (
-                        <button
-                          onClick={() => handleDropdownToggle(item.name)}
-                          className="p-2 text-gray-500 hover:text-red-600"
-                        >
-                          <ChevronDownIcon 
-                            className={`h-4 w-4 transition-transform duration-200 ${
-                              activeDropdown === item.name ? 'rotate-180' : ''
-                            }`} 
-                          />
-                        </button>
-                      )}
-                    </div>
-                    
-                    {/* Mobile Dropdown with Slide-Down Animation */}
-                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      item?.hasDropdown && activeDropdown === item.name 
-                        ? "max-h-96 opacity-100" 
-                        : "max-h-0 opacity-0"
-                    }`}>
-                      <div className="pl-4 pb-2">
-                        {item?.dropdownItems?.map((dropdownItem, dropdownIndex) => {
-                          const DropdownIcon = dropdownItem?.icon;
-                          return (
-                            <div key={dropdownIndex}>
-                              <div className="flex items-center justify-between">
-                                <Link
-                                  href={dropdownItem?.href || '#'}
-                                  onClick={() => !dropdownItem?.hasNested && setIsMobileMenuOpen(false)}
-                                  className="flex items-center space-x-3 text-gray-600 hover:text-red-600 py-2 text-sm transition-colors duration-200 flex-1"
+                        <ChevronDownIcon 
+                          className={`h-5 w-5 transition-transform duration-200 ${
+                            activeDropdown === item.name ? 'rotate-180' : ''
+                          }`} 
+                        />
+                      </button>
+                    )}
+                  </div>
+                  
+                  {/* Mobile Dropdown */}
+                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    item?.hasDropdown && activeDropdown === item.name 
+                      ? "max-h-screen opacity-100" 
+                      : "max-h-0 opacity-0"
+                  }`}>
+                    <div className="pl-6 pb-3 space-y-1">
+                      {item?.dropdownItems?.map((dropdownItem, dropdownIndex) => {
+                        const DropdownIcon = dropdownItem?.icon;
+                        return (
+                          <div key={dropdownIndex}>
+                            <div className="flex items-center justify-between py-2">
+                              <Link
+                                href={dropdownItem?.href || '#'}
+                                onClick={() => !dropdownItem?.hasNested && setIsMobileMenuOpen(false)}
+                                className="flex items-center space-x-3 text-gray-600 hover:text-red-600 transition-colors duration-200 flex-1"
+                              >
+                                {DropdownIcon && <DropdownIcon className="h-4 w-4 flex-shrink-0" />}
+                                <span className="text-sm">{dropdownItem?.name || 'Unnamed'}</span>
+                              </Link>
+                              {dropdownItem?.hasNested && (
+                                <button
+                                  onClick={() => handleNestedDropdownToggle(dropdownItem.name)}
+                                  className="p-1 text-gray-400 hover:text-red-600 flex-shrink-0"
+                                  aria-label={`Toggle ${dropdownItem.name} submenu`}
                                 >
-                                  {DropdownIcon && <DropdownIcon className="h-4 w-4" />}
-                                  <span>{dropdownItem?.name || 'Unnamed'}</span>
-                                </Link>
-                                {dropdownItem?.hasNested && (
-                                  <button
-                                    onClick={() => handleNestedDropdownToggle(dropdownItem.name)}
-                                    className="p-1 text-gray-400 hover:text-red-600"
-                                  >
-                                    <ChevronRightIcon 
-                                      className={`h-3 w-3 transition-transform duration-200 ${
-                                        activeNestedDropdown === dropdownItem.name ? 'rotate-90' : ''
-                                      }`} 
-                                    />
-                                  </button>
-                                )}
-                              </div>
-                              
-                              {/* Mobile Nested Dropdown with Slide Animation */}
-                              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                                dropdownItem?.hasNested && activeNestedDropdown === dropdownItem.name 
-                                  ? "max-h-48 opacity-100" 
-                                  : "max-h-0 opacity-0"
-                              }`}>
-                                <div className="pl-4 mt-1">
-                                  {dropdownItem?.nestedItems?.map((nestedItem, nestedIndex) => {
-                                    const NestedIcon = nestedItem?.icon;
-                                    return (
-                                      <Link
-                                        key={nestedIndex}
-                                        href={nestedItem?.href || '#'}
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className="flex items-center space-x-2 text-gray-500 hover:text-red-600 py-1 text-xs transition-colors duration-200"
-                                      >
-                                        {NestedIcon && <NestedIcon className="h-3 w-3" />}
-                                        <span>{nestedItem?.name || 'Unnamed'}</span>
-                                      </Link>
-                                    );
-                                  })}
-                                </div>
+                                  <ChevronRightIcon 
+                                    className={`h-4 w-4 transition-transform duration-200 ${
+                                      activeNestedDropdown === dropdownItem.name ? 'rotate-90' : ''
+                                    }`} 
+                                  />
+                                </button>
+                              )}
+                            </div>
+                            
+                            {/* Mobile Nested Dropdown */}
+                            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                              dropdownItem?.hasNested && activeNestedDropdown === dropdownItem.name 
+                                ? "max-h-64 opacity-100" 
+                                : "max-h-0 opacity-0"
+                            }`}>
+                              <div className="pl-6 space-y-1">
+                                {dropdownItem?.nestedItems?.map((nestedItem, nestedIndex) => {
+                                  const NestedIcon = nestedItem?.icon;
+                                  return (
+                                    <Link
+                                      key={nestedIndex}
+                                      href={nestedItem?.href || '#'}
+                                      onClick={() => setIsMobileMenuOpen(false)}
+                                      className="flex items-center space-x-2 text-gray-500 hover:text-red-600 py-2 transition-colors duration-200"
+                                    >
+                                      {NestedIcon && <NestedIcon className="h-3 w-3 flex-shrink-0" />}
+                                      <span className="text-xs">{nestedItem?.name || 'Unnamed'}</span>
+                                    </Link>
+                                  );
+                                })}
                               </div>
                             </div>
-                          );
-                        })}
-                      </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                    
-                    <div className="border-b border-gray-100"></div>
                   </div>
-                );
-              })}
-              
+                </div>
+              );
+            })}
+            
+            {/* Mobile CTA Button */}
+            <div className="pt-6">
               <Link
                 href="/quote"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition-colors duration-200 font-medium text-center text-sm uppercase tracking-wide mt-4"
+                className="block w-full bg-red-600 text-white px-6 py-4 rounded-md hover:bg-red-700 transition-colors duration-200 font-medium text-center text-sm uppercase tracking-wide"
               >
                 Book Appointment
               </Link>
             </div>
           </div>
         </div>
-      </nav>
-    </header>
+      </div>
+    </>
   );
 }
