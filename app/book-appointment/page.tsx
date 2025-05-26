@@ -1,3 +1,4 @@
+import BookAppointmentForm from "@/components/BookAppointmentForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 export default function BookAppointmentPage() {
   return (
     <main>
-      <h1>Book Appointment page</h1>
+      <BookAppointmentForm />
     </main>
   );
 }
