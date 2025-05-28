@@ -1,12 +1,45 @@
 "use client";
 
+import { useActionState, useEffect, useState } from "react";
+import { useFormStatus } from "react-dom";
 import { bookAppointment } from "@/actions/appointments";
+import Alert from "@/components/Alert";
 
 const titles = ["Mr", "Mrs", "Ms"];
+const serviceTypes = ["MOT", "Oiling"];
+
+const SubmitButton = () => {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" className={buttonStyle} disabled={pending}>
+      {pending ? "submitting..." : "submit"}
+    </button>
+  );
+};
 
 function BookAppointmentForm() {
+  const [formState, formAction] = useActionState(bookAppointment, {
+    message: "",
+  });
+  const [alert, setAlert] = useState({ message: "", type: "" });
+
+  useEffect(() => {
+    console.log("inside useeffect");
+    if (formState && formState.message !== "") {
+      handleShowAlert("success", formState.message);
+    }
+  }, [formState, formState.message]);
+
+  const handleShowAlert = (type: string, message: string) => {
+    setAlert({ type, message });
+  };
+
+  const handleCloseAlert = () => {
+    setAlert({ message: "", type: "" });
+  };
+
   return (
-    <form action={bookAppointment} className={formStyle}>
+    <form action={formAction} className={formStyle}>
       <h2 className="text-xl capitalize mb-2">Book appointment</h2>
       <div className={inputGroupStyle}>
         <label htmlFor="firstName">Title</label>
@@ -36,7 +69,6 @@ function BookAppointmentForm() {
           type="text"
           name="lastName"
           defaultValue=""
-          required
           className={inputStyle}
         />
       </div>
@@ -46,7 +78,6 @@ function BookAppointmentForm() {
           type="text"
           name="postCode"
           defaultValue=""
-          required
           className={inputStyle}
         />
       </div>
@@ -61,18 +92,35 @@ function BookAppointmentForm() {
         />
       </div>
       <div className={inputGroupStyle}>
+        <label htmlFor="serviceType">Service type</label>
+        <select name="serviceType" className={inputStyle} required>
+          <option value="">Select</option>
+          {serviceTypes.map((serviceType) => {
+            return (
+              <option key={serviceType} value={serviceType}>
+                {serviceType}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      <div className={inputGroupStyle}>
         <label htmlFor="comments">Comments</label>
         <textarea
           name="comments"
           rows={3}
           defaultValue=""
-          required
           className={inputStyle}
         />
       </div>
-      <button type="submit" className={buttonStyle}>
-        submit
-      </button>
+      <SubmitButton />
+      {alert.message !== "" && (
+        <Alert
+          message={alert.message}
+          type={alert.type}
+          onClose={handleCloseAlert}
+        />
+      )}
     </form>
   );
 }
