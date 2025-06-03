@@ -2,29 +2,14 @@ import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 import { GetDBSettings, IDBSettings } from "@/sharedCode/dbSettings";
 
-// export async function GET(request: Request) {
-//   const connectionParams = GetDBSettings();
-//   console.log(request);
-//   //console.log(process.env);
-//   console.log(connectionParams.host);
-//   console.log(connectionParams.port);
-//   console.log(connectionParams.user);
-//   console.log(connectionParams.password);
-//   console.log(connectionParams.database);
-//   const results = {
-//     message: "Hello World!",
-//   };
-
-//   return NextResponse.json(results);
-// }
-
 const connectionParams: IDBSettings = GetDBSettings();
 
 export async function GET(request: Request) {
+  //console.log(request);
   try {
     const connection = await mysql.createConnection(connectionParams);
 
-    const query = "SELECT * FROM broker";
+    const query = "SELECT * FROM appointments";
 
     const values: string[] = [];
 
@@ -32,7 +17,7 @@ export async function GET(request: Request) {
 
     connection.end();
 
-    return NextResponse.json(results);
+    return Response.json(results);
   } catch (err) {
     console.log("ERROR: API - ", (err as Error).message);
 
@@ -44,3 +29,35 @@ export async function GET(request: Request) {
     return NextResponse.json(response, { status: 200 });
   }
 }
+
+export const POST = async (request: Request) => {
+  const params = await request.json();
+  console.log(params);
+
+  try {
+    const connection = await mysql.createConnection(connectionParams);
+    const query = `INSERT INTO appointments (BookingDate, BookingTime, Title, FirstName, 
+    LastName, Email, PostCode, RegistrationNo, ServiceType, Comments) 
+    VALUES ('${params.BookingDate}', '${params.BookingTime}',
+    '${params.Title}', '${params.FirstName}',
+    '${params.LastName}', '${params.Email}',
+    '${params.PostCode}', '${params.RegistrationNo}',
+    '${params.ServiceType}', '${params.Comments}')`;
+    console.log("query", query);
+    const [results] = await connection.execute(query);
+    //console.log("results: ", results);
+    connection.end();
+    return Response.json({
+      status: "success",
+      message: "Appointment booked successfully",
+      error: "",
+    });
+  } catch (error) {
+    console.log(error);
+    return Response.json({
+      status: "error",
+      message: "Failed to book appointment",
+      error: error,
+    });
+  }
+};
