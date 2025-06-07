@@ -97,13 +97,15 @@ function ClientDetailForm() {
   };
 	
   return (
-		<div className="items-center flex flex-col gap-2">
-			<form onSubmit={handleSubmit(onSubmit)} className={formStyle}>
-				<h2 className={titleStyle}>Client Information</h2>
-				<label className={headingStyle}>Your details</label>
-				<div className="flex flex-col w-1/6 gap-2">
+		<div className="w-[500px] flex flex-col gap-2">
+			<form onSubmit={handleSubmit(onSubmit)} >
+				<div className={formStyle}>
+					<h2 className={titleStyle}>Client Information</h2>
+					<label className={headingStyle}>Your details</label>
+					<div className={inputGroupStyle}>
 						<label className={inputLabelStyle} htmlFor="title">Title</label>
-						<select name="title" value="Title" className={inputStyle}>
+						<select {...register("title")} 
+							className={inputStyle}>
 							{
 								titles.map((title) => {
 									return (
@@ -113,13 +115,13 @@ function ClientDetailForm() {
 								})}
 						</select>
 					</div>
-				<div className={inputGroupRowStyle}>	
-					<div className={inputGroupStyle1}>
+					
+					<div className={inputGroupStyle}>
 						<div className={inputLabelBoxStyle}>
-							<label htmlFor="firstName">
+							<label className={errors.firstName ? errorStyle : inputLabelStyle} htmlFor="firstName">
 								First name
 							</label>
-						{errors.firstName && <span className={errorStyle}>*</span>}	
+							{errors.firstName && <span className={errorStyle}>*</span>}	
 						</div>
 						<input
 							type="text"
@@ -129,7 +131,8 @@ function ClientDetailForm() {
 						/>
 						{errors.firstName && <span className={errorStyle}>Should be at least 3 characters</span>}
 					</div>
-					<div className={inputGroupStyle1}>
+
+					<div className={inputGroupStyle}>
 						<div className={inputLabelBoxStyle}>
 							<label htmlFor="lastName">
 									Last name
@@ -144,12 +147,10 @@ function ClientDetailForm() {
 						/>
 						{errors.lastName && <span className={errorStyle}>Should be at least 3 characters</span>}
 					</div>
-				</div>
-					
 
-				<label className={headingStyle}>Contact details</label>
-				<div className={inputGroupRowStyle}>
-					<div className={inputGroupStyle1}>
+					<label className={headingStyle}>Contact details</label>
+					
+					<div className={inputGroupStyle}>
 						<label className={inputLabelStyle} htmlFor="address1">
 							Address1
 						</label>
@@ -160,7 +161,7 @@ function ClientDetailForm() {
 							placeholder="Your Address"
 						/>
 					</div>
-					<div className={inputGroupStyle1}>
+					<div className={inputGroupStyle}>
 						<label className={inputLabelStyle} htmlFor="address2">
 							Address2
 						</label>
@@ -171,12 +172,11 @@ function ClientDetailForm() {
 							placeholder="Your Address"
 						/>
 					</div>
-				</div>
 				
-				<div className={inputGroupRowStyle}>
-					<div className={inputGroupStyle1}>
+					<div className={inputGroupStyle}>
 						<div className={inputLabelBoxStyle}>
-							<label className={inputLabelStyle} htmlFor="postCode">
+							<label className={errors.firstName ? errorStyle : inputLabelStyle} 
+							htmlFor="postCode">
 								Post code
 							</label>
 							{errors.postCode && <span className={errorStyle}>*</span>}
@@ -191,7 +191,7 @@ function ClientDetailForm() {
 						/>
 						{errors.postCode && <span className={errorStyle}>Use proper PostCode format</span>}
 					</div>
-					<div className={inputGroupStyle1}>
+					<div className={inputGroupStyle}>
 						<label className={inputLabelStyle} htmlFor="contactNo">
 							Contact No
 						</label>
@@ -204,14 +204,14 @@ function ClientDetailForm() {
 						/>
 						{errors.contactNo && <span className={errorStyle}>Use proper Mobile No format</span>}
 					</div>
-				</div>
-				
-				
-				<label className={headingStyle}>Service details</label>
-				<div className={inputGroupRowStyle}>
-					<div className={inputGroupStyle1}>
+					
+					<label className={headingStyle}>Service details</label>
+					
+					<div className={inputGroupStyle}>
 						<div className={inputLabelBoxStyle}>
-							<label className={inputLabelStyle}	htmlFor="serviceType">
+							<label 
+								className={errors.serviceType ? errorStyle : inputLabelStyle}	
+								htmlFor="serviceType">
 								Service type
 							</label>
 							{errors.serviceType && <span className={errorStyle}>*</span>}
@@ -220,7 +220,7 @@ function ClientDetailForm() {
 							{...register("serviceType", { required: true })}
 							className={errors.serviceType ? errorInputStyle : inputStyle} 
 						>
-							<option value="Service" >Select</option>
+							<option value="Service">Select</option>
 							{serviceTypes.map((serviceType) => {
 								return (
 									<option key={serviceType} value={serviceType}>
@@ -230,7 +230,7 @@ function ClientDetailForm() {
 							})}
 						</select>
 					</div>
-					<div className={inputGroupStyle1}>
+					<div className={inputGroupStyle}>
 						<label className={inputLabelStyle} htmlFor="serviceDate">
 							Service Date
 						</label>
@@ -241,10 +241,8 @@ function ClientDetailForm() {
 							placeholder="Enter Date"
 						/>
 					</div>
-				</div>
-		
-				<div className={inputGroupRowStyle}>
-					<div className={inputGroupStyle1}>
+				
+					<div className={inputGroupStyle}>
 						<label className={inputLabelStyle} htmlFor="creationDate">
 							Creation Date
 						</label>
@@ -255,9 +253,12 @@ function ClientDetailForm() {
 							placeholder="Enter Date"
 						/>
 					</div>
-					<div className={inputGroupStyle1}>
+					<div className={inputGroupStyle}>
 						<div className={inputLabelBoxStyle}>
-							<label htmlFor="registrationNo" className={inputLabelStyle}>
+							<label htmlFor="registrationNo" 
+								className={
+									errors.registrationNo ? errorStyle : inputLabelStyle
+								}>
 								Vehicle Registration No
 							</label>
 							{errors.registrationNo && <span className={errorStyle}>*</span>}
@@ -272,34 +273,33 @@ function ClientDetailForm() {
 						/>
 						{errors.registrationNo && <span className={errorStyle}>Use proper Reg No format</span>}
 					</div>
-				</div>
-
-				<div className={inputGroupStyle}>
-					<label className={inputLabelStyle} htmlFor="remarks">
-						Remarks
-					</label>
-					<textarea
-						className={inputStyle}
-						{...register("remarks", { maxLength: 1000 })}
-						rows={3}
-						placeholder="Your Remarks Here..."
-					/>
-				</div>
-				<div className="flex justify-center">
+					
+					<div className={inputGroupStyle}>
+						<label className={inputLabelStyle} htmlFor="remarks">
+							Remarks
+						</label>
+						<textarea
+							className={inputStyle}
+							{...register("remarks", { maxLength: 1000 })}
+							rows={3}
+							placeholder="Your Remarks Here..."
+						/>
+					</div>
+					
 					<button
-					type="submit"
-					className={buttonStyle}
-					disabled={formState.isSubmitting}
-					>
-					{formState.isSubmitting ? "Submitting..." : "Submit"}
+						type="submit"
+						className={buttonStyle}
+						disabled={formState.isSubmitting}
+						>
+						{formState.isSubmitting ? "Submitting..." : "Submit"}
 					</button>
-					{alert.message !== "" && (
-              <Alert
-                message={alert.message}
-                type={alert.type}
-                onClose={handleCloseAlert}
-              />
-          )}
+						{alert.message !== "" && (
+							<Alert
+								message={alert.message}
+								type={alert.type}
+								onClose={handleCloseAlert}
+							/>
+						)}
 				</div>	
 			</form>
 		</div>
@@ -307,7 +307,7 @@ function ClientDetailForm() {
 }
 
 const formStyle =
-  "max-w-3xl flex flex-col gap-y-4 p-4 mt-2 mb-2 shadow rounded  border border-gray-300 rounded";
+  "max-w-lg flex flex-col gap-y-4 p-4 mt-2 mb-2 shadow rounded  border border-gray-300 rounded";
 const signinHeadingBoxStyle =
   "flex items-center gap-5 mt-2 p-4 border border-gray-300 rounded";
 const signinHeadingStyle =
@@ -316,21 +316,20 @@ const titleStyle =
   "text-[22px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4 text-center";
 const headingStyle =
   "text-[18px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4";
-const inputGroupRowStyle = "flex flex-row gap-x-8";
+// const inputGroupRowStyle = "flex flex-row gap-x-8";
+// const inputGroupStyle1 = "flex flex-col w-1/2 gap-2";
 const inputGroupStyle = "flex flex-col gap-2";
-const inputGroupStyle1 = "flex flex-col w-1/2 gap-2";
-const inputLabelBoxStyle = "flex items-center";
+const inputLabelBoxStyle = "flex items-center gap-2";
 const inputLabelStyle =
-  "text-[16px] font-[400] leading-[100%] traking-[0%] text-gray-700";
+  "text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
 const inputStyle =
-  "border border-gray-300 shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent";
+  "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
 const errorInputStyle =
   "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800 border-red-500 focus:border-red-500 focus:outline-red-500";
 const buttonStyle =
-  "items-center w-1/4 bg-blue-500 hover:bg-blue-700 text-white text-[18px] font-[600] py-2 px-4 rounded-[22px] mt-2";
+  "bg-red-500 hover:bg-red-700 text-white text-[18px] font-[600] py-2 px-4 rounded-[22px] mt-4";
 const errorStyle =
   "text-[16px] font-[400] leading-[100%] traking-[0%] text-red-500";
-
 const calenderLabelStyle =
   "text-[18px] font-[600] leading-[100%] traking-[0%] text-zinc-600";
 const timeButtonStyle =
@@ -339,8 +338,6 @@ const timeButtonStyle =
 export default ClientDetailForm;
 
 {/* 
-	const inputLabelStyle =
-  "text-[16px] font-[400] leading-[100%] traking-[0%] text-gray-700";
-const inputStyle =
-  "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
-</div> */}
+	const inputStyle =
+  "border border-gray-300 shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"; 
+*/}
