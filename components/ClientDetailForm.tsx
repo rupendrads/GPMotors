@@ -1,24 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "@/components/Alert";
 import { useForm } from "react-hook-form";
+import { searchPostcodeSuggestions } from "@/app/api/postcode";  
+import { PostcodeResult } from "@/app/types/postcodetype"; 
 
 
 const titles = ["Mr", "Mrs", "Ms"];
 const serviceTypes = ["MOT", "Oiling"];
-// const PHONE_REGEX_VALIDATION = /^((((\+44\s?([0–6]|[8–9])\d{3} | \(?0([0–6]|[8–9])\d{3}\)?)\s?\d{3}\s?(\d{2}|\d{3}))|((\+44\s?([0–6]|[8–9])\d{3}|\(?0([0–6]|[8–9])\d{3}\)?)\s?\d{3}\s?(\d{4}|\d{3}))|((\+44\s?([0–6]|[8–9])\d{1}|\(?0([0–6]|[8–9])\d{1}\)?)\s?\d{4}\s?(\d{4}|\d{3}))|((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4})))(\S+)?$/;
+
 const PHONE_REGEX_VALIDATION = /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+441\s?\d{3}|\(?01\d{3}\)?)\s?\d{5})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
 // For Example, Mob No.is 
 // 04474474859
 
-// const POSTCODE_REGEX_VALIDATION = /^([A-Za-z]{2}[\d]{1,2}[A-Za-z]?)[\s]+([\d][A-Za-z]{2})$/;
 const POSTCODE_REGEX_VALIDATION = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/;
 
 // For Example, PostCode is
 // PO19 8DJ
 //OL14 5ET
 
-// const VEHICLE_REGISTRATION_REGEX_VALIDATION = /^([A-Z]{3}\s?(\d{3}|\d{2}|d{1})\s?[A-Z])|([A-Z]\s?(\d{3}|\d{2}|\d{1})\s?[A-Z]{3})|(([A-HK-PRSVWY][A-HJ-PR-Y])\s?([0][2-9]|[1-9][0-9])\s?[A-HJ-PR-Z]{3})$/;
 const VEHICLE_REGISTRATION_REGEX_VALIDATION = /(^[A-Z]{2}[0-9]{2}\s?[A-Z]{3}$)|(^[A-Z][0-9]{1,3}[A-Z]{3}$)|(^[A-Z]{3}[0-9]{1,3}[A-Z]$)|(^[0-9]{1,4}[A-Z]{1,2}$)|(^[0-9]{1,3}[A-Z]{1,3}$)|(^[A-Z]{1,2}[0-9]{1,4}$)|(^[A-Z]{1,3}[0-9]{1,3}$)|(^[A-Z]{1,3}[0-9]{1,4}$)|(^[0-9]{3}[DX]{1}[0-9]{3}$)/;
 //For Example, Reg No is
 //AB51ABC
@@ -46,13 +46,38 @@ function ClientDetailForm() {
 		formState,
 		reset,
 		formState: { errors },
+		setValue,
+		watch,
 	} = useForm<IFormInput>();
 
 	const [alert, setAlert] = useState({ message: "", type: "" });
-	
 	const handleShowAlert = (type: string, message: string) => {
 		setAlert({ type, message });
 	};
+	const postcodeInput = watch('address1');
+  const [suggestions, setSuggestions] = useState<PostcodeResult[]>([]);
+  const [selected, setSelected] = useState<PostcodeResult | null>(null);
+
+	useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (postcodeInput?.length >= 2) {
+        const results = await searchPostcodeSuggestions(postcodeInput);
+				console.log(results);
+        setSuggestions(results);
+      } else {
+        setSuggestions([]);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [postcodeInput]);
+
+	const handleSelect = (item: PostcodeResult) => {
+    const addressSuggession = `${item.postcode} — ${item.region}, ${item.admin_district}, ${item.admin_ward}, ${item.admin_county}, ${item.country}, ${item.postcode}, ${item.latitude}, ${item.longitude}`;
+    setValue('address1', addressSuggession);
+    setSelected(item);
+    setSuggestions([]);
+  };
 
 	const onSubmit = async (data: IFormInput) => {
 		console.log(data);
@@ -158,9 +183,31 @@ function ClientDetailForm() {
 							type="text"
 							className={inputStyle}
 							{...register("address1", { maxLength: 255 })}
-							placeholder="Your Address"
+							placeholder="Your Address or postcode"
 						/>
 					</div>
+					{suggestions.length > 0 && (
+						<ul className={ulStyle}>
+							{suggestions.map((item, i) => (
+								<li
+									key={i}
+									onClick={() => handleSelect(item)}
+									className={listStyle}
+								>
+									<strong>{item.postcode}</strong> — {item.region}, {item.admin_district}, {item.admin_ward}, {item.admin_county}, {item.country}, {item.latitude}, {item.longitude}
+								</li>
+							))}
+						</ul>
+      		)}
+
+      		{selected && (
+         		<ul className="hidden">
+           		<li >
+             		<strong>{selected.postcode}</strong> — {selected.region}, {selected.admin_district}, {selected.admin_ward}, {selected.admin_county}, {selected.country}, {selected.latitude}, {selected.longitude}
+           		</li>
+         		</ul>
+      		)}
+
 					<div className={inputGroupStyle}>
 						<label className={inputLabelStyle} htmlFor="address2">
 							Address2
@@ -326,6 +373,10 @@ const inputStyle =
   "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
 const errorInputStyle =
   "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800 border-red-500 focus:border-red-500 focus:outline-red-500";
+const ulStyle =
+  "border border-gray-100 shadow rounded py-2 px-2 text-[14px] font-[400] leading-[100%] traking-[0%] max-h-[150px] text-neutral-600 list-none overflow-y-auto";
+const listStyle =
+  "border-b border-gray-50 py-1 cursor-pointer px-2 text-[14px] font-[400] leading-[100%] traking-[0%]  text-neutral-500 ";
 const buttonStyle =
   "bg-red-500 hover:bg-red-700 text-white text-[18px] font-[600] py-2 px-4 rounded-[22px] mt-4";
 const errorStyle =
