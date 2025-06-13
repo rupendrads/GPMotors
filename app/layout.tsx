@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className}`}>
-        <main className="max-w-100 mx-auto">{children}</main>
+        <main className="max-w-full mx-auto">{children}</main>
       </body>
     </html>
   );

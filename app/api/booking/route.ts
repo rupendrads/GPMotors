@@ -53,7 +53,7 @@ export const POST = async (request: Request) => {
       error: "",
     });
   } catch (error) {
-    console.log(error);
+    console.log("router error", error);
     return Response.json({
       status: "error",
       message: "Failed to book appointment",

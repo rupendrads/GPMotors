@@ -11,8 +11,8 @@ function BookAppointmentFooter() {
   );
 }
 
-const containerStyle =
-  "w-[500px] h-[80px] bg-neutral-800 flex items-center p-4";
-const footerStyle = "flex flex-col text-white text-[17px] font-[400]";
+const containerStyle = "w-full h-[80px] bg-neutral-800 flex items-center p-4";
+const footerStyle =
+  "w-[500px] mx-auto flex flex-col text-white text-[17px] font-[400]";
 
 export default BookAppointmentFooter;

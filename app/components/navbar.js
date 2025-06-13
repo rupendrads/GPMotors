@@ -61,39 +61,39 @@ const resources = [
   {
     name: "Blog",
     icon: (
-     <Image
-      src={blog}
-      alt="Blog Icon"
-      width={18}
-      height={18}
-      className="text-orange-400 mr-2"
-    />
+      <Image
+        src={blog}
+        alt="Blog Icon"
+        width={18}
+        height={18}
+        className="text-orange-400 mr-2"
+      />
     ),
     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
   },
   {
     name: "Customer Stories",
     icon: (
-        <Image
-      src={archive}
-      alt="Blog Icon"
-      width={18}
-      height={18}
-      className="text-orange-400 mr-2"
-    />
+      <Image
+        src={archive}
+        alt="Blog Icon"
+        width={18}
+        height={18}
+        className="text-orange-400 mr-2"
+      />
     ),
     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
   },
   {
     name: "Video Tutorials",
     icon: (
-          <Image
-      src={youtube}
-      alt="Blog Icon"
-      width={18}
-      height={18}
-      className="text-orange-400 mr-2"
-    />
+      <Image
+        src={youtube}
+        alt="Blog Icon"
+        width={18}
+        height={18}
+        className="text-orange-400 mr-2"
+      />
     ),
     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
   },
@@ -124,10 +124,17 @@ export default function Navbar() {
 
         {/* 2. Content/Navigation section */}
         <div className="flex-1 flex justify-center items-center space-x-8">
-          <Link href="/" className="text-white hover:text-yellow-400 px-3 py-2 transition">
+          <Link
+            href="/"
+            className="text-white hover:text-yellow-400 px-3 py-2 transition"
+          >
             Home
           </Link>
-          <div className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+          <div
+            className="relative"
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
+          >
             <button
               className={`flex items-center px-3 py-5 text-white hover:text-yellow-400 transition ${
                 showMegaMenu ? "text-yellow-400" : ""
@@ -136,10 +143,16 @@ export default function Navbar() {
               Services <ChevronDownIcon className="w-4 h-4 ml-1" />
             </button>
           </div>
-          <Link href="/gallery" className="text-white hover:text-yellow-400 px-3 py-2 transition">
+          <Link
+            href="/gallery"
+            className="text-white hover:text-yellow-400 px-3 py-2 transition"
+          >
             Gallery
           </Link>
-          <Link href="/about" className="text-white hover:text-yellow-400 px-3 py-2 transition">
+          <Link
+            href="/about"
+            className="text-white hover:text-yellow-400 px-3 py-2 transition"
+          >
             About
           </Link>
           <div className="relative">
@@ -151,11 +164,14 @@ export default function Navbar() {
 
         {/* 3. CTA Buttons section */}
         <div className="flex items-center space-x-4">
-          <Link href="/login" className="flex items-center text-white hover:text-yellow-400 transition">
+          <Link
+            href="/login"
+            className="flex items-center text-white hover:text-yellow-400 transition"
+          >
             <span className="mr-1">🔒</span> Login
           </Link>
           <Link
-            href="/book-now"
+            href="/book-appointment"
             className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full transition"
           >
             Book Now
@@ -180,7 +196,8 @@ export default function Navbar() {
         <div
           className="absolute left-0 top-full w-full border-t border-[#833C30] shadow-2xl z-40"
           style={{
-            background: "linear-gradient(to bottom, #1F271B 0%, #1F271B 70%, #E33C30 99%, #E33C30 100%)",
+            background:
+              "linear-gradient(to bottom, #1F271B 0%, #1F271B 70%, #E33C30 99%, #E33C30 100%)",
             paddingBottom: "1rem",
           }}
           onMouseEnter={handleEnter}
@@ -204,50 +221,50 @@ export default function Navbar() {
             <div className="flex gap-8">
               {serviceColumns.map((col, idx) => (
                 <React.Fragment key={idx}>
-                <div key={idx} className="min-w-[150px]">
-                  <div className="text-[#98BA87] font-semibold mb-2 text-[15px] tracking-wide">
-                    {col.heading}
+                  <div key={idx} className="min-w-[150px]">
+                    <div className="text-[#98BA87] font-semibold mb-2 text-[15px] tracking-wide">
+                      {col.heading}
+                    </div>
+                    <ul className="mb-4 space-y-1">
+                      {col.items.map((item, i) => (
+                        <li key={i}>
+                          <Link
+                            href="#"
+                            className={`block text-[15px] transition ${getItemClass(
+                              item
+                              // col.highlight
+                            )}`}
+                          >
+                            {item}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    {col.subheading && (
+                      <>
+                        <div className="text-[#98BA87] font-semibold mb-2 mt-4 text-[15px] tracking-wide">
+                          {col.subheading}
+                        </div>
+                        <ul className="space-y-1">
+                          {col.subitems.map((item, i) => (
+                            <li key={i}>
+                              <Link
+                                href="#"
+                                className="block text-white text-[15px] hover:text-[#F3E330] transition"
+                              >
+                                {item}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
                   </div>
-                  <ul className="mb-4 space-y-1">
-                    {col.items.map((item, i) => (
-                      <li key={i}>
-                        <Link
-                          href="#"
-                          className={`block text-[15px] transition ${getItemClass(
-                            item,
-                            // col.highlight
-                          )}`}
-                        >
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  {col.subheading && (
-                    <>
-                      <div className="text-[#98BA87] font-semibold mb-2 mt-4 text-[15px] tracking-wide">
-                        {col.subheading}
-                      </div>
-                      <ul className="space-y-1">
-                        {col.subitems.map((item, i) => (
-                          <li key={i}>
-                            <Link
-                              href="#"
-                              className="block text-white text-[15px] hover:text-[#F3E330] transition"
-                            >
-                              {item}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
+                  {idx < serviceColumns.length && (
+                    <div className="flex w-1 justify-center items-stretch">
+                      <div className="w-px h-full bg-gradient-to-b from-transparent via-[#98BA87]/40 to-transparent" />
+                    </div>
                   )}
-                </div>
-                {idx < serviceColumns.length  && (
-        <div className="flex w-1 justify-center items-stretch">
-          <div className="w-px h-full bg-gradient-to-b from-transparent via-[#98BA87]/40 to-transparent" />
-         </div>
-      )}
                 </React.Fragment>
               ))}
               {/* RESOURCES */}
@@ -258,10 +275,15 @@ export default function Navbar() {
                 <ul className="space-y-4">
                   {resources.map((r, i) => (
                     <li key={i}>
-                      <Link href="#" className="flex items-start hover:text-[#F3E330] transition">
+                      <Link
+                        href="#"
+                        className="flex items-start hover:text-[#F3E330] transition"
+                      >
                         {r.icon}
                         <div>
-                          <div className="text-white font-medium text-[15px]">{r.name}</div>
+                          <div className="text-white font-medium text-[15px]">
+                            {r.name}
+                          </div>
                           <div className="text-gray-300 text-xs leading-relaxed mt-1">
                             {r.desc}
                           </div>
@@ -277,16 +299,21 @@ export default function Navbar() {
           <div className="w-full h-px bg-gradient-to-r from-transparent via-[#98BA87]/40 to-transparent" />
           <div className="flex justify-between items-center px-10 py-5">
             <div className="flex text-white items-center text-sm">
-              <span className="bg-[#CA382E] border-white border-2 mr-2 rounded-full"><Image
+              <span className="bg-[#CA382E] border-white border-2 mr-2 rounded-full">
+                <Image
                   src={key}
                   alt="Red Car"
                   width={256}
                   height={128}
                   className="w-full h-full object-cover p-2 rounded-b-lg"
                   style={{ objectPosition: "center bottom" }}
-                /></span>
+                />
+              </span>
               What is call routing software?
-              <Link href="#" className="underline text-[#F3E330]  hover:text-white ml-1">
+              <Link
+                href="#"
+                className="underline text-[#F3E330]  hover:text-white ml-1"
+              >
                 lets connect
               </Link>
             </div>
