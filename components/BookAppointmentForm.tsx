@@ -378,3 +378,4 @@ const selectedTimeButtonStyle =
   "bg-red-500 text-white hover:cursor-pointer text-[18px] font-[600] py-2 px-4 rounded mt-4";
 
 export default BookAppointmentForm;
+
