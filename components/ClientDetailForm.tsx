@@ -67,14 +67,19 @@ function ClientDetailForm() {
       } else {
         setSuggestions([]);
       }
-    }, 300);
+    }, 200);
 
     return () => clearTimeout(timer);
   }, [postcodeInput]);
 
 	const handleSelect = (item: PostcodeResult) => {
-    const addressSuggession = `${item.postcode} — ${item.region}, ${item.admin_district}, ${item.admin_ward}, ${item.admin_county}, ${item.country}, ${item.postcode}, ${item.latitude}, ${item.longitude}`;
-    setValue('address1', addressSuggession);
+		const postCodeSuggession = `${item.postcode}`;
+    const addressSuggession1 = `${item.ced}, ${item.ccg}, ${item.admin_ward}, ${item.admin_district}`;
+    const addressSuggession2 = `${item.region}, ${item.admin_county}, ${item.country}`;
+
+    setValue('postCode', postCodeSuggession);
+    setValue('address1', addressSuggession1);
+    setValue('address2', addressSuggession2);
     setSelected(item);
     setSuggestions([]);
   };
@@ -194,7 +199,7 @@ function ClientDetailForm() {
 									onClick={() => handleSelect(item)}
 									className={listStyle}
 								>
-									<strong>{item.postcode}</strong> — {item.region}, {item.admin_district}, {item.admin_ward}, {item.admin_county}, {item.country}, {item.latitude}, {item.longitude}
+									<strong>{item.postcode}</strong> — {item.ced}, {item.ccg}, {item.admin_ward}, {item.admin_district}, {item.region}, {item.admin_county}, {item.country}
 								</li>
 							))}
 						</ul>
@@ -203,7 +208,7 @@ function ClientDetailForm() {
       		{selected && (
          		<ul className="hidden">
            		<li >
-             		<strong>{selected.postcode}</strong> — {selected.region}, {selected.admin_district}, {selected.admin_ward}, {selected.admin_county}, {selected.country}, {selected.latitude}, {selected.longitude}
+             		<strong>{selected.postcode}</strong> — {selected.ced}, {selected.ccg}, {selected.admin_ward}, {selected.admin_district}, {selected.region}, {selected.admin_county}, {selected.country}
            		</li>
          		</ul>
       		)}
