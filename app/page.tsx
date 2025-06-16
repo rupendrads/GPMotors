@@ -2,7 +2,6 @@ import Navbar from "./components/navbar";
 import FloatingWhatsApp from "./components/Whatsapp";
 import EmailSender from "./components/Email"; 
 import home from "../public/images/home.jpg";
-
 export default function Home() {
   return (
     <div
