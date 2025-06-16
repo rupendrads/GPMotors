@@ -1,6 +1,5 @@
-import Navbar from "./components/navbar";
 import FloatingWhatsApp from "./components/Whatsapp";
-import EmailSender from "./components/Email"; 
+import EmailSender from "./components/Email";
 import home from "../public/images/home.jpg";
 export default function Home() {
   return (
@@ -12,7 +11,6 @@ export default function Home() {
         minHeight: "100vh", // Ensures it covers the full viewport height
       }}
     >
-      <Navbar />
       {/* <FloatingWhatsApp/> */}
       {/* <EmailSender/> */}
     </div>

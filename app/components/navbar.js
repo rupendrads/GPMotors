@@ -70,6 +70,13 @@ const resources = [
         height={18}
         className="text-orange-400 mr-2"
       />
+      <Image
+        src={blog}
+        alt="Blog Icon"
+        width={18}
+        height={18}
+        className="text-orange-400 mr-2"
+      />
     ),
     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
   },
@@ -83,12 +90,26 @@ const resources = [
         height={18}
         className="text-orange-400 mr-2"
       />
+      <Image
+        src={archive}
+        alt="Blog Icon"
+        width={18}
+        height={18}
+        className="text-orange-400 mr-2"
+      />
     ),
     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
   },
   {
     name: "Video Tutorials",
     icon: (
+      <Image
+        src={youtube}
+        alt="Blog Icon"
+        width={18}
+        height={18}
+        className="text-orange-400 mr-2"
+      />
       <Image
         src={youtube}
         alt="Blog Icon"
@@ -159,7 +180,11 @@ export default function Navbar() {
           <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Home
           </Link>
-          <div className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+          <div
+            className="relative"
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
+          >
             <button
               className={`flex items-center px-3 py-5  hover:text-[#E33C30] transition ${
                 showMegaMenu ? "text-[#E33C30]" : ""
@@ -186,7 +211,7 @@ export default function Navbar() {
             <span className="mr-1">🔒</span> Login
           </Link>
           <Link
-            href="/book-now"
+            href="/book-appointment"
             className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full transition"
           >
             Book Now
@@ -428,6 +453,8 @@ export default function Navbar() {
                   height={128}
                   className="w-full h-full object-cover p-2 rounded-b-lg"
                   style={{ objectPosition: "center bottom" }}
+                />
+              </span>
                 />
               </span>
               What is call routing software?
