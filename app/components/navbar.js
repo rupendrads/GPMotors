@@ -70,13 +70,6 @@ const resources = [
         height={18}
         className="text-orange-400 mr-2"
       />
-      <Image
-        src={blog}
-        alt="Blog Icon"
-        width={18}
-        height={18}
-        className="text-orange-400 mr-2"
-      />
     ),
     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
   },
@@ -90,26 +83,12 @@ const resources = [
         height={18}
         className="text-orange-400 mr-2"
       />
-      <Image
-        src={archive}
-        alt="Blog Icon"
-        width={18}
-        height={18}
-        className="text-orange-400 mr-2"
-      />
     ),
     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
   },
   {
     name: "Video Tutorials",
     icon: (
-      <Image
-        src={youtube}
-        alt="Blog Icon"
-        width={18}
-        height={18}
-        className="text-orange-400 mr-2"
-      />
       <Image
         src={youtube}
         alt="Blog Icon"
@@ -455,8 +434,6 @@ export default function Navbar() {
                   style={{ objectPosition: "center bottom" }}
                 />
               </span>
-                />
-              </span>
               What is call routing software?
               <Link href="#" className="underline text-[#8E840D]  hover:text-white ml-1">
                 lets connect
@@ -469,8 +446,8 @@ export default function Navbar() {
               Book Appointment
             </Link>
           </div>
-        </div>
+          </div>
       )}
-    </nav>
+      </nav>
   );
 }
