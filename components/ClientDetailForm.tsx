@@ -56,7 +56,7 @@ function ClientDetailForm() {
 	};
 	const postcodeInput = watch('address1');
   const [suggestions, setSuggestions] = useState<PostcodeResult[]>([]);
-  const [selected, setSelected] = useState<PostcodeResult | null>(null);
+  const [selected, setSelected] = useState<PostcodeResult >();
 
 	useEffect(() => {
     const timer = setTimeout(async () => {
@@ -73,16 +73,30 @@ function ClientDetailForm() {
   }, [postcodeInput]);
 
 	const handleSelect = (item: PostcodeResult) => {
-		const postCodeSuggession = `${item.postcode}`;
-    const addressSuggession1 = `${item.ced}, ${item.ccg}, ${item.admin_ward}, ${item.admin_district}`;
-    const addressSuggession2 = `${item.region}, ${item.admin_county}, ${item.country}`;
+		const postCodeSuggestion = `${item.postcode}`;
+    const addressSuggestion1 = `${item.ced ? `${item.ced}` : ""}${item.ccg ? `, ${item.ccg}` : ""}${item.admin_ward ? `, ${item.admin_ward}` : ""}${item.admin_district ? `, ${item.admin_district}` : ""}`;
 
-    setValue('postCode', postCodeSuggession);
-    setValue('address1', addressSuggession1);
-    setValue('address2', addressSuggession2);
+    const addressSuggestion2 = `${item.region ? `${item.region}` : ""}${item.admin_county ? `, ${item.admin_county}` : ""}${item.country ? `, ${item.country}` : ""}`;
+
+    setValue('postCode', postCodeSuggestion);
+    setValue('address1', addressSuggestion1);
+    setValue('address2', addressSuggestion2);
     setSelected(item);
     setSuggestions([]);
   };
+
+	// function formatAddress(item: any) {
+	// 	return [
+	// 		item.postcode,
+	// 		item.ced,
+	// 		item.ccg,
+	// 		item.admin_ward,
+	// 		item.admin_district,
+	// 		item.region,
+	// 		item.admin_county,
+	// 		item.country,
+	// 	].filter(Boolean).join(", ");
+	// }
 
 	const onSubmit = async (data: IFormInput) => {
 		console.log(data);
@@ -199,19 +213,23 @@ function ClientDetailForm() {
 									onClick={() => handleSelect(item)}
 									className={listStyle}
 								>
-									<strong>{item.postcode}</strong> — {item.ced}, {item.ccg}, {item.admin_ward}, {item.admin_district}, {item.region}, {item.admin_county}, {item.country}
+									<strong>{item.postcode || ""}</strong> — {item.ced ? ` ${item.ced}` : ""} {item.ccg ? `, ${item.ccg}` : ""} {item.admin_ward ? `, ${item.admin_ward}` : ""} {item.admin_district ? `, ${item.admin_district}` : ""} {item.region ? `, ${item.region}` : ""} {item.admin_county ? `, ${item.admin_county}` : ""}, {item.country ? `, ${item.country}` : ""}
+									{/* {formatAddress(item)} */}
 								</li>
+								
 							))}
 						</ul>
       		)}
-
+						 
       		{selected && (
          		<ul className="hidden">
            		<li >
-             		<strong>{selected.postcode}</strong> — {selected.ced}, {selected.ccg}, {selected.admin_ward}, {selected.admin_district}, {selected.region}, {selected.admin_county}, {selected.country}
+             		<strong>{selected.postcode || ""}</strong> — {selected.ced ? ` ${selected.ced}` : ""} {selected.ccg ? `, ${selected.ccg}` : ""} {selected.admin_ward ? `, ${selected.admin_ward}` : ""} {selected.admin_district ? `, ${selected.admin_district}` : ""} {selected.region ? `, ${selected.region}` : ""} {selected.admin_county ? `, ${selected.admin_county}`: ""}, {selected.country ? `, ${selected.country}` : ""}
+								{/* {formatAddress(selected)} */}
            		</li>
          		</ul>
       		)}
+
 
 					<div className={inputGroupStyle}>
 						<label className={inputLabelStyle} htmlFor="address2">
