@@ -107,14 +107,11 @@ const getItemClass = (item, highlight) =>
     : " hover:text-[#E33C30]";
 
 export default function Navbar() {
-  // Mega menu (desktop)
   const [showMegaMenu, setShowMegaMenu] = useState(false);
 
-  // Sidebar (mobile/tablet)
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarAccordions, setSidebarAccordions] = useState({
     Services: false,
-    // Each service column heading as keys:
     "CAR REPAIR": false,
     "ENGINE REPAIR": false,
     "BODYWORK & PAINT": false,
@@ -133,9 +130,7 @@ export default function Navbar() {
 
   return (
     <nav className="relative z-50 w-full">
-      {/* NAVBAR */}
       <div className="w-full bg-[#fff] flex items-center justify-between h-16 px-4 lg:px-10 poppins-font">
-        {/* Hamburger for mobile/tablet */}
         <button
           className="lg:hidden p-2"
           onClick={() => setSidebarOpen(true)}
@@ -143,7 +138,6 @@ export default function Navbar() {
         >
           <Bars3Icon className="w-7 h-7" />
         </button>
-        {/* Logo */}
         <div className="flex items-center">
           <Image
             src={logo}
@@ -152,7 +146,6 @@ export default function Navbar() {
             style={{ objectPosition: "center bottom" }}
           />
         </div>
-        {/* Desktop Nav */}
         <div className="hidden lg:flex flex-1 justify-center items-center space-x-8">
           <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Home
@@ -182,7 +175,6 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-        {/* CTA Buttons */}
         <div className="flex items-center space-x-4">
           <Link href="#" className="hidden lg:flex items-center  hover:text-[#E33C30] transition">
             <span className="mr-1">🔒</span> Login
@@ -208,7 +200,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* SIDEBAR OVERLAY */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-40 z-40 lg:hidden"
@@ -216,7 +207,6 @@ export default function Navbar() {
         />
       )}
 
-      {/* SIDEBAR DRAWER */}
       <div
         className={`fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-lg transition-transform duration-300 rounded-r-2xl
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:hidden flex flex-col`}
@@ -235,7 +225,6 @@ export default function Navbar() {
           >
             Home
           </Link>
-          {/* Services Accordion */}
           <div>
             <button
               className="flex items-center justify-between w-full px-3 py-2 rounded-lg hover:bg-gray-100 font-medium text-gray-900"
@@ -324,7 +313,6 @@ export default function Navbar() {
         </nav>
       </div>
 
-      {/* DESKTOP MEGAMENU */}
       {showMegaMenu && (
         <div
           className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-40 hidden lg:block"
@@ -332,7 +320,6 @@ export default function Navbar() {
           onMouseLeave={handleLeave}
         >
           <div className="max-w-[1200px] mx-10 flex pt-6 pb-2 px-0">
-            {/* LEFT BANNER */}
             <div className="w-64 flex-shrink-0 bg-opacity-10 rounded-lg p-0 overflow-hidden ml-6 mr-8">
               <div className="flex flex-col h-full">
                 <Image
@@ -345,7 +332,6 @@ export default function Navbar() {
                 />
               </div>
             </div>
-            {/* SERVICE COLUMNS */}
             <div className="flex gap-2">
               {serviceColumns.map((col, idx) => (
                 <React.Fragment key={idx}>
@@ -395,7 +381,6 @@ export default function Navbar() {
                   )}
                 </React.Fragment>
               ))}
-              {/* RESOURCES */}
               <div className="min-w-[200px]">
                 <div className="text-[#838B80] mb-2 text-[15px] tracking-wide">
                   RESOURCES
@@ -418,7 +403,6 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-          {/* FOOTER BAR INSIDE POPUP */}
           <div className="w-full h-px " />
           <div className="flex justify-between items-center px-10 py-5 bg-[#E8F3F2]">
             <div className="flex  items-center text-sm">
