@@ -2,13 +2,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, ChevronUpIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import banner from "../../public/images/banner.png";
+import logo from "../../public/logo.svg";
 import key from "../../public/icons/key.svg";
 import blog from "../../public/icons/blog.svg";
 import archive from "../../public/icons/archive.svg";
 import youtube from "../../public/icons/youtube.svg";
 import React from "react";
+
 const serviceColumns = [
   {
     heading: "CAR REPAIR",
@@ -101,33 +103,60 @@ const resources = [
 
 const getItemClass = (item, highlight) =>
   item === highlight
-    ? "text-yellow-400 font-medium hover:text-[#F3E330]"
-    : "text-white hover:text-[#F3E330]";
+    ? "text-[#E33C30] font-medium hover:text-[#E33C30]"
+    : " hover:text-[#E33C30]";
 
 export default function Navbar() {
+  // Mega menu (desktop)
   const [showMegaMenu, setShowMegaMenu] = useState(false);
+
+  // Sidebar (mobile/tablet)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarAccordions, setSidebarAccordions] = useState({
+    Services: false,
+    // Each service column heading as keys:
+    "CAR REPAIR": false,
+    "ENGINE REPAIR": false,
+    "BODYWORK & PAINT": false,
+    "MAINTENANCE": false,
+  });
 
   const handleEnter = () => setShowMegaMenu(true);
   const handleLeave = () => setShowMegaMenu(false);
 
+  const toggleAccordion = (key) => {
+    setSidebarAccordions((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
   return (
     <nav className="relative z-50 w-full">
       {/* NAVBAR */}
-      <div className="w-full bg-[#232f23] opacity-90 flex items-center justify-between h-16 px-10">
-        {/* 1. Logo section */}
+      <div className="w-full bg-[#fff] flex items-center justify-between h-16 px-4 md:px-10 poppins-font">
+        {/* Hamburger for mobile/tablet */}
+        <button
+          className="md:hidden p-2"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Open menu"
+        >
+          <Bars3Icon className="w-7 h-7" />
+        </button>
+        {/* Logo */}
         <div className="flex items-center">
-          {/* <img src="/logo.png" alt="G.P. MOTORS" className="h-9 w-9" /> */}
-          <span className="font-bold text-white text-lg tracking-wide ml-2">
-            G.P. MOTORS
-          </span>
+          <Image
+            src={logo}
+            alt="Red Car"
+            width={239}
+            height={42}
+            className="w-full h-full object-cover rounded-b-lg"
+            style={{ objectPosition: "center bottom" }}
+          />
         </div>
-
-        {/* 2. Content/Navigation section */}
-        <div className="flex-1 flex justify-center items-center space-x-8">
-          <Link
-            href="/"
-            className="text-white hover:text-yellow-400 px-3 py-2 transition"
-          >
+        {/* Desktop Nav */}
+        <div className="hidden md:flex flex-1 justify-center items-center space-x-8">
+          <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Home
           </Link>
           <div
@@ -136,38 +165,28 @@ export default function Navbar() {
             onMouseLeave={handleLeave}
           >
             <button
-              className={`flex items-center px-3 py-5 text-white hover:text-yellow-400 transition ${
-                showMegaMenu ? "text-yellow-400" : ""
+              className={`flex items-center px-3 py-5  hover:text-[#E33C30] transition ${
+                showMegaMenu ? "text-[#E33C30]" : ""
               }`}
             >
               Services <ChevronDownIcon className="w-4 h-4 ml-1" />
             </button>
           </div>
-          <Link
-            href="/gallery"
-            className="text-white hover:text-yellow-400 px-3 py-2 transition"
-          >
+          <Link href="/gallery" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Gallery
           </Link>
-          <Link
-            href="/about"
-            className="text-white hover:text-yellow-400 px-3 py-2 transition"
-          >
+          <Link href="/about" className=" hover:text-[#E33C30] px-3 py-2 transition">
             About
           </Link>
           <div className="relative">
-            <button className="flex items-center text-white hover:text-yellow-400 px-3 py-2 transition">
+            <button className="flex items-center  hover:text-[#E33C30] px-3 py-2 transition">
               Contact <ChevronDownIcon className="w-4 h-4 ml-1" />
             </button>
           </div>
         </div>
-
-        {/* 3. CTA Buttons section */}
-        <div className="flex items-center space-x-4">
-          <Link
-            href="/login"
-            className="flex items-center text-white hover:text-yellow-400 transition"
-          >
+        {/* CTA Buttons */}
+        <div className="hidden md:flex items-center space-x-4">
+          <Link href="/login" className="flex items-center  hover:text-[#E33C30] transition">
             <span className="mr-1">🔒</span> Login
           </Link>
           <Link
@@ -176,9 +195,9 @@ export default function Navbar() {
           >
             Book Now
           </Link>
-          <button className="ml-2 p-2 rounded-full hover:bg-[#232a24] transition">
+          <button className="ml-2 p-2 rounded-full border transition">
             <svg
-              className="w-5 h-5 text-white"
+              className="w-5 h-5 "
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -191,15 +210,126 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MEGAMENU POPUP */}
+      {/* SIDEBAR OVERLAY */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* SIDEBAR DRAWER */}
+      <div
+        className={`fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-lg transition-transform duration-300 rounded-r-2xl
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:hidden flex flex-col`}
+      >
+        <div className="flex items-center justify-between px-4 py-4 border-b">
+          <Image src={logo} alt="Logo" width={120} height={32} />
+          <button onClick={() => setSidebarOpen(false)} aria-label="Close menu">
+            <XMarkIcon className="w-7 h-7" />
+          </button>
+        </div>
+        <nav className="flex-1 flex flex-col mt-2 space-y-1 px-2 overflow-y-auto">
+          <Link
+            href="/"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
+            onClick={() => setSidebarOpen(false)}
+          >
+            Home
+          </Link>
+          {/* Services Accordion */}
+          <div>
+            <button
+              className="flex items-center justify-between w-full px-3 py-2 rounded-lg hover:bg-gray-100 font-medium text-gray-900"
+              onClick={() => toggleAccordion("Services")}
+            >
+              <span>Services</span>
+              {sidebarAccordions["Services"] ? (
+                <ChevronUpIcon className="w-4 h-4" />
+              ) : (
+                <ChevronDownIcon className="w-4 h-4" />
+              )}
+            </button>
+            {sidebarAccordions["Services"] && (
+              <div className="mt-1 space-y-1">
+                {serviceColumns.map((col) => (
+                  <div key={col.heading}>
+                    <button
+                      className="flex items-center justify-between w-full px-5 py-2 rounded-lg hover:bg-gray-100 font-medium text-gray-900"
+                      onClick={() => toggleAccordion(col.heading)}
+                    >
+                      <span>{col.heading.replace(/_/g, " ")}</span>
+                      {sidebarAccordions[col.heading] ? (
+                        <ChevronUpIcon className="w-4 h-4" />
+                      ) : (
+                        <ChevronDownIcon className="w-4 h-4" />
+                      )}
+                    </button>
+                    {sidebarAccordions[col.heading] && (
+                      <div className="pl-5 mt-1 space-y-1 border-l border-gray-200">
+                        {col.items.map((item) => (
+                          <Link
+                            key={item}
+                            href="#"
+                            className="block px-3 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
+                            onClick={() => setSidebarOpen(false)}
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                        {col.subheading && (
+                          <>
+                            <div className="text-xs font-semibold text-gray-500 mt-3 mb-1">
+                              {col.subheading}
+                            </div>
+                            {col.subitems.map((item) => (
+                              <Link
+                                key={item}
+                                href="#"
+                                className="block px-3 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
+                                onClick={() => setSidebarOpen(false)}
+                              >
+                                {item}
+                              </Link>
+                            ))}
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <Link
+            href="/gallery"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
+            onClick={() => setSidebarOpen(false)}
+          >
+            Gallery
+          </Link>
+          <Link
+            href="/about"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
+            onClick={() => setSidebarOpen(false)}
+          >
+            About
+          </Link>
+          <Link
+            href="/contact"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
+            style={{ textTransform: "lowercase" }}
+            onClick={() => setSidebarOpen(false)}
+          >
+            contact
+          </Link>
+        </nav>
+      </div>
+
+      {/* DESKTOP MEGAMENU */}
       {showMegaMenu && (
         <div
-          className="absolute left-0 top-full w-full border-t border-[#833C30] shadow-2xl z-40"
-          style={{
-            background:
-              "linear-gradient(to bottom, #1F271B 0%, #1F271B 70%, #E33C30 99%, #E33C30 100%)",
-            paddingBottom: "1rem",
-          }}
+          className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-40 hidden md:block"
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
         >
@@ -222,7 +352,7 @@ export default function Navbar() {
               {serviceColumns.map((col, idx) => (
                 <React.Fragment key={idx}>
                   <div key={idx} className="min-w-[150px]">
-                    <div className="text-[#98BA87] font-semibold mb-2 text-[15px] tracking-wide">
+                    <div className="text-[#838B80] font-semibold mb-2 text-[15px] tracking-wide">
                       {col.heading}
                     </div>
                     <ul className="mb-4 space-y-1">
@@ -231,8 +361,8 @@ export default function Navbar() {
                           <Link
                             href="#"
                             className={`block text-[15px] transition ${getItemClass(
-                              item
-                              // col.highlight
+                              item,
+                              col.highlight
                             )}`}
                           >
                             {item}
@@ -242,7 +372,7 @@ export default function Navbar() {
                     </ul>
                     {col.subheading && (
                       <>
-                        <div className="text-[#98BA87] font-semibold mb-2 mt-4 text-[15px] tracking-wide">
+                        <div className="text-[#838B80] font-semibold mb-2 mt-4 text-[15px] tracking-wide">
                           {col.subheading}
                         </div>
                         <ul className="space-y-1">
@@ -250,7 +380,7 @@ export default function Navbar() {
                             <li key={i}>
                               <Link
                                 href="#"
-                                className="block text-white text-[15px] hover:text-[#F3E330] transition"
+                                className="block text-[15px] hover:text-[#E33C30] transition"
                               >
                                 {item}
                               </Link>
@@ -262,28 +392,23 @@ export default function Navbar() {
                   </div>
                   {idx < serviceColumns.length && (
                     <div className="flex w-1 justify-center items-stretch">
-                      <div className="w-px h-full bg-gradient-to-b from-transparent via-[#98BA87]/40 to-transparent" />
+                      <div className="w-px h-full bg-gradient-to-b from-transparent via-[#838B80]/40 to-transparent" />
                     </div>
                   )}
                 </React.Fragment>
               ))}
               {/* RESOURCES */}
               <div className="min-w-[200px]">
-                <div className="text-[#98BA87] font-semibold mb-2 text-[15px] tracking-wide">
+                <div className="text-[#838B80] font-semibold mb-2 text-[15px] tracking-wide">
                   RESOURCES
                 </div>
                 <ul className="space-y-4">
                   {resources.map((r, i) => (
                     <li key={i}>
-                      <Link
-                        href="#"
-                        className="flex items-start hover:text-[#F3E330] transition"
-                      >
+                      <Link href="#" className="flex items-start hover:text-[#E33C30] transition">
                         {r.icon}
                         <div>
-                          <div className="text-white font-medium text-[15px]">
-                            {r.name}
-                          </div>
+                          <div className=" font-medium text-[15px]">{r.name}</div>
                           <div className="text-gray-300 text-xs leading-relaxed mt-1">
                             {r.desc}
                           </div>
@@ -295,10 +420,10 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-          {/* FOOTER BAR INSIDE POPUP (NO SEPARATE BACKGROUND) */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#98BA87]/40 to-transparent" />
-          <div className="flex justify-between items-center px-10 py-5">
-            <div className="flex text-white items-center text-sm">
+          {/* FOOTER BAR INSIDE POPUP */}
+          <div className="w-full h-px " />
+          <div className="flex justify-between items-center px-10 py-5 bg-[#E8F3F2]">
+            <div className="flex  items-center text-sm">
               <span className="bg-[#CA382E] border-white border-2 mr-2 rounded-full">
                 <Image
                   src={key}
@@ -310,22 +435,19 @@ export default function Navbar() {
                 />
               </span>
               What is call routing software?
-              <Link
-                href="#"
-                className="underline text-[#F3E330]  hover:text-white ml-1"
-              >
+              <Link href="#" className="underline text-[#8E840D]  hover:text-white ml-1">
                 lets connect
               </Link>
             </div>
             <Link
               href="#"
-              className="bg-white text-red-600 px-4 py-1 rounded text-xs font-semibold hover:bg-gray-100 transition"
+              className="bg-[#E33C30] text-white px-4 py-1 rounded text-xs font-semibold transition"
             >
               Book Appointment
             </Link>
           </div>
-        </div>
+          </div>
       )}
-    </nav>
+      </nav>
   );
 }
