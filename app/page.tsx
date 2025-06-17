@@ -8,7 +8,7 @@ export default function Home() {
         backgroundImage: `url(${home.src})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        minHeight: "100vh", // Ensures it covers the full viewport height
+        minHeight: "100vh", 
       }}
     >
       {/* <FloatingWhatsApp/> */}

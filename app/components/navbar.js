@@ -103,7 +103,7 @@ const resources = [
 
 const getItemClass = (item, highlight) =>
   item === highlight
-    ? "text-[#E33C30] font-medium hover:text-[#E33C30]"
+    ? "hover:text-[#E33C30]"
     : " hover:text-[#E33C30]";
 
 export default function Navbar() {
@@ -134,10 +134,10 @@ export default function Navbar() {
   return (
     <nav className="relative z-50 w-full">
       {/* NAVBAR */}
-      <div className="w-full bg-[#fff] flex items-center justify-between h-16 px-4 md:px-10 poppins-font">
+      <div className="w-full bg-[#fff] flex items-center justify-between h-16 px-4 lg:px-10 poppins-font">
         {/* Hamburger for mobile/tablet */}
         <button
-          className="md:hidden p-2"
+          className="lg:hidden p-2"
           onClick={() => setSidebarOpen(true)}
           aria-label="Open menu"
         >
@@ -148,14 +148,12 @@ export default function Navbar() {
           <Image
             src={logo}
             alt="Red Car"
-            width={239}
-            height={42}
-            className="w-full h-full object-cover rounded-b-lg"
+            className="w-32 h-auto object-cover rounded-b-lg"
             style={{ objectPosition: "center bottom" }}
           />
         </div>
         {/* Desktop Nav */}
-        <div className="hidden md:flex flex-1 justify-center items-center space-x-8">
+        <div className="hidden lg:flex flex-1 justify-center items-center space-x-8">
           <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Home
           </Link>
@@ -172,10 +170,10 @@ export default function Navbar() {
               Services <ChevronDownIcon className="w-4 h-4 ml-1" />
             </button>
           </div>
-          <Link href="/gallery" className=" hover:text-[#E33C30] px-3 py-2 transition">
+          <Link href="#" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Gallery
           </Link>
-          <Link href="/about" className=" hover:text-[#E33C30] px-3 py-2 transition">
+          <Link href="#" className=" hover:text-[#E33C30] px-3 py-2 transition">
             About
           </Link>
           <div className="relative">
@@ -185,17 +183,17 @@ export default function Navbar() {
           </div>
         </div>
         {/* CTA Buttons */}
-        <div className="hidden md:flex items-center space-x-4">
-          <Link href="/login" className="flex items-center  hover:text-[#E33C30] transition">
+        <div className="flex items-center space-x-4">
+          <Link href="#" className="hidden lg:flex items-center  hover:text-[#E33C30] transition">
             <span className="mr-1">🔒</span> Login
           </Link>
           <Link
-            href="/book-appointment"
-            className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full transition"
+            href="#"
+            className="bg-red-600 hover:bg-red-700 text-white text-xs lg:text-sm font-semibold py-2 px-6 rounded-full transition"
           >
             Book Now
           </Link>
-          <button className="ml-2 p-2 rounded-full border transition">
+          <button className="hidden lg:block ml-2 p-2 rounded-full border transition">
             <svg
               className="w-5 h-5 "
               fill="none"
@@ -213,7 +211,7 @@ export default function Navbar() {
       {/* SIDEBAR OVERLAY */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-40 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -221,7 +219,7 @@ export default function Navbar() {
       {/* SIDEBAR DRAWER */}
       <div
         className={`fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-lg transition-transform duration-300 rounded-r-2xl
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:hidden flex flex-col`}
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:hidden flex flex-col`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b">
           <Image src={logo} alt="Logo" width={120} height={32} />
@@ -266,7 +264,7 @@ export default function Navbar() {
                       )}
                     </button>
                     {sidebarAccordions[col.heading] && (
-                      <div className="pl-5 mt-1 space-y-1 border-l border-gray-200">
+                      <div className="pl-5 mt-1 space-y-2 border-l border-gray-200">
                         {col.items.map((item) => (
                           <Link
                             key={item}
@@ -279,7 +277,7 @@ export default function Navbar() {
                         ))}
                         {col.subheading && (
                           <>
-                            <div className="text-xs font-semibold text-gray-500 mt-3 mb-1">
+                            <div className="text-xs text-gray-500 mt-3 mb-1">
                               {col.subheading}
                             </div>
                             {col.subitems.map((item) => (
@@ -302,21 +300,21 @@ export default function Navbar() {
             )}
           </div>
           <Link
-            href="/gallery"
+            href="#"
             className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
             onClick={() => setSidebarOpen(false)}
           >
             Gallery
           </Link>
           <Link
-            href="/about"
+            href="#"
             className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
             onClick={() => setSidebarOpen(false)}
           >
             About
           </Link>
           <Link
-            href="/contact"
+            href="#"
             className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
             style={{ textTransform: "lowercase" }}
             onClick={() => setSidebarOpen(false)}
@@ -329,7 +327,7 @@ export default function Navbar() {
       {/* DESKTOP MEGAMENU */}
       {showMegaMenu && (
         <div
-          className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-40 hidden md:block"
+          className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-40 hidden lg:block"
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
         >
@@ -348,14 +346,14 @@ export default function Navbar() {
               </div>
             </div>
             {/* SERVICE COLUMNS */}
-            <div className="flex gap-8">
+            <div className="flex gap-2">
               {serviceColumns.map((col, idx) => (
                 <React.Fragment key={idx}>
-                  <div key={idx} className="min-w-[150px]">
-                    <div className="text-[#838B80] font-semibold mb-2 text-[15px] tracking-wide">
+                  <div key={idx} className="min-w-[180px]">
+                    <div className="text-[#838B80]  mb-2 text-[15px] tracking-wide">
                       {col.heading}
                     </div>
-                    <ul className="mb-4 space-y-1">
+                    <ul className="mb-4 space-y-2">
                       {col.items.map((item, i) => (
                         <li key={i}>
                           <Link
@@ -372,10 +370,10 @@ export default function Navbar() {
                     </ul>
                     {col.subheading && (
                       <>
-                        <div className="text-[#838B80] font-semibold mb-2 mt-4 text-[15px] tracking-wide">
+                        <div className="text-[#838B80] mb-2 mt-4 text-[15px] tracking-wide">
                           {col.subheading}
                         </div>
-                        <ul className="space-y-1">
+                        <ul className="space-y-2">
                           {col.subitems.map((item, i) => (
                             <li key={i}>
                               <Link
@@ -399,7 +397,7 @@ export default function Navbar() {
               ))}
               {/* RESOURCES */}
               <div className="min-w-[200px]">
-                <div className="text-[#838B80] font-semibold mb-2 text-[15px] tracking-wide">
+                <div className="text-[#838B80] mb-2 text-[15px] tracking-wide">
                   RESOURCES
                 </div>
                 <ul className="space-y-4">
@@ -447,7 +445,7 @@ export default function Navbar() {
             </Link>
           </div>
           </div>
-      )}
+      )} 
       </nav>
   );
 }
