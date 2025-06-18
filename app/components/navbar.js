@@ -2,7 +2,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { ChevronDownIcon, ChevronUpIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import banner from "../../public/images/banner.png";
 import logo from "../../public/logo.svg";
 import key from "../../public/icons/key.svg";
@@ -102,9 +107,7 @@ const resources = [
 ];
 
 const getItemClass = (item, highlight) =>
-  item === highlight
-    ? "hover:text-[#E33C30]"
-    : " hover:text-[#E33C30]";
+  item === highlight ? "hover:text-[#E33C30]" : " hover:text-[#E33C30]";
 
 export default function Navbar() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
@@ -115,7 +118,7 @@ export default function Navbar() {
     "CAR REPAIR": false,
     "ENGINE REPAIR": false,
     "BODYWORK & PAINT": false,
-    "MAINTENANCE": false,
+    MAINTENANCE: false,
   });
 
   const handleEnter = () => setShowMegaMenu(true);
@@ -176,11 +179,14 @@ export default function Navbar() {
           </div>
         </div>
         <div className="flex items-center space-x-4">
-          <Link href="#" className="hidden lg:flex items-center  hover:text-[#E33C30] transition">
+          <Link
+            href="#"
+            className="hidden lg:flex items-center  hover:text-[#E33C30] transition"
+          >
             <span className="mr-1">🔒</span> Login
           </Link>
           <Link
-            href="#"
+            href="/book-appointment"
             className="bg-red-600 hover:bg-red-700 text-white text-xs lg:text-sm font-semibold py-2 px-6 rounded-full transition"
           >
             Book Now
@@ -209,7 +215,9 @@ export default function Navbar() {
 
       <div
         className={`fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-lg transition-transform duration-300 rounded-r-2xl
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:hidden flex flex-col`}
+          ${
+            sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:hidden flex flex-col`}
       >
         <div className="flex items-center justify-between px-4 py-4 border-b">
           <Image src={logo} alt="Logo" width={120} height={32} />
@@ -388,10 +396,15 @@ export default function Navbar() {
                 <ul className="space-y-4">
                   {resources.map((r, i) => (
                     <li key={i}>
-                      <Link href="#" className="flex items-start hover:text-[#E33C30] transition">
+                      <Link
+                        href="#"
+                        className="flex items-start hover:text-[#E33C30] transition"
+                      >
                         {r.icon}
                         <div>
-                          <div className=" font-medium text-[15px]">{r.name}</div>
+                          <div className=" font-medium text-[15px]">
+                            {r.name}
+                          </div>
                           <div className="text-gray-300 text-xs leading-relaxed mt-1">
                             {r.desc}
                           </div>
@@ -417,7 +430,10 @@ export default function Navbar() {
                 />
               </span>
               What is call routing software?
-              <Link href="#" className="underline text-[#8E840D]  hover:text-white ml-1">
+              <Link
+                href="#"
+                className="underline text-[#8E840D]  hover:text-white ml-1"
+              >
                 lets connect
               </Link>
             </div>
@@ -428,8 +444,8 @@ export default function Navbar() {
               Book Appointment
             </Link>
           </div>
-          </div>
-      )} 
-      </nav>
+        </div>
+      )}
+    </nav>
   );
 }

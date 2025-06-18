@@ -3,24 +3,25 @@
 import { useState } from "react";
 import Image from "next/image";
 import bookingServiceImg from "@/images/bookingservice.png";
+import { IServiceType } from "./types";
 
 type Props = {
-  serviceType: string;
-  updateServiceType: (serviceType: string) => void;
+  serviceTypes: IServiceType[];
+  serviceType: IServiceType | undefined;
+  updateServiceType: (serviceTypeId: number) => void;
 };
 
-const BookingService = ({ serviceType, updateServiceType }: Props) => {
+const BookingService = ({
+  serviceTypes,
+  serviceType,
+  updateServiceType,
+}: Props) => {
   const [error, setError] = useState("");
-  const serviceTypes = [
-    "Car repair",
-    "Engine repair",
-    "Oil change",
-    "Car wash",
-  ];
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setError(e.target.value === "" ? "*" : "");
-    updateServiceType(e.target.value);
+    console.log("ST", e.target.value);
+    setError(e.target.value === "-1" ? "*" : "");
+    updateServiceType(Number(e.target.value));
   };
 
   return (
@@ -38,13 +39,13 @@ const BookingService = ({ serviceType, updateServiceType }: Props) => {
         <select
           className={error !== "" ? errorInputStyle : inputStyle}
           onChange={handleChange}
-          value={serviceType}
+          value={serviceType?.id}
         >
-          <option value="">Select</option>
+          <option value={-1}>Select</option>
           {serviceTypes.map((serviceType) => {
             return (
-              <option key={serviceType} value={serviceType}>
-                {serviceType}
+              <option key={serviceType.id} value={serviceType.id}>
+                {serviceType.type}
               </option>
             );
           })}
