@@ -7,6 +7,7 @@ import { useState } from "react";
 import ChangeBookingDateTime from "./ChangeBookingDateTime";
 import ChangeService from "./ChangeService";
 import { useRouter } from "next/navigation";
+import { sendAutoReplyEmail } from "@/app/lib/emailService";
 
 type Props = {
   serviceType: IServiceType | undefined;
@@ -87,6 +88,20 @@ const BookingClientDetails = ({
       handleShowAlert(result["status"], result["message"]);
       if (result["status"] === "success") {
         resetForm();
+        try {
+          sendAutoReplyEmail({
+            to_name: "Admin",
+            to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+            reply_subject: "booking appointment confirmation",
+            reply_message_html: `<html>
+              <body>
+                Booking appointment successful for client ${bookingData.firstName}
+              </body>
+            </html>`,
+          });
+        } catch (error) {
+          console.log("email error", error);
+        }
       }
     } catch (error) {
       console.error(error);
