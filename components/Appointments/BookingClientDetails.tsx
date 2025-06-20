@@ -103,7 +103,8 @@ const BookingClientDetails = ({
             companyContactNo: "0208 943 4103",
             websiteUrl: "https://gpmotorstedd.co.uk/",
             year: new Date().getFullYear().toString(),
-            logoUrl: "http://localhost:3000/logo.svg",
+            logoUrl:
+              "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
           };
           const emailTemplate = getEmailTemplate(emailParams);
           initEmailJS();
