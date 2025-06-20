@@ -7,7 +7,7 @@ const ChangeService = ({
 }: {
   stepIndex: number;
   changeStepIndex: (index: number) => void;
-  serviceType: string;
+  serviceType: string | undefined;
 }) => {
   return (
     <div className={changeBoxStyle}>

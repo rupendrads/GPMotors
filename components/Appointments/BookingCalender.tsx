@@ -5,12 +5,22 @@ import "react-day-picker/style.css";
 type Props = {
   bookingDateTime: IDateTime;
   updateBookingDate: (date: Date) => void;
+  disabledDates: Date[];
 };
 
-const BookingCalender = ({ bookingDateTime, updateBookingDate }: Props) => {
+const BookingCalender = ({
+  bookingDateTime,
+  updateBookingDate,
+  disabledDates,
+}: Props) => {
   const defaultClassNames = getDefaultClassNames();
 
-  const disabledDays = [{ before: new Date() }, { dayOfWeek: [0] }];
+  const disabledDays = [
+    { before: new Date() },
+    { dayOfWeek: [0] },
+    ...disabledDates,
+  ];
+  console.log("disabledDates", disabledDays);
 
   return (
     <div className="mx-auto mb-2">
