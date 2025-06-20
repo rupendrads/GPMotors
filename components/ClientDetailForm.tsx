@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 import Alert from "@/components/Alert";
 import { useForm } from "react-hook-form";
-import { searchPostcodeSuggestions } from "@/app/api/postcode";  
-import { PostcodeResult } from "@/app/types/postcodetype"; 
+//import { searchPostcodeSuggestions } from "@/app/api/postcode";  
+//import { PostcodeResult } from "@/app/types/postcodetype"; 
 
 
 const titles = ["Mr", "Mrs", "Ms"];
@@ -54,49 +54,6 @@ function ClientDetailForm() {
 	const handleShowAlert = (type: string, message: string) => {
 		setAlert({ type, message });
 	};
-	const postcodeInput = watch('address1');
-  const [suggestions, setSuggestions] = useState<PostcodeResult[]>([]);
-  const [selected, setSelected] = useState<PostcodeResult >();
-
-	useEffect(() => {
-    const timer = setTimeout(async () => {
-      if (postcodeInput?.length >= 2) {
-        const results = await searchPostcodeSuggestions(postcodeInput);
-				console.log(results);
-        setSuggestions(results);
-      } else {
-        setSuggestions([]);
-      }
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, [postcodeInput]);
-
-	const handleSelect = (item: PostcodeResult) => {
-		const postCodeSuggestion = `${item.postcode}`;
-    const addressSuggestion1 = `${item.ced ? `${item.ced}` : ""}${item.ccg ? `, ${item.ccg}` : ""}${item.admin_ward ? `, ${item.admin_ward}` : ""}${item.admin_district ? `, ${item.admin_district}` : ""}`;
-
-    const addressSuggestion2 = `${item.region ? `${item.region}` : ""}${item.admin_county ? `, ${item.admin_county}` : ""}${item.country ? `, ${item.country}` : ""}`;
-
-    setValue('postCode', postCodeSuggestion);
-    setValue('address1', addressSuggestion1);
-    setValue('address2', addressSuggestion2);
-    setSelected(item);
-    setSuggestions([]);
-  };
-
-	// function formatAddress(item: any) {
-	// 	return [
-	// 		item.postcode,
-	// 		item.ced,
-	// 		item.ccg,
-	// 		item.admin_ward,
-	// 		item.admin_district,
-	// 		item.region,
-	// 		item.admin_county,
-	// 		item.country,
-	// 	].filter(Boolean).join(", ");
-	// }
 
 	const onSubmit = async (data: IFormInput) => {
 		console.log(data);
@@ -205,31 +162,6 @@ function ClientDetailForm() {
 							placeholder="Your Address or postcode"
 						/>
 					</div>
-					{suggestions.length > 0 && (
-						<ul className={ulStyle}>
-							{suggestions.map((item, i) => (
-								<li
-									key={i}
-									onClick={() => handleSelect(item)}
-									className={listStyle}
-								>
-									<strong>{item.postcode || ""}</strong> — {item.ced ? ` ${item.ced}` : ""} {item.ccg ? `, ${item.ccg}` : ""} {item.admin_ward ? `, ${item.admin_ward}` : ""} {item.admin_district ? `, ${item.admin_district}` : ""} {item.region ? `, ${item.region}` : ""} {item.admin_county ? `, ${item.admin_county}` : ""}, {item.country ? `, ${item.country}` : ""}
-									{/* {formatAddress(item)} */}
-								</li>
-								
-							))}
-						</ul>
-      		)}
-						 
-      		{selected && (
-         		<ul className="hidden">
-           		<li >
-             		<strong>{selected.postcode || ""}</strong> — {selected.ced ? ` ${selected.ced}` : ""} {selected.ccg ? `, ${selected.ccg}` : ""} {selected.admin_ward ? `, ${selected.admin_ward}` : ""} {selected.admin_district ? `, ${selected.admin_district}` : ""} {selected.region ? `, ${selected.region}` : ""} {selected.admin_county ? `, ${selected.admin_county}`: ""}, {selected.country ? `, ${selected.country}` : ""}
-								{/* {formatAddress(selected)} */}
-           		</li>
-         		</ul>
-      		)}
-
 
 					<div className={inputGroupStyle}>
 						<label className={inputLabelStyle} htmlFor="address2">
