@@ -46,12 +46,13 @@ export const POST = async (request: Request) => {
     '${params.ServiceType}', '${params.Comments}','${params.PhoneNo}')`;
     console.log("query", query);
     const [results] = await connection.execute(query);
-    //console.log("results: ", results);
+    console.log("insert appointment result: ", results);
     connection.end();
     return Response.json({
       status: "success",
       message: "Appointment booked successfully",
       error: "",
+      results: results,
     });
   } catch (error) {
     console.log(error);

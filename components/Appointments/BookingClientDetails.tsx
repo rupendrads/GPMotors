@@ -7,7 +7,8 @@ import { useState } from "react";
 import ChangeBookingDateTime from "./ChangeBookingDateTime";
 import ChangeService from "./ChangeService";
 import { useRouter } from "next/navigation";
-import { sendAutoReplyEmail } from "@/app/lib/emailService";
+import { initEmailJS, sendAutoReplyEmail } from "@/app/lib/emailService";
+import getEmailTemplate, { emailParams } from "./emailTemplate";
 
 type Props = {
   serviceType: IServiceType | undefined;
@@ -84,20 +85,33 @@ const BookingClientDetails = ({
       });
 
       const result = await response.json();
-      console.log(result);
+      console.log("insert appointment result", result);
       handleShowAlert(result["status"], result["message"]);
       if (result["status"] === "success") {
+        const bookingId = result["results"]["insertId"];
+        console.log("insert appointment id", bookingId);
         resetForm();
         try {
+          const emailParams: emailParams = {
+            companyName: "GP Motors",
+            clientName: bookingData.firstName + " " + bookingData.lastName,
+            serviceDate: formatDate(bookingDateTime.date),
+            timeSlot: bookingDateTime.time,
+            serviceType: serviceType?.type as string,
+            carRegistrationNo: bookingData.registrationNo,
+            bookingId: bookingId,
+            companyContactNo: "0208 943 4103",
+            websiteUrl: "https://gpmotorstedd.co.uk/",
+            year: new Date().getFullYear().toString(),
+            logoUrl: "http://localhost:3000/logo.svg",
+          };
+          const emailTemplate = getEmailTemplate(emailParams);
+          initEmailJS();
           sendAutoReplyEmail({
             to_name: "Admin",
             to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
             reply_subject: "booking appointment confirmation",
-            reply_message_html: `<html>
-              <body>
-                Booking appointment successful for client ${bookingData.firstName}
-              </body>
-            </html>`,
+            reply_message_html: emailTemplate,
           });
         } catch (error) {
           console.log("email error", error);
