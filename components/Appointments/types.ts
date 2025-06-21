@@ -46,11 +46,15 @@ export interface IBookingDB {
   RegistrationNo: string;
   ServiceType: number;
   Comments: string;
+  PhoneNo: string;
+  Type: string;
+  Logic: number;
 }
 
 export interface IBookingFilled {
   date: Date;
   times: string[];
+  timesWithLogic: string[];
 }
 
 export interface IBookingSlots {
