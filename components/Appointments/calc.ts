@@ -63,7 +63,9 @@ export const getUpdatedTimeSlots = (
   date: Date,
   bookingFilled: IBookingFilled[],
   bookingSlots: IBookingSlots[],
-  slotLimit: number
+  slotLimit: number,
+  logicSlotLimit: number,
+  isLogic: boolean
 ) => {
   const bookingFilledForSelectedDate: IBookingFilled = bookingFilled.find(
     (bf) => formatDate(new Date(bf.date.toString())) === formatDate(date)
@@ -72,13 +74,26 @@ export const getUpdatedTimeSlots = (
   const updatedTimeSlots: IBookingSlots[] = [];
   if (bookingFilledForSelectedDate) {
     bookingSlots.map((bs) => {
-      const count = countOccurrences(
+      const totalFilledCount = countOccurrences(
         bookingFilledForSelectedDate.times,
         bs.time
       );
+      const totalAvailableCount = slotLimit - totalFilledCount;
+      const logicFilledCount = countOccurrences(
+        bookingFilledForSelectedDate.timesWithLogic,
+        bs.time
+      );
+      let logicAvailableCount = logicSlotLimit - logicFilledCount;
+      if (totalAvailableCount === 0) {
+        logicAvailableCount = 0;
+      }
+      if (logicAvailableCount > totalAvailableCount) {
+        logicAvailableCount = totalAvailableCount;
+      }
+
       updatedTimeSlots.push({
         time: bs.time,
-        slots: slotLimit - count,
+        slots: isLogic ? logicAvailableCount : totalAvailableCount,
       });
     });
   }
@@ -88,7 +103,9 @@ export const getUpdatedTimeSlots = (
 export const getDisabledDates = (
   bookingFilled: IBookingFilled[],
   bookingSlots: IBookingSlots[],
-  slotLimit: number
+  slotLimit: number,
+  logicSlotLimit: number,
+  isLogic: boolean
 ) => {
   const disabledDates: Date[] = [];
   let updatedTimeSlots: IBookingSlots[] = [];
@@ -96,10 +113,23 @@ export const getDisabledDates = (
   bookingFilled.map((booking) => {
     updatedTimeSlots = [];
     bookingSlots.map((bs) => {
-      const count = countOccurrences(booking.times, bs.time);
+      const totalFilledCount = countOccurrences(booking.times, bs.time); // 4
+      const totalAvailableCount = slotLimit - totalFilledCount;
+      const logicFilledCount = countOccurrences(
+        booking.timesWithLogic,
+        bs.time
+      ); // 0
+      let logicAvailableCount = logicSlotLimit - logicFilledCount;
+      if (totalAvailableCount === 0) {
+        logicAvailableCount = 0;
+      }
+      if (logicAvailableCount > totalAvailableCount) {
+        logicAvailableCount = totalAvailableCount;
+      }
+
       updatedTimeSlots.push({
         time: bs.time,
-        slots: slotLimit - count,
+        slots: isLogic ? logicAvailableCount : totalAvailableCount,
       });
     });
     const utsFiltered = updatedTimeSlots.filter((uts) => uts.slots > 0);
@@ -126,13 +156,19 @@ export const getBookingsAvailable = (bookings: IBookingDB[]) => {
     );
     console.log("booking data filtered", data);
     const timeSlots: string[] = [];
+    const timeWithLogicSlots: string[] = [];
     if (data.length > 0) {
       data.map((item) => {
         timeSlots.push(item.BookingTime);
+        console.log("fetch - typeof", typeof item.Logic);
+        if (item.Logic === 1) {
+          timeWithLogicSlots.push(item.BookingTime);
+        }
       });
       filledBooking.push({
         date: data[0].BookingDate as Date,
         times: timeSlots,
+        timesWithLogic: timeWithLogicSlots,
       });
     }
   });

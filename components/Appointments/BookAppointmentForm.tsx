@@ -59,11 +59,16 @@ const BookAppointmentForm = ({
     console.log("st booking date", bookingDateTime.date);
     setServiceType(serviceType);
     if (serviceType) {
-      const slotLimit = getSlotsLimit(serviceType);
+      const slotLimit = bookingConfig.noOfEmployees;
+      const logicSlotLimit =
+        serviceType.logic === 1 ? bookingConfig.limitPerSlot : 0;
+      getSlotsLimit(serviceType);
       const disabledDates = getDisabledDates(
         bookingFilled,
         bookingTimeSlots,
-        slotLimit
+        slotLimit,
+        logicSlotLimit,
+        serviceType.logic === 1
       );
       console.log("disabledDates", disabledDates);
       setDisabledDates(disabledDates);
@@ -94,13 +99,16 @@ const BookAppointmentForm = ({
   ) => {
     console.log("st service type:", serviceType);
     if (serviceType) {
-      const slotLimit = getSlotsLimit(serviceType);
-      console.log("st slot limit", slotLimit);
+      const slotLimit = bookingConfig.noOfEmployees;
+      const logicSlotLimit =
+        serviceType.logic === 1 ? bookingConfig.limitPerSlot : 0;
       const updatedTimeSlots = getUpdatedTimeSlots(
         date,
         bookingFilled,
         bookingTimeSlots,
-        slotLimit
+        slotLimit,
+        logicSlotLimit,
+        serviceType.logic === 1
       );
       if (updatedTimeSlots.length === 0) {
         resetBookingTimeSlots(slotLimit);

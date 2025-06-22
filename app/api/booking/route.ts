@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   try {
     const connection = await mysql.createConnection(connectionParams);
 
-    const query = "SELECT * FROM appointments";
+    const query = `SELECT * FROM appointments`;
 
     const values: string[] = [];
 
