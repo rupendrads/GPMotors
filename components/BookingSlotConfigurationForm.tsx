@@ -1,0 +1,189 @@
+"use client";
+import { useState } from "react";
+import Alert from "@/components/Alert";
+import { useForm } from "react-hook-form";
+
+interface IBookingConfig {
+  officeStartTime: string;
+  officeEndTime: string;
+  noOfEmployees: number;
+  slotGap: number;
+  maxMOT: number;
+}
+
+function BookingSlotForm() {
+
+  const {
+      register,
+      handleSubmit,
+      formState,
+      reset,
+      formState: { errors },
+      setValue,
+  } = useForm<IBookingConfig>();
+
+  const [alert, setAlert] = useState({ message: "", type: "" });
+    const handleShowAlert = (type: string, message: string) => {
+    setAlert({ type, message });
+  };
+
+  const onSave = async (data: IBookingConfig) => {
+    console.log(data);
+		const bookingSlotData = { ...data };
+		console.log("BookingSlotData", bookingSlotData);
+    try {
+			const response = await fetch("/api/bookingSlotData", {
+				method: "POST",
+				headers:  {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+          OfficeStartTime: bookingSlotData.officeStartTime,
+          OfficeEndTime: bookingSlotData.officeEndTime,
+					NoOfEmployees: Number(bookingSlotData.noOfEmployees),
+          SlotGap: Number(bookingSlotData.slotGap),
+          MaxMOT: Number(bookingSlotData.maxMOT),
+				}),
+			});
+
+			const result = await response.json();
+			console.log(result);
+			handleShowAlert(result["status"], result["message"]);
+			if(result["status"] === "success") {
+				reset();
+			}
+		} catch(error) {
+			console.error(error);
+			handleShowAlert("error", "Failed to save booking slot data")
+		}
+  };
+
+  const handleCloseAlert = () => {
+    setAlert({ message: "", type: "" });
+  };
+
+  return (
+    <div className="w-[350px] flex flex-col gap-2">
+			<form onSubmit={handleSubmit(onSave)} >
+				<div className={formStyle}>
+					<h2 className={titleStyle}>Slot Booking Information</h2>
+          <div className={inputGroupStyle}>
+						<div className={inputLabelBoxStyle}>
+							<label className={inputLabelStyle} htmlFor="officeStartTime">
+								Office Start Time
+							</label>
+							{errors.officeStartTime && <span className={errorStyle}>*</span>}	
+						</div>
+						<input
+							type="time"
+							className={errors.officeStartTime ? errorInputStyle : inputStyle}
+							{...register("officeStartTime", { required: true })}
+							placeholder="Enter Time"
+						/>
+						{errors.officeStartTime && <span className={errorStyle}>Select proper time</span>}
+					</div>
+          <div className={inputGroupStyle}>
+						<div className={inputLabelBoxStyle}>
+							<label className={inputLabelStyle} htmlFor="officeEndTime">
+								Office End Time
+							</label>
+							{errors.officeEndTime && <span className={errorStyle}>*</span>}	
+						</div>
+						<input
+							type="time"
+							className={errors.officeEndTime ? errorInputStyle : inputStyle}
+							{...register("officeEndTime", { required: true })}
+							placeholder="Enter Time"
+						/>
+						{errors.officeEndTime && <span className={errorStyle}>Select proper time</span>}
+					</div>
+          <div className={inputGroupStyle}>
+            <div className={inputLabelBoxStyle}>
+              <label className={inputLabelStyle} htmlFor="noOfEmployees">
+							  No Of Employees
+						  </label>
+              {errors.noOfEmployees && <span className={errorStyle}>*</span>}
+            </div>
+						<input
+							type="number"
+							className={inputStyle}
+							{...register("noOfEmployees", { required: true, min:1 })}
+							placeholder="Enter no of employees"
+						/>
+            {errors.noOfEmployees && <span className={errorStyle}>Required field</span>}
+					</div>
+          <div className={inputGroupStyle}>
+            <div className={inputLabelBoxStyle}>
+              <label className={inputLabelStyle} htmlFor="slotGap">
+							  Slot Gap (in minutes)
+						  </label>
+              {errors.slotGap && <span className={errorStyle}>*</span>}
+            </div>	
+						<input
+							type="number"
+							className={inputStyle}
+							{...register("slotGap", { required: true, min:1 })}
+							placeholder="Enter no"
+						/>
+            {errors.slotGap && <span className={errorStyle}>Required field</span>}
+					</div>
+          <div className={inputGroupStyle}>
+            <div className={inputLabelBoxStyle}>
+              <label className={inputLabelStyle} htmlFor="maxMOT">
+							  Max MOT
+						  </label>
+              {errors.maxMOT && <span className={errorStyle}>*</span>}
+            </div>	
+						<input
+							type="number"
+							className={inputStyle}
+							{...register("maxMOT", { required: true, min:1 })}
+							placeholder="Enter no"
+						/>
+            {errors.maxMOT && <span className={errorStyle}>Required field</span>}
+					</div>
+          <button
+						type="submit"
+						className={buttonStyle}
+						disabled={formState.isSubmitting}
+						>
+						{formState.isSubmitting ? "Saving..." : "Save"}
+					</button>
+          {alert.message !== "" && (
+							<Alert
+								message={alert.message}
+								type={alert.type}
+								onClose={handleCloseAlert}
+							/>
+						)}
+        </div>
+      </form>
+    </div>
+  );
+}
+
+const formStyle =
+  "max-w-lg flex flex-col gap-y-4 p-4 mt-2 mb-2 shadow rounded  border border-gray-300 rounded";
+const signinHeadingBoxStyle =
+  "flex items-center gap-5 mt-2 p-4 border border-gray-300 rounded";
+const signinHeadingStyle =
+  "text-[14px] text-zinc-800 font-[400] leading-[1.5] traking-[0%]";
+const titleStyle =
+  "text-[22px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4 text-center";
+const headingStyle =
+  "text-[18px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4";
+const inputGroupStyle = "flex flex-col gap-2";
+const inputLabelBoxStyle = "flex items-center gap-2";
+const inputLabelStyle =
+  "text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
+const inputStyle =
+  "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
+const errorInputStyle =
+  "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800 border-red-500 focus:border-red-500 focus:outline-red-500";
+const buttonStyle =
+  "bg-red-500 hover:bg-red-700 text-white text-[18px] font-[600] py-2 px-4 rounded-[22px] mt-4";
+const errorStyle =
+  "text-[16px] font-[400] leading-[100%] traking-[0%] text-red-500";
+
+export default BookingSlotForm;
+

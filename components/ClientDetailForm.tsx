@@ -69,7 +69,7 @@ function ClientDetailForm() {
 					Title: clientData.title,
 					FirstName: clientData.firstName,
 					LastName: clientData.lastName,
-					Address1: clientData.address1,
+					Address1: clientData.address1,	
 					Address2: clientData.address2,
 					PostCode: clientData.postCode,
 					ContactNo: clientData.contactNo,
