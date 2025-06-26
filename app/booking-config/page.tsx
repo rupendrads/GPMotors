@@ -1,4 +1,4 @@
-import BookingSlotForm from "@/components/BookingSlotConfigurationForm";
+import BookingConfigurationForm from "@/components/BookingSlotConfigurationForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function ClientDetailPage() {
   return (
-    <main>
-      <BookingSlotForm />
+    <main className="w-full flex justify-center">
+      <BookingConfigurationForm />
     </main>
   );
 }
