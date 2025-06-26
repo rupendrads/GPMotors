@@ -1,4 +1,3 @@
-import BookingSlotForm from "@/components/BookingSlotConfigurationForm";
 import ClientDetailForm from "@/components/ClientDetailForm";
 import { Metadata } from "next";
 
@@ -13,7 +12,6 @@ export default function ClientDetailPage() {
   return (
     <main>
       <ClientDetailForm />
-      <BookingSlotForm />
     </main>
   );
 }

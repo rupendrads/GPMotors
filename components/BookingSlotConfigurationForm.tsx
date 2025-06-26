@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
 import Alert from "@/components/Alert";
-import { useForm } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css';
 
 interface IBookingConfig {
-  officeStartTime: string;
-  officeEndTime: string;
+  officeStartTime: Date;
+  officeEndTime: Date;
   noOfEmployees: number;
   slotGap: number;
   maxMOT: number;
@@ -19,15 +21,24 @@ function BookingSlotForm() {
       formState,
       reset,
       formState: { errors },
-      setValue,
-  } = useForm<IBookingConfig>();
+			watch,
+      control,
+  } = useForm<IBookingConfig>({
+    defaultValues: {
+      officeStartTime: new Date(),
+      officeEndTime: new Date(),
+    },
+  });
+
+	const watchStartTime = watch('officeStartTime');
+  const watchEmployees = watch('noOfEmployees');
 
   const [alert, setAlert] = useState({ message: "", type: "" });
-    const handleShowAlert = (type: string, message: string) => {
+  const handleShowAlert = (type: string, message: string) => {
     setAlert({ type, message });
   };
-
-  const onSave = async (data: IBookingConfig) => {
+	
+  const onSave: SubmitHandler<IBookingConfig> = async (data: IBookingConfig) => {
     console.log(data);
 		const bookingSlotData = { ...data };
 		console.log("BookingSlotData", bookingSlotData);
@@ -63,7 +74,7 @@ function BookingSlotForm() {
   };
 
   return (
-    <div className="w-[350px] flex flex-col gap-2">
+    <div className="max-w-md w-[500px] flex flex-row justify-center gap-2">
 			<form onSubmit={handleSubmit(onSave)} >
 				<div className={formStyle}>
 					<h2 className={titleStyle}>Slot Booking Information</h2>
@@ -74,29 +85,57 @@ function BookingSlotForm() {
 							</label>
 							{errors.officeStartTime && <span className={errorStyle}>*</span>}	
 						</div>
-						<input
-							type="time"
-							className={errors.officeStartTime ? errorInputStyle : inputStyle}
-							{...register("officeStartTime", { required: true })}
-							placeholder="Enter Time"
-						/>
-						{errors.officeStartTime && <span className={errorStyle}>Select proper time</span>}
+						<Controller 
+            name="officeStartTime"
+            control={control}
+            rules={{ required: 'Start time is required' }}
+            render={({ field }) => (
+              <DatePicker
+                selected={field.value}
+                onChange={field.onChange}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+                className={errors.officeStartTime ? errorInputStyle : inputStyle}
+              />
+            	)}
+          	/>
+						{errors.officeStartTime && <span className={errorStyle}>{errors.officeStartTime.message}</span>}
 					</div>
-          <div className={inputGroupStyle}>
+					<div className={inputGroupStyle}>
 						<div className={inputLabelBoxStyle}>
 							<label className={inputLabelStyle} htmlFor="officeEndTime">
 								Office End Time
 							</label>
 							{errors.officeEndTime && <span className={errorStyle}>*</span>}	
 						</div>
-						<input
-							type="time"
-							className={errors.officeEndTime ? errorInputStyle : inputStyle}
-							{...register("officeEndTime", { required: true })}
-							placeholder="Enter Time"
-						/>
-						{errors.officeEndTime && <span className={errorStyle}>Select proper time</span>}
+						<Controller
+              name="officeEndTime"
+              control={control}
+              rules={{
+                required: 'End time is required',
+                validate: (endTime) =>
+                  endTime > watchStartTime || '"The End time should be after the Start time"',
+              }}
+              render={({ field }) => (
+                
+                  <DatePicker
+                    selected={field.value}
+                    onChange={field.onChange}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Time"
+                    dateFormat="h:mm aa"
+                    className={errors.officeEndTime ? errorInputStyle : inputStyle}
+                  />
+                )}
+            />
+						  {errors.officeEndTime && <span className={errorStyle}>{errors.officeEndTime.message}</span>}
 					</div>
+          
           <div className={inputGroupStyle}>
             <div className={inputLabelBoxStyle}>
               <label className={inputLabelStyle} htmlFor="noOfEmployees">
@@ -107,25 +146,26 @@ function BookingSlotForm() {
 						<input
 							type="number"
 							className={inputStyle}
-							{...register("noOfEmployees", { required: true, min:1 })}
+								{...register("noOfEmployees",{ required: true, min:{ value: 1, message: 'Cannot be 0 or negative value' }, valueAsNumber: true 
+							})}
 							placeholder="Enter no of employees"
 						/>
-            {errors.noOfEmployees && <span className={errorStyle}>Required field</span>}
+            {errors.noOfEmployees && <span className={errorStyle}>{errors.noOfEmployees.message}</span>}
 					</div>
           <div className={inputGroupStyle}>
             <div className={inputLabelBoxStyle}>
               <label className={inputLabelStyle} htmlFor="slotGap">
-							  Slot Gap (in minutes)
+							  Slot Gap (in hours)
 						  </label>
               {errors.slotGap && <span className={errorStyle}>*</span>}
             </div>	
 						<input
 							type="number"
 							className={inputStyle}
-							{...register("slotGap", { required: true, min:1 })}
+								{...register("slotGap", { required: true, min: { value: 0, message: 'Cannot be negative value' }, valueAsNumber: true })}
 							placeholder="Enter no"
 						/>
-            {errors.slotGap && <span className={errorStyle}>Required field</span>}
+            {errors.slotGap && <span className={errorStyle}>{errors.slotGap.message}</span>}
 					</div>
           <div className={inputGroupStyle}>
             <div className={inputLabelBoxStyle}>
@@ -137,10 +177,13 @@ function BookingSlotForm() {
 						<input
 							type="number"
 							className={inputStyle}
-							{...register("maxMOT", { required: true, min:1 })}
+								{...register("maxMOT", { required: true, min: { value: 0, message: 'Cannot be negative value' }, valueAsNumber: true,
+								validate: (value) =>
+                !watchEmployees || value <= watchEmployees || 'Max MOT cannot exceed No. of Employees',
+							})}
 							placeholder="Enter no"
 						/>
-            {errors.maxMOT && <span className={errorStyle}>Required field</span>}
+            {errors.maxMOT && <span className={errorStyle}>{errors.maxMOT.message}</span>}
 					</div>
           <button
 						type="submit"
@@ -163,7 +206,7 @@ function BookingSlotForm() {
 }
 
 const formStyle =
-  "max-w-lg flex flex-col gap-y-4 p-4 mt-2 mb-2 shadow rounded  border border-gray-300 rounded";
+  "max-w-md w-[500px] flex flex-col gap-y-4 p-4 mt-2 mb-2 shadow rounded  border border-gray-300 rounded";
 const signinHeadingBoxStyle =
   "flex items-center gap-5 mt-2 p-4 border border-gray-300 rounded";
 const signinHeadingStyle =
@@ -172,18 +215,20 @@ const titleStyle =
   "text-[22px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4 text-center";
 const headingStyle =
   "text-[18px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4";
-const inputGroupStyle = "flex flex-col gap-2";
-const inputLabelBoxStyle = "flex items-center gap-2";
+const inputGroupStyle = "flex flex-col gap-2 w-full";
+const inputLabelBoxStyle = "flex items-center gap-2 w-full";
 const inputLabelStyle =
   "text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
 const inputStyle =
-  "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
+  "w-full border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
 const errorInputStyle =
-  "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800 border-red-500 focus:border-red-500 focus:outline-red-500";
+  "w-full border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800 border-red-500 focus:border-red-500 focus:outline-red-500";
 const buttonStyle =
   "bg-red-500 hover:bg-red-700 text-white text-[18px] font-[600] py-2 px-4 rounded-[22px] mt-4";
 const errorStyle =
-  "text-[16px] font-[400] leading-[100%] traking-[0%] text-red-500";
+  "max-w-md text-[16px] font-[400] leading-[100%] traking-[0%] text-red-500 text-start";
 
 export default BookingSlotForm;
+
+
 
