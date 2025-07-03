@@ -18,6 +18,12 @@ function AdminMenuDetail() {
           >
             Booking Configuration
           </Link>
+          <Link
+            href="/book-appointment-list"
+            className=" hover:text-[#E33C30] px-3 py-2 transition"
+          >
+            Booking List
+          </Link>
         </div>
       </div>
     </nav>

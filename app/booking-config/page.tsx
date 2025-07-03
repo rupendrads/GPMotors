@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://localhost:3000/booking-config"),
 };
 
-export default function ClientDetailPage() {
+export default function BookingConfigurationPage() {
   return (
     <main className="w-full flex justify-center">
       <BookingConfigurationForm />

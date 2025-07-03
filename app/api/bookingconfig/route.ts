@@ -7,6 +7,7 @@ const connectionParams: IDBSettings = GetDBSettings();
 // GET /api/bookingconfig
 export async function GET(request: Request) {
   try {
+    console.log(connectionParams);
     const connection = await mysql.createConnection(connectionParams);
 
     const query = "SELECT * FROM bookingconfig";
