@@ -59,7 +59,7 @@ function MotFaq() {
   );
 }
 
-const pageContainerStyle = "my-16 flex flex-col gap-8";
+const pageContainerStyle = "my-8 flex flex-col gap-8";
 const faqHeaderContainerStyle =
   "max-md:w-[224px] w-[550px] flex flex-col gap-3";
 const faqHeaderTitleStyle =

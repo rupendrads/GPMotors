@@ -4,6 +4,7 @@ import MotAdv from "./MotAdv";
 import MotHeader from "./MotHeader";
 import MotBookNow from "./MotBookNow";
 import MotFaq from "./MotFaq";
+import MotVideo from "./MotVideo";
 
 function MotService() {
   return (
@@ -12,6 +13,7 @@ function MotService() {
       <div className="flex flex-col gap-8 mx-8 md:mx-16">
         <MotCheck />
         <MotAdv />
+        <MotVideo />
         <MotBookNow />
         <MotFaq />
       </div>
