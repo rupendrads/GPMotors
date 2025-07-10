@@ -12,8 +12,11 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@heroicons/react": "^2.2.0",
+    "@radix-ui/react-accordion": "^1.2.11",
     "@types/react-datepicker": "^6.2.0",
     "axios": "^1.9.0",
+    "classnames": "^2.5.1",
+    "iconsax-reactjs": "^0.0.8",
     "material-icons": "^1.13.14",
     "mysql2": "^3.14.1",
     "next": "15.3.1",
@@ -23,10 +26,7 @@
     "react-day-picker": "^9.7.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.4",
-    "react-time-picker": "^7.0.0",
-    "@radix-ui/react-accordion": "^1.2.11",
-    "iconsax-reactjs": "^0.0.8",
-    "classnames": "^2.5.1"
+    "react-time-picker": "^7.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
