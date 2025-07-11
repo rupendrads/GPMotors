@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "material-icons/iconfont/material-icons.css";
-import "./globals.css";
+import "../public/globals.css";
+// import "./globals.css";
 import Navbar from "./components/navbar";
 // import AdminMenuDetail from "@/components/AdminMenu";
 
