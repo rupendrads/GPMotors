@@ -1,8 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import carImg from "@/images/motservice_red_car.png";
 
 function MotAdv() {
+  const router = useRouter();
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2">
       <div className="bg-red-500 flex justify-center items-center h-[300px] md:h-[365px] lg:h-[330px]">
@@ -20,6 +23,7 @@ function MotAdv() {
             <button
               type="button"
               className="bg-white text-black text-[21px] font-[400] w-[175px] h-[52px] flex justify-center items-center cursor-pointer"
+              onClick={() => router.push("/book-appointment")}
             >
               Book Now
             </button>
