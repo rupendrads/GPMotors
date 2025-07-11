@@ -143,10 +143,10 @@ function BookingListTable() {
 export default BookingListTable;
 
 
-const formStyle =
-  "w-full mx-auto flex flex-col gap-y-4 px-4 py-2 mb-2 shadow rounded  border border-gray-300 rounded";
-const headingStyle =
-  "text-[18px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4";
+// const formStyle =
+//   "w-full mx-auto flex flex-col gap-y-4 px-4 py-2 mb-2 shadow rounded  border border-gray-300 rounded";
+// const headingStyle =
+//   "text-[18px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4";
 const tableContainer = "max-w-full mb-2 overflow-auto h-[500px] bg-white shadow-md rounded-sm border border-gray-200";
 const tableHeadingStyle = "text-2xl font-bold mb-4 mt-4 text-center text-gray-700 leading-[100%] traking-[0%] ";
 const tableStyle  = "table-auto min-w-[1000px] text-sm text-left text-gray-700 whitespace-nowrap";
@@ -155,13 +155,13 @@ const thStyle = "px-3 py-3"
 const tdStyle = "px-3 py-3"
 const pagingBtnStyle = "flex items-center gap-1 px-2 py-2 text-sm font-medium border rounded-md bg-gray-50 text-gray-800 border-gray-400 hover:bg-blue-100 disabled:opacity-50 transition duration-350";
 const pagingSpanStyle = "text-sm font-semibold gap-1 px-2 py-2 bg-gray-100 text-gray-800  border rounded-md border-gray-400";
-const inputGroupStyle = "flex flex-col gap-2";
-const inputLabelBoxStyle = "flex items-center gap-2";
-const inputStyle =
-  "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
-const errorInputStyle =
-  "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800 border-red-500 focus:border-red-500 focus:outline-red-500";
-const buttonStyle =
-  "bg-red-500 hover:bg-red-700 text-white text-[18px] font-[600] py-2 px-4 rounded-[22px] mt-4";
-const errorStyle =
-  "text-[16px] font-[400] leading-[100%] traking-[0%] text-red-500";
+// const inputGroupStyle = "flex flex-col gap-2";
+// const inputLabelBoxStyle = "flex items-center gap-2";
+// const inputStyle =
+//   "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
+// const errorInputStyle =
+//   "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800 border-red-500 focus:border-red-500 focus:outline-red-500";
+// const buttonStyle =
+//   "bg-red-500 hover:bg-red-700 text-white text-[18px] font-[600] py-2 px-4 rounded-[22px] mt-4";
+// const errorStyle =
+//   "text-[16px] font-[400] leading-[100%] traking-[0%] text-red-500";

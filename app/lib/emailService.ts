@@ -17,7 +17,7 @@ async function sendEmail<T extends object>(
   if (!serviceId || !templateId) {
     throw new Error("EmailJS SERVICE_ID or TEMPLATE_ID not defined");
   }
-  const res = await emailjs.send(serviceId, templateId, templateParams as any);
+  const res = await emailjs.send(serviceId, templateId, templateParams as Record<string, unknown>);
   if (res.status !== 200) {
     throw new Error(`EmailJS error: ${res.text}`);
   }

@@ -1,8 +1,6 @@
 // components/Footer.js
 // import { FaFacebookF, FaInstagram, FaTwitter, FaTiktok } from "react-icons/fa";
 import "./styles.css"
-import discord from "../../public/icons/discord.svg"
-import insta from "../../public/icons/insta.svg"
 import twitter from "../../public/icons/twitter.svg"
 import Image from "next/image"
 import logo from "../../public/logo.svg";

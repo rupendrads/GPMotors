@@ -18,7 +18,7 @@ function BookingConfigurationForm() {
     register,
     handleSubmit,
     formState,
-    reset,
+    // reset,
     formState: { errors },
     watch,
     control,
@@ -33,9 +33,9 @@ function BookingConfigurationForm() {
   const watchEmployees = watch("noOfEmployees");
 
   const [alert, setAlert] = useState({ message: "", type: "" });
-  const handleShowAlert = (type: string, message: string) => {
-    setAlert({ type, message });
-  };
+  // const handleShowAlert = (type: string, message: string) => {
+  //   setAlert({ type, message });
+  // };
 
   const onSave: SubmitHandler<IBookingConfig> = async (
     data: IBookingConfig
@@ -236,14 +236,14 @@ function BookingConfigurationForm() {
 
 const formStyle =
   "max-w-md w-[500px] flex flex-col gap-y-4 p-4 mt-2 mb-2 shadow rounded  border border-gray-300 rounded";
-const signinHeadingBoxStyle =
-  "flex items-center gap-5 mt-2 p-4 border border-gray-300 rounded";
-const signinHeadingStyle =
-  "text-[14px] text-zinc-800 font-[400] leading-[1.5] traking-[0%]";
+// const signinHeadingBoxStyle =
+//   "flex items-center gap-5 mt-2 p-4 border border-gray-300 rounded";
+// const signinHeadingStyle =
+//   "text-[14px] text-zinc-800 font-[400] leading-[1.5] traking-[0%]";
 const titleStyle =
   "text-[22px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4 text-center";
-const headingStyle =
-  "text-[18px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4";
+// const headingStyle =
+//   "text-[18px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4";
 const inputGroupStyle = "flex flex-col gap-2 w-full";
 const inputLabelBoxStyle = "flex items-center gap-2 w-full";
 const inputLabelStyle =

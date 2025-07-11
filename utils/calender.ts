@@ -33,7 +33,7 @@ export const getAllDatesInMonth = ({
   month: number;
   year: number;
 }) => {
-  const dates = [];
+ const dates: Date[] = [];
   const date = new Date(year, month, 1);
 
   while (date.getMonth() === month) {
@@ -51,7 +51,7 @@ export const getAllFutureDatesInMonth = ({
   month: number;
   year: number;
 }) => {
-  const dates = [];
+ const dates: Date[] = [];;
   const date = new Date(year, month, new Date().getDate());
 
   while (date.getMonth() === month) {

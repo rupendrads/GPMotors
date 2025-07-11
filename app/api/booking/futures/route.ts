@@ -6,9 +6,9 @@ const connectionParams: IDBSettings = GetDBSettings();
 
 // GET /api/booking/futures
 export async function GET(request: NextRequest) {
+  console.log(request)
   try {
     const connection = await mysql.createConnection(connectionParams);
-
     // const query =
     //   `select * from appointments where bookingDate > curDate() order by BookingDate`;
 
