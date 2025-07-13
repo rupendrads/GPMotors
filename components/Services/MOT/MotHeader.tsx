@@ -32,7 +32,6 @@ function MotHeader() {
     />
   );
 
-  // GL05CGU;
   const navigateMotChecker = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       redirectToMotChecker();
@@ -66,7 +65,7 @@ function MotHeader() {
               <span className="text-yellow-300">MOT Service</span> In One Go
             </span>
           </div>
-          <div className="flex gap-8 max-md:flex-col max-md:items-center">
+          <div className="flex gap-8 max-md:flex-col max-md:items-center max-md:justify-center">
             <button
               type="button"
               className="bg-red-500 hover:bg-red-700 text-white text-[16px] font-[500] w-[155px] h-[48px] flex justify-center items-center cursor-pointer"
@@ -76,7 +75,7 @@ function MotHeader() {
             </button>
             <div className="flex max-md:h-[45px] h-[48px] max-md:w-[120px] w-[165px]">
               <div
-                className="w-[41px] bg-indigo-900 rounded-l-lg flex flex-col justify-center items-center gap-1 cursor-pointer"
+                className="max-md:min-w-[30px] w-[41px] bg-indigo-900 rounded-l-lg flex flex-col justify-center items-center gap-1 cursor-pointer"
                 onClick={redirectToMotChecker}
               >
                 <div className="rounded-full border border-dotted border-yellow-300 h-[12px] w-[12px]"></div>
@@ -87,7 +86,7 @@ function MotHeader() {
                   type="text"
                   value={inputValue}
                   placeholder="MOT Checker"
-                  className="font-[400] text-[12px] max-md:text-[10px] text-zinc-500 max-w-[120px] py-2 px-3
+                  className="font-[400] text-[12px] max-md:text-[10px] text-zinc-500 max-md:max-w-[90px] max-w-[120px] py-2 px-3
                    outline-hidden uppercase"
                   onChange={(event) => setInputValue(event.target.value)}
                   onKeyDown={navigateMotChecker}
