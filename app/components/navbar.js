@@ -18,52 +18,63 @@ import React from "react";
 
 const serviceColumns = [
   {
-    heading: "CAR REPAIR",
+    heading: "Maintanance/Services",
     highlight: "Brake Repair",
     items: [
-      "Brake Repair",
-      "Suspension Repair",
-      "Clutch Repair",
-      "Transmission Repair",
+      "MOT",
+      "Minor Service",
+      "Intermediate",
+      "Full Service",
+      "AC Service",
+      "Brake Fluid",
+      "Coolant Change",
+      "Timing Bath/Changes",
+      "Transmission Service",
+      "Cluch Repair",
     ],
-    subheading: "AIR CONDITIONING",
-    subitems: ["AC Gas Refill", "Compressor Repair"],
+    // subheading: "AIR CONDITIONING",
+    // subitems: ["AC Gas Refill", "Compressor Repair"],
   },
   {
-    heading: "ENGINE REPAIR",
-    items: [
-      "Engine Diagnostics",
-      "Alternator Repair",
-      "Clutch Repair",
-      "Transmission Repair",
-      "Turbocharger Repair",
-      "Cylinder Head Repair",
-    ],
+    heading: "ENGINE Maintanance",
+items: [
+  "Engline Redbuild",
+  "Gear box Rebuild", 
+  "Clutch Replacement",
+  "Brake pads and disc replacement",
+  "Break calipr replacement",
+  "Suspension component replaecment",
+  "compressor /Condensenor replacement",
+  "Turbicharger",
+  "Head Gasket overall",
+  "Alternator /Starter motor replacement"
+]
   },
   {
-    heading: "BODYWORK & PAINT",
+    heading: "Vehicle Diagnostic",
     items: [
-      "Dent Removal",
-      "Paint Touch-Ups",
-      "Full Body Respray",
-      "Rust Treatment",
-    ],
-    subheading: "TYRES & WHEELS",
-    subitems: ["Wheel Alignment", "Wheel Balancing"],
+  "full diagnostic",
+  "Electrical", 
+  "Specific system check",
+  "All Warning light"
+],
+    subheading: "Body Work Paint",
+    subitems: ["All which is there", "Minor Respray"],
   },
   {
-    heading: "MAINTENANCE",
+    heading: "Electrical System",
     items: [
-      "Oil Change",
-      "Air Filter Replacement",
-      "Cabin Filter Replacement",
-      "Coolant Flush",
-    ],
-    subheading: "ELECTRICAL SYSTEMS",
-    subitems: ["Headlight & Taillight Repair", "Fuse Replacement"],
+  "All Which",
+  "Resistor replacement",
+  "Head light blub",
+  "wiring and rewiring",
+  "alram system",
+  "stereo system"
+],
+    // subheading: "ELECTRICAL SYSTEMS",
+    // subitems: ["Headlight & Taillight Repair", "Fuse Replacement"],
   },
 ];
-
 const resources = [
   {
     name: "Blog",
@@ -344,7 +355,7 @@ export default function Navbar() {
               {serviceColumns.map((col, idx) => (
                 <React.Fragment key={idx}>
                   <div key={idx} className="min-w-[180px]">
-                    <div className="text-[#838B80]  mb-2 text-[15px] tracking-wide">
+                    <div className={`text-[#838B80] ${idx == 1 ? "flex-grow w-80" : "flex-shrink-0"} mb-2 text-[15px] tracking-wide`}>
                       {col.heading}
                     </div>
                     <ul className="mb-4 space-y-2">
@@ -389,7 +400,7 @@ export default function Navbar() {
                   )}
                 </React.Fragment>
               ))}
-              <div className="min-w-[200px]">
+              {/* <div className="min-w-[200px]">
                 <div className="text-[#838B80] mb-2 text-[15px] tracking-wide">
                   RESOURCES
                 </div>
@@ -413,7 +424,7 @@ export default function Navbar() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="w-full h-px " />
