@@ -11,9 +11,6 @@ import {
 import banner from "../../public/images/banner.png";
 import logo from "../../public/logo.svg";
 import key from "../../public/icons/key.svg";
-// import blog from "../../public/icons/blog.svg";
-// import archive from "../../public/icons/archive.svg";
-// import youtube from "../../public/icons/youtube.svg";
 import React from "react";
 
 const serviceColumns = [
@@ -21,108 +18,65 @@ const serviceColumns = [
     heading: "Maintanance/Services",
     highlight: "Brake Repair",
     items: [
-      "MOT",
-      "Minor Service",
-      "Intermediate",
-      "Full Service",
-      "AC Service",
-      "Brake Fluid",
-      "Coolant Change",
-      "Timing Bath/Changes",
-      "Transmission Service",
-      "Cluch Repair",
+      { name: "MOT", link: "/" },
+      { name: "Minor Service", link: "/" },
+      { name: "Intermediate", link: "/" },
+      { name: "Full Service", link: "/" },
+      { name: "AC Service", link: "/" },
+      { name: "Brake Fluid", link: "/" },
+      { name: "Coolant Change", link: "/" },
+      { name: "Timing Bath/Changes", link: "/" },
+      { name: "Transmission Service", link: "/" },
+      { name: "Cluch Repair", link: "/" },
     ],
-    // subheading: "AIR CONDITIONING",
-    // subitems: ["AC Gas Refill", "Compressor Repair"],
   },
   {
     heading: "ENGINE Maintanance",
     items: [
-      "Engline Redbuild",
-      "Gear box Rebuild",
-      "Clutch Replacement",
-      "Brake pads and disc replacement",
-      "Break calipr replacement",
-      "Suspension component replaecment",
-      "compressor /Condensenor replacement",
-      "Turbicharger",
-      "Head Gasket overall",
-      "Alternator /Starter motor replacement",
+      { name: "Engline Redbuild", link: "/" },
+      { name: "Gear box Rebuild", link: "/" },
+      { name: "Clutch Replacement", link: "/" },
+      { name: "Brake pads and disc replacement", link: "/" },
+      { name: "Break calipr replacement", link: "/" },
+      { name: "Suspension component replaecment", link: "/" },
+      { name: "compressor /Condensenor replacement", link: "/" },
+      { name: "Turbicharger", link: "/" },
+      { name: "Head Gasket overall", link: "/" },
+      { name: "Alternator /Starter motor replacement", link: "/" },
     ],
   },
   {
     heading: "Vehicle Diagnostic",
     items: [
-      "full diagnostic",
-      "Electrical",
-      "Specific system check",
-      "All Warning light",
+      { name: "full diagnostic", link: "/" },
+      { name: "Electrical", link: "/" },
+      { name: "Specific system check", link: "/" },
+      { name: "All Warning light", link: "/" },
     ],
     subheading: "Body Work Paint",
-    subitems: ["All which is there", "Minor Respray"],
+    subitems: [
+      { name: "All which is there", link: "/" },
+      { name: "Minor Respray", link: "/" },
+    ],
   },
   {
     heading: "Electrical System",
     items: [
-      "All Which",
-      "Resistor replacement",
-      "Head light blub",
-      "wiring and rewiring",
-      "alram system",
-      "stereo system",
+      { name: "All Which", link: "/" },
+      { name: "Resistor replacement", link: "/" },
+      { name: "Head light blub", link: "/" },
+      { name: "wiring and rewiring", link: "/" },
+      { name: "alram system", link: "/" },
+      { name: "stereo system", link: "/" },
     ],
-    // subheading: "ELECTRICAL SYSTEMS",
-    // subitems: ["Headlight & Taillight Repair", "Fuse Replacement"],
   },
 ];
-// const resources = [
-//   {
-//     name: "Blog",
-//     icon: (
-//       <Image
-//         src={blog}
-//         alt="Blog Icon"
-//         width={18}
-//         height={18}
-//         className="text-orange-400 mr-2"
-//       />
-//     ),
-//     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
-//   },
-//   {
-//     name: "Customer Stories",
-//     icon: (
-//       <Image
-//         src={archive}
-//         alt="Blog Icon"
-//         width={18}
-//         height={18}
-//         className="text-orange-400 mr-2"
-//       />
-//     ),
-//     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
-//   },
-//   {
-//     name: "Video Tutorials",
-//     icon: (
-//       <Image
-//         src={youtube}
-//         alt="Blog Icon"
-//         width={18}
-//         height={18}
-//         className="text-orange-400 mr-2"
-//       />
-//     ),
-//     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
-//   },
-// ];
 
 const getItemClass = (item, highlight) =>
   item === highlight ? "hover:text-[#E33C30]" : " hover:text-[#E33C30]";
 
 export default function Navbar() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarAccordions, setSidebarAccordions] = useState({
     Services: false,
@@ -177,10 +131,10 @@ export default function Navbar() {
               Services <ChevronDownIcon className="w-4 h-4 ml-1" />
             </button>
           </div>
-          <Link href="#" className=" hover:text-[#E33C30] px-3 py-2 transition">
+          <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Gallery
           </Link>
-          <Link href="#" className=" hover:text-[#E33C30] px-3 py-2 transition">
+          <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
             About
           </Link>
           <div className="relative">
@@ -191,7 +145,7 @@ export default function Navbar() {
         </div>
         <div className="flex items-center space-x-4">
           <Link
-            href="#"
+            href="/"
             className="hidden lg:flex items-center  hover:text-[#E33C30] transition"
           >
             <span className="mr-1">🔒</span> Login
@@ -275,12 +229,12 @@ export default function Navbar() {
                       <div className="pl-5 mt-1 space-y-2 border-l border-gray-200">
                         {col.items.map((item) => (
                           <Link
-                            key={item}
-                            href="#"
+                            key={item.name}
+                            href={item.link}
                             className="block px-3 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
                             onClick={() => setSidebarOpen(false)}
                           >
-                            {item}
+                            {item.name}
                           </Link>
                         ))}
                         {col.subheading && (
@@ -290,12 +244,12 @@ export default function Navbar() {
                             </div>
                             {col.subitems.map((item) => (
                               <Link
-                                key={item}
-                                href="#"
+                                key={item.name}
+                                href={item.link}
                                 className="block px-3 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
                                 onClick={() => setSidebarOpen(false)}
                               >
-                                {item}
+                                {item.name}
                               </Link>
                             ))}
                           </>
@@ -308,21 +262,21 @@ export default function Navbar() {
             )}
           </div>
           <Link
-            href="#"
+            href="/"
             className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
             onClick={() => setSidebarOpen(false)}
           >
             Gallery
           </Link>
           <Link
-            href="#"
+            href="/"
             className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
             onClick={() => setSidebarOpen(false)}
           >
             About
           </Link>
           <Link
-            href="#"
+            href="/"
             className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
             style={{ textTransform: "lowercase" }}
             onClick={() => setSidebarOpen(false)}
@@ -366,13 +320,13 @@ export default function Navbar() {
                       {col.items.map((item, i) => (
                         <li key={i}>
                           <Link
-                            href="#"
+                            href={item.link}
                             className={`block text-[15px] transition ${getItemClass(
-                              item,
+                              item.name,
                               col.highlight
                             )}`}
                           >
-                            {item}
+                            {item.name}
                           </Link>
                         </li>
                       ))}
@@ -386,10 +340,10 @@ export default function Navbar() {
                           {col.subitems.map((item, i) => (
                             <li key={i}>
                               <Link
-                                href="#"
+                                href={item.link}
                                 className="block text-[15px] hover:text-[#E33C30] transition"
                               >
-                                {item}
+                                {item.name}
                               </Link>
                             </li>
                           ))}
@@ -404,31 +358,6 @@ export default function Navbar() {
                   )}
                 </React.Fragment>
               ))}
-              {/* <div className="min-w-[200px]">
-                <div className="text-[#838B80] mb-2 text-[15px] tracking-wide">
-                  RESOURCES
-                </div>
-                <ul className="space-y-4">
-                  {resources.map((r, i) => (
-                    <li key={i}>
-                      <Link
-                        href="#"
-                        className="flex items-start hover:text-[#E33C30] transition"
-                      >
-                        {r.icon}
-                        <div>
-                          <div className=" font-medium text-[15px]">
-                            {r.name}
-                          </div>
-                          <div className="text-gray-300 text-xs leading-relaxed mt-1">
-                            {r.desc}
-                          </div>
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
             </div>
           </div>
           <div className="w-full h-px " />
@@ -446,14 +375,14 @@ export default function Navbar() {
               </span>
               What is call routing software?
               <Link
-                href="#"
+                href="/"
                 className="underline text-[#8E840D]  hover:text-white ml-1"
               >
                 lets connect
               </Link>
             </div>
             <Link
-              href="#"
+              href="/"
               className="bg-[#E33C30] text-white px-4 py-1 rounded text-xs font-semibold transition"
             >
               Book Appointment
