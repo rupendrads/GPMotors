@@ -18,7 +18,7 @@ const serviceColumns = [
     heading: "Maintanance/Services",
     highlight: "Brake Repair",
     items: [
-      { name: "MOT", link: "/" },
+      { name: "MOT", link: "/mot-service" },
       { name: "Minor Service", link: "/" },
       { name: "Intermediate", link: "/" },
       { name: "Full Service", link: "/" },
