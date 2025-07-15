@@ -1,5 +1,6 @@
 import ContactUsPage from "./contactus/page";
 import Footer from "./components/footer";
+import FloatContact from "./components/FloatContact";
 export default function Home() {
   return (
     <div
@@ -11,6 +12,7 @@ export default function Home() {
     // }}
     >
       <ContactUsPage />
+      <FloatContact/>
       {/* <FloatingWhatsApp/> */}
       {/* <EmailSender/> */}
       <Footer />
