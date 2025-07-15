@@ -1,10 +1,6 @@
 import ContactUsPage from "./contactus/page";
 import Footer from "./components/footer";
 export default function Home() {
-  useEffect(() => {
-    initEmailJS();
-  }, []);
-
   return (
     <div
     // style={{
