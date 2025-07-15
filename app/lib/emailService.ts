@@ -17,7 +17,7 @@ async function sendEmail<T extends object>(
   if (!serviceId || !templateId) {
     throw new Error("EmailJS SERVICE_ID or TEMPLATE_ID not defined");
   }
-  const res = await emailjs.send(serviceId, templateId, templateParams as any);
+  const res = await emailjs.send(serviceId, templateId, templateParams as Record<string, unknown>);
   if (res.status !== 200) {
     throw new Error(`EmailJS error: ${res.text}`);
   }
@@ -29,7 +29,7 @@ export interface ContactUsParams {
   from_name: string;
   from_email: string;
   subject: string;
-  message: string;   // plain text
+  message: string; 
   to_email: string;
 }
 
@@ -42,12 +42,12 @@ export async function sendContactUsEmail(
   return sendEmail(serviceId, templateId, { ...params, to_email });
 }
 
-/** AUTO-REPLY */
+/** AUTO-REPLY*/
 export interface AutoReplyParams {
   to_name: string;
   to_email: string;
   reply_subject: string;
-  reply_message_html: string;
+  reply_message_html: string; 
 }
 
 export async function sendAutoReplyEmail(

@@ -2,167 +2,209 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import banner from "../../public/images/banner.png";
+import logo from "../../public/logo.svg";
 import key from "../../public/icons/key.svg";
-import blog from "../../public/icons/blog.svg";
-import archive from "../../public/icons/archive.svg";
-import youtube from "../../public/icons/youtube.svg";
+// import blog from "../../public/icons/blog.svg";
+// import archive from "../../public/icons/archive.svg";
+// import youtube from "../../public/icons/youtube.svg";
 import React from "react";
+
 const serviceColumns = [
   {
-    heading: "CAR REPAIR",
+    heading: "Maintanance/Services",
     highlight: "Brake Repair",
     items: [
-      "Brake Repair",
-      "Suspension Repair",
-      "Clutch Repair",
-      "Transmission Repair",
+      "MOT",
+      "Minor Service",
+      "Intermediate",
+      "Full Service",
+      "AC Service",
+      "Brake Fluid",
+      "Coolant Change",
+      "Timing Bath/Changes",
+      "Transmission Service",
+      "Cluch Repair",
     ],
-    subheading: "AIR CONDITIONING",
-    subitems: ["AC Gas Refill", "Compressor Repair"],
+    // subheading: "AIR CONDITIONING",
+    // subitems: ["AC Gas Refill", "Compressor Repair"],
   },
   {
-    heading: "ENGINE REPAIR",
+    heading: "ENGINE Maintanance",
     items: [
-      "Engine Diagnostics",
-      "Alternator Repair",
-      "Clutch Repair",
-      "Transmission Repair",
-      "Turbocharger Repair",
-      "Cylinder Head Repair",
+      "Engline Redbuild",
+      "Gear box Rebuild",
+      "Clutch Replacement",
+      "Brake pads and disc replacement",
+      "Break calipr replacement",
+      "Suspension component replaecment",
+      "compressor /Condensenor replacement",
+      "Turbicharger",
+      "Head Gasket overall",
+      "Alternator /Starter motor replacement",
     ],
   },
   {
-    heading: "BODYWORK & PAINT",
+    heading: "Vehicle Diagnostic",
     items: [
-      "Dent Removal",
-      "Paint Touch-Ups",
-      "Full Body Respray",
-      "Rust Treatment",
+      "full diagnostic",
+      "Electrical",
+      "Specific system check",
+      "All Warning light",
     ],
-    subheading: "TYRES & WHEELS",
-    subitems: ["Wheel Alignment", "Wheel Balancing"],
+    subheading: "Body Work Paint",
+    subitems: ["All which is there", "Minor Respray"],
   },
   {
-    heading: "MAINTENANCE",
+    heading: "Electrical System",
     items: [
-      "Oil Change",
-      "Air Filter Replacement",
-      "Cabin Filter Replacement",
-      "Coolant Flush",
+      "All Which",
+      "Resistor replacement",
+      "Head light blub",
+      "wiring and rewiring",
+      "alram system",
+      "stereo system",
     ],
-    subheading: "ELECTRICAL SYSTEMS",
-    subitems: ["Headlight & Taillight Repair", "Fuse Replacement"],
+    // subheading: "ELECTRICAL SYSTEMS",
+    // subitems: ["Headlight & Taillight Repair", "Fuse Replacement"],
   },
 ];
-
-const resources = [
-  {
-    name: "Blog",
-    icon: (
-     <Image
-      src={blog}
-      alt="Blog Icon"
-      width={18}
-      height={18}
-      className="text-orange-400 mr-2"
-    />
-    ),
-    desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
-  },
-  {
-    name: "Customer Stories",
-    icon: (
-        <Image
-      src={archive}
-      alt="Blog Icon"
-      width={18}
-      height={18}
-      className="text-orange-400 mr-2"
-    />
-    ),
-    desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
-  },
-  {
-    name: "Video Tutorials",
-    icon: (
-          <Image
-      src={youtube}
-      alt="Blog Icon"
-      width={18}
-      height={18}
-      className="text-orange-400 mr-2"
-    />
-    ),
-    desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
-  },
-];
+// const resources = [
+//   {
+//     name: "Blog",
+//     icon: (
+//       <Image
+//         src={blog}
+//         alt="Blog Icon"
+//         width={18}
+//         height={18}
+//         className="text-orange-400 mr-2"
+//       />
+//     ),
+//     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
+//   },
+//   {
+//     name: "Customer Stories",
+//     icon: (
+//       <Image
+//         src={archive}
+//         alt="Blog Icon"
+//         width={18}
+//         height={18}
+//         className="text-orange-400 mr-2"
+//       />
+//     ),
+//     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
+//   },
+//   {
+//     name: "Video Tutorials",
+//     icon: (
+//       <Image
+//         src={youtube}
+//         alt="Blog Icon"
+//         width={18}
+//         height={18}
+//         className="text-orange-400 mr-2"
+//       />
+//     ),
+//     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
+//   },
+// ];
 
 const getItemClass = (item, highlight) =>
-  item === highlight
-    ? "text-yellow-400 font-medium hover:text-[#F3E330]"
-    : "text-white hover:text-[#F3E330]";
+  item === highlight ? "hover:text-[#E33C30]" : " hover:text-[#E33C30]";
 
 export default function Navbar() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarAccordions, setSidebarAccordions] = useState({
+    Services: false,
+    "CAR REPAIR": false,
+    "ENGINE REPAIR": false,
+    "BODYWORK & PAINT": false,
+    MAINTENANCE: false,
+  });
+
   const handleEnter = () => setShowMegaMenu(true);
   const handleLeave = () => setShowMegaMenu(false);
 
+  const toggleAccordion = (key) => {
+    setSidebarAccordions((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
   return (
     <nav className="relative z-50 w-full">
-      {/* NAVBAR */}
-      <div className="w-full bg-[#232f23] opacity-90 flex items-center justify-between h-16 px-10">
-        {/* 1. Logo section */}
+      <div className="w-full bg-[#fff] flex items-center justify-between h-16 px-4 lg:px-10 poppins-font">
+        <button
+          className="lg:hidden p-2"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Open menu"
+        >
+          <Bars3Icon className="w-7 h-7" />
+        </button>
         <div className="flex items-center">
-          {/* <img src="/logo.png" alt="G.P. MOTORS" className="h-9 w-9" /> */}
-          <span className="font-bold text-white text-lg tracking-wide ml-2">
-            G.P. MOTORS
-          </span>
+          <Image
+            src={logo}
+            alt="Red Car"
+            className="w-32 h-auto object-cover rounded-b-lg"
+            style={{ objectPosition: "center bottom" }}
+          />
         </div>
-
-        {/* 2. Content/Navigation section */}
-        <div className="flex-1 flex justify-center items-center space-x-8">
-          <Link href="/" className="text-white hover:text-yellow-400 px-3 py-2 transition">
+        <div className="hidden lg:flex flex-1 justify-center items-center space-x-8">
+          <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Home
           </Link>
-          <div className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+          <div
+            className="relative"
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
+          >
             <button
-              className={`flex items-center px-3 py-5 text-white hover:text-yellow-400 transition ${
-                showMegaMenu ? "text-yellow-400" : ""
+              className={`flex items-center px-3 py-5  hover:text-[#E33C30] transition ${
+                showMegaMenu ? "text-[#E33C30]" : ""
               }`}
             >
               Services <ChevronDownIcon className="w-4 h-4 ml-1" />
             </button>
           </div>
-          <Link href="/gallery" className="text-white hover:text-yellow-400 px-3 py-2 transition">
+          <Link href="#" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Gallery
           </Link>
-          <Link href="/about" className="text-white hover:text-yellow-400 px-3 py-2 transition">
+          <Link href="#" className=" hover:text-[#E33C30] px-3 py-2 transition">
             About
           </Link>
           <div className="relative">
-            <button className="flex items-center text-white hover:text-yellow-400 px-3 py-2 transition">
+            <button className="flex items-center  hover:text-[#E33C30] px-3 py-2 transition">
               Contact <ChevronDownIcon className="w-4 h-4 ml-1" />
             </button>
           </div>
         </div>
-
-        {/* 3. CTA Buttons section */}
         <div className="flex items-center space-x-4">
-          <Link href="/login" className="flex items-center text-white hover:text-yellow-400 transition">
+          <Link
+            href="#"
+            className="hidden lg:flex items-center  hover:text-[#E33C30] transition"
+          >
             <span className="mr-1">🔒</span> Login
           </Link>
           <Link
-            href="/book-now"
-            className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full transition"
+            href="/book-appointment"
+            className="bg-red-600 hover:bg-red-700 text-white text-xs lg:text-sm font-semibold py-2 px-6 rounded-full transition"
           >
             Book Now
           </Link>
-          <button className="ml-2 p-2 rounded-full hover:bg-[#232a24] transition">
+          <button className="hidden lg:block ml-2 p-2 rounded-full border transition">
             <svg
-              className="w-5 h-5 text-white"
+              className="w-5 h-5 "
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -175,19 +217,128 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MEGAMENU POPUP */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      <div
+        className={`fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-lg transition-transform duration-300 rounded-r-2xl
+          ${
+            sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:hidden flex flex-col`}
+      >
+        <div className="flex items-center justify-between px-4 py-4 border-b">
+          <Image src={logo} alt="Logo" width={120} height={32} />
+          <button onClick={() => setSidebarOpen(false)} aria-label="Close menu">
+            <XMarkIcon className="w-7 h-7" />
+          </button>
+        </div>
+        <nav className="flex-1 flex flex-col mt-2 space-y-1 px-2 overflow-y-auto">
+          <Link
+            href="/"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
+            onClick={() => setSidebarOpen(false)}
+          >
+            Home
+          </Link>
+          <div>
+            <button
+              className="flex items-center justify-between w-full px-3 py-2 rounded-lg hover:bg-gray-100 font-medium text-gray-900"
+              onClick={() => toggleAccordion("Services")}
+            >
+              <span>Services</span>
+              {sidebarAccordions["Services"] ? (
+                <ChevronUpIcon className="w-4 h-4" />
+              ) : (
+                <ChevronDownIcon className="w-4 h-4" />
+              )}
+            </button>
+            {sidebarAccordions["Services"] && (
+              <div className="mt-1 space-y-1">
+                {serviceColumns.map((col) => (
+                  <div key={col.heading}>
+                    <button
+                      className="flex items-center justify-between w-full px-5 py-2 rounded-lg hover:bg-gray-100 font-medium text-gray-900"
+                      onClick={() => toggleAccordion(col.heading)}
+                    >
+                      <span>{col.heading.replace(/_/g, " ")}</span>
+                      {sidebarAccordions[col.heading] ? (
+                        <ChevronUpIcon className="w-4 h-4" />
+                      ) : (
+                        <ChevronDownIcon className="w-4 h-4" />
+                      )}
+                    </button>
+                    {sidebarAccordions[col.heading] && (
+                      <div className="pl-5 mt-1 space-y-2 border-l border-gray-200">
+                        {col.items.map((item) => (
+                          <Link
+                            key={item}
+                            href="#"
+                            className="block px-3 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
+                            onClick={() => setSidebarOpen(false)}
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                        {col.subheading && (
+                          <>
+                            <div className="text-xs text-gray-500 mt-3 mb-1">
+                              {col.subheading}
+                            </div>
+                            {col.subitems.map((item) => (
+                              <Link
+                                key={item}
+                                href="#"
+                                className="block px-3 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
+                                onClick={() => setSidebarOpen(false)}
+                              >
+                                {item}
+                              </Link>
+                            ))}
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <Link
+            href="#"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
+            onClick={() => setSidebarOpen(false)}
+          >
+            Gallery
+          </Link>
+          <Link
+            href="#"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
+            onClick={() => setSidebarOpen(false)}
+          >
+            About
+          </Link>
+          <Link
+            href="#"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
+            style={{ textTransform: "lowercase" }}
+            onClick={() => setSidebarOpen(false)}
+          >
+            contact
+          </Link>
+        </nav>
+      </div>
+
       {showMegaMenu && (
         <div
-          className="absolute left-0 top-full w-full border-t border-[#833C30] shadow-2xl z-40"
-          style={{
-            background: "linear-gradient(to bottom, #1F271B 0%, #1F271B 70%, #E33C30 99%, #E33C30 100%)",
-            paddingBottom: "1rem",
-          }}
+          className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-40 hidden lg:block"
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
         >
           <div className="max-w-[1200px] mx-10 flex pt-6 pb-2 px-0">
-            {/* LEFT BANNER */}
             <div className="w-64 flex-shrink-0 bg-opacity-10 rounded-lg p-0 overflow-hidden ml-6 mr-8">
               <div className="flex flex-col h-full">
                 <Image
@@ -200,68 +351,75 @@ export default function Navbar() {
                 />
               </div>
             </div>
-            {/* SERVICE COLUMNS */}
-            <div className="flex gap-8">
+            <div className="flex gap-2">
               {serviceColumns.map((col, idx) => (
                 <React.Fragment key={idx}>
-                <div key={idx} className="min-w-[150px]">
-                  <div className="text-[#98BA87] font-semibold mb-2 text-[15px] tracking-wide">
-                    {col.heading}
+                  <div key={idx} className="min-w-[180px]">
+                    <div
+                      className={`text-[#838B80] ${
+                        idx == 1 ? "flex-grow w-80" : "flex-shrink-0"
+                      } mb-2 text-[15px] tracking-wide`}
+                    >
+                      {col.heading}
+                    </div>
+                    <ul className="mb-4 space-y-2">
+                      {col.items.map((item, i) => (
+                        <li key={i}>
+                          <Link
+                            href="#"
+                            className={`block text-[15px] transition ${getItemClass(
+                              item,
+                              col.highlight
+                            )}`}
+                          >
+                            {item}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    {col.subheading && (
+                      <>
+                        <div className="text-[#838B80] mb-2 mt-4 text-[15px] tracking-wide">
+                          {col.subheading}
+                        </div>
+                        <ul className="space-y-2">
+                          {col.subitems.map((item, i) => (
+                            <li key={i}>
+                              <Link
+                                href="#"
+                                className="block text-[15px] hover:text-[#E33C30] transition"
+                              >
+                                {item}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
                   </div>
-                  <ul className="mb-4 space-y-1">
-                    {col.items.map((item, i) => (
-                      <li key={i}>
-                        <Link
-                          href="#"
-                          className={`block text-[15px] transition ${getItemClass(
-                            item,
-                            // col.highlight
-                          )}`}
-                        >
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  {col.subheading && (
-                    <>
-                      <div className="text-[#98BA87] font-semibold mb-2 mt-4 text-[15px] tracking-wide">
-                        {col.subheading}
-                      </div>
-                      <ul className="space-y-1">
-                        {col.subitems.map((item, i) => (
-                          <li key={i}>
-                            <Link
-                              href="#"
-                              className="block text-white text-[15px] hover:text-[#F3E330] transition"
-                            >
-                              {item}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
+                  {idx < serviceColumns.length && (
+                    <div className="flex w-1 justify-center items-stretch">
+                      <div className="w-px h-full bg-gradient-to-b from-transparent via-[#838B80]/40 to-transparent" />
+                    </div>
                   )}
-                </div>
-                {idx < serviceColumns.length  && (
-        <div className="flex w-1 justify-center items-stretch">
-          <div className="w-px h-full bg-gradient-to-b from-transparent via-[#98BA87]/40 to-transparent" />
-         </div>
-      )}
                 </React.Fragment>
               ))}
-              {/* RESOURCES */}
-              <div className="min-w-[200px]">
-                <div className="text-[#98BA87] font-semibold mb-2 text-[15px] tracking-wide">
+              {/* <div className="min-w-[200px]">
+                <div className="text-[#838B80] mb-2 text-[15px] tracking-wide">
                   RESOURCES
                 </div>
                 <ul className="space-y-4">
                   {resources.map((r, i) => (
                     <li key={i}>
-                      <Link href="#" className="flex items-start hover:text-[#F3E330] transition">
+                      <Link
+                        href="#"
+                        className="flex items-start hover:text-[#E33C30] transition"
+                      >
                         {r.icon}
                         <div>
-                          <div className="text-white font-medium text-[15px]">{r.name}</div>
+                          <div className=" font-medium text-[15px]">
+                            {r.name}
+                          </div>
                           <div className="text-gray-300 text-xs leading-relaxed mt-1">
                             {r.desc}
                           </div>
@@ -270,29 +428,33 @@ export default function Navbar() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
-          {/* FOOTER BAR INSIDE POPUP (NO SEPARATE BACKGROUND) */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#98BA87]/40 to-transparent" />
-          <div className="flex justify-between items-center px-10 py-5">
-            <div className="flex text-white items-center text-sm">
-              <span className="bg-[#CA382E] border-white border-2 mr-2 rounded-full"><Image
+          <div className="w-full h-px " />
+          <div className="flex justify-between items-center px-10 py-5 bg-[#E8F3F2]">
+            <div className="flex  items-center text-sm">
+              <span className="bg-[#CA382E] border-white border-2 mr-2 rounded-full">
+                <Image
                   src={key}
                   alt="Red Car"
                   width={256}
                   height={128}
                   className="w-full h-full object-cover p-2 rounded-b-lg"
                   style={{ objectPosition: "center bottom" }}
-                /></span>
+                />
+              </span>
               What is call routing software?
-              <Link href="#" className="underline text-[#F3E330]  hover:text-white ml-1">
+              <Link
+                href="#"
+                className="underline text-[#8E840D]  hover:text-white ml-1"
+              >
                 lets connect
               </Link>
             </div>
             <Link
               href="#"
-              className="bg-white text-red-600 px-4 py-1 rounded text-xs font-semibold hover:bg-gray-100 transition"
+              className="bg-[#E33C30] text-white px-4 py-1 rounded text-xs font-semibold transition"
             >
               Book Appointment
             </Link>

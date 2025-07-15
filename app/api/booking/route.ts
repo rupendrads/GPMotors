@@ -4,12 +4,13 @@ import { GetDBSettings, IDBSettings } from "@/sharedCode/dbSettings";
 
 const connectionParams: IDBSettings = GetDBSettings();
 
+// GET /api/booking
 export async function GET(request: Request) {
-  //console.log(request);
+  console.log(request);
   try {
     const connection = await mysql.createConnection(connectionParams);
 
-    const query = "SELECT * FROM appointments";
+    const query = `SELECT * FROM appointments`;
 
     const values: string[] = [];
 
@@ -37,20 +38,21 @@ export const POST = async (request: Request) => {
   try {
     const connection = await mysql.createConnection(connectionParams);
     const query = `INSERT INTO appointments (BookingDate, BookingTime, Title, FirstName, 
-    LastName, Email, PostCode, RegistrationNo, ServiceType, Comments) 
+    LastName, Email, PostCode, RegistrationNo, ServiceType, Comments, PhoneNo) 
     VALUES ('${params.BookingDate}', '${params.BookingTime}',
     '${params.Title}', '${params.FirstName}',
     '${params.LastName}', '${params.Email}',
     '${params.PostCode}', '${params.RegistrationNo}',
-    '${params.ServiceType}', '${params.Comments}')`;
+    '${params.ServiceType}', '${params.Comments}','${params.PhoneNo}')`;
     console.log("query", query);
     const [results] = await connection.execute(query);
-    //console.log("results: ", results);
+    console.log("insert appointment result: ", results);
     connection.end();
     return Response.json({
       status: "success",
       message: "Appointment booked successfully",
       error: "",
+      results: results,
     });
   } catch (error) {
     console.log(error);

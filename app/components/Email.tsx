@@ -40,7 +40,6 @@ export default function EmailSender() {
     setStatus("");
 
     try {
-      // 1) Send Contact-Us 
       await sendContactUsEmail({
         from_name: form.name,
         from_email: form.email,
@@ -48,7 +47,6 @@ export default function EmailSender() {
         message: form.message,
       });
 
-      // 2) Send Auto-Reply
       await sendAutoReplyEmail({
         to_name: form.name,
         to_email: form.email,
@@ -65,9 +63,12 @@ export default function EmailSender() {
       setStatus("✅ Emails sent!");
       setForm({ name: "", email: "", subject: "", message: "" });
       formRef.current?.reset();
-    } catch (err: any) {
-      console.error(err);
-      setStatus(`❌ ${err.message || "Failed to send emails."}`);
+    } catch (error: unknown) {
+      if (typeof error === 'object' && error !== null && 'message' in error) {
+       setStatus(`❌ ${error.message || "Failed to send emails."}`);
+      } else {
+        console.error("Caught an unknown type of error:", error);
+      }
     } finally {
       setLoading(false);
     }
@@ -77,7 +78,6 @@ export default function EmailSender() {
     <div className="max-w-md mx-auto p-6 bg-white rounded shadow">
       <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-        {/* Name */}
         <div>
           <label className="block text-sm font-medium">Name</label>
           <input

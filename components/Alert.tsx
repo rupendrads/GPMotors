@@ -1,3 +1,6 @@
+// components/Alert.js
+import React from "react";
+
 export type alertProps = {
   message: string;
   type: string;
@@ -5,6 +8,7 @@ export type alertProps = {
 };
 
 const Alert = (props: alertProps | null) => {
+  // Define styles based on alert type
   const alertStyles = {
     success: "bg-green-100 border-green-400 text-green-700",
     error: "bg-red-100 border-red-400 text-red-700",
@@ -12,7 +16,8 @@ const Alert = (props: alertProps | null) => {
     info: "bg-blue-100 border-blue-400 text-blue-700",
   };
 
-  const style =
+  // Get the appropriate styles for the alert type
+  let style =
     alertStyles.success ||
     alertStyles.error ||
     alertStyles.warning ||
@@ -20,6 +25,13 @@ const Alert = (props: alertProps | null) => {
 
   {
     if (props === null) return <div></div>;
+  }
+
+  if (props.type === "success") {
+    style = alertStyles.success;
+  }
+  if (props.type === "error") {
+    style = alertStyles.error;
   }
 
   return (
