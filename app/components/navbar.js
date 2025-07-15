@@ -11,9 +11,9 @@ import {
 import banner from "../../public/images/banner.png";
 import logo from "../../public/logo.svg";
 import key from "../../public/icons/key.svg";
-import blog from "../../public/icons/blog.svg";
-import archive from "../../public/icons/archive.svg";
-import youtube from "../../public/icons/youtube.svg";
+// import blog from "../../public/icons/blog.svg";
+// import archive from "../../public/icons/archive.svg";
+// import youtube from "../../public/icons/youtube.svg";
 import React from "react";
 
 const serviceColumns = [
@@ -37,85 +37,85 @@ const serviceColumns = [
   },
   {
     heading: "ENGINE Maintanance",
-items: [
-  "Engline Redbuild",
-  "Gear box Rebuild", 
-  "Clutch Replacement",
-  "Brake pads and disc replacement",
-  "Break calipr replacement",
-  "Suspension component replaecment",
-  "compressor /Condensenor replacement",
-  "Turbicharger",
-  "Head Gasket overall",
-  "Alternator /Starter motor replacement"
-]
+    items: [
+      "Engline Redbuild",
+      "Gear box Rebuild",
+      "Clutch Replacement",
+      "Brake pads and disc replacement",
+      "Break calipr replacement",
+      "Suspension component replaecment",
+      "compressor /Condensenor replacement",
+      "Turbicharger",
+      "Head Gasket overall",
+      "Alternator /Starter motor replacement",
+    ],
   },
   {
     heading: "Vehicle Diagnostic",
     items: [
-  "full diagnostic",
-  "Electrical", 
-  "Specific system check",
-  "All Warning light"
-],
+      "full diagnostic",
+      "Electrical",
+      "Specific system check",
+      "All Warning light",
+    ],
     subheading: "Body Work Paint",
     subitems: ["All which is there", "Minor Respray"],
   },
   {
     heading: "Electrical System",
     items: [
-  "All Which",
-  "Resistor replacement",
-  "Head light blub",
-  "wiring and rewiring",
-  "alram system",
-  "stereo system"
-],
+      "All Which",
+      "Resistor replacement",
+      "Head light blub",
+      "wiring and rewiring",
+      "alram system",
+      "stereo system",
+    ],
     // subheading: "ELECTRICAL SYSTEMS",
     // subitems: ["Headlight & Taillight Repair", "Fuse Replacement"],
   },
 ];
-const resources = [
-  {
-    name: "Blog",
-    icon: (
-      <Image
-        src={blog}
-        alt="Blog Icon"
-        width={18}
-        height={18}
-        className="text-orange-400 mr-2"
-      />
-    ),
-    desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
-  },
-  {
-    name: "Customer Stories",
-    icon: (
-      <Image
-        src={archive}
-        alt="Blog Icon"
-        width={18}
-        height={18}
-        className="text-orange-400 mr-2"
-      />
-    ),
-    desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
-  },
-  {
-    name: "Video Tutorials",
-    icon: (
-      <Image
-        src={youtube}
-        alt="Blog Icon"
-        width={18}
-        height={18}
-        className="text-orange-400 mr-2"
-      />
-    ),
-    desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
-  },
-];
+// const resources = [
+//   {
+//     name: "Blog",
+//     icon: (
+//       <Image
+//         src={blog}
+//         alt="Blog Icon"
+//         width={18}
+//         height={18}
+//         className="text-orange-400 mr-2"
+//       />
+//     ),
+//     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
+//   },
+//   {
+//     name: "Customer Stories",
+//     icon: (
+//       <Image
+//         src={archive}
+//         alt="Blog Icon"
+//         width={18}
+//         height={18}
+//         className="text-orange-400 mr-2"
+//       />
+//     ),
+//     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
+//   },
+//   {
+//     name: "Video Tutorials",
+//     icon: (
+//       <Image
+//         src={youtube}
+//         alt="Blog Icon"
+//         width={18}
+//         height={18}
+//         className="text-orange-400 mr-2"
+//       />
+//     ),
+//     desc: "Demo Description - t non deserunt ullamo est sit aliqua amet sint.",
+//   },
+// ];
 
 const getItemClass = (item, highlight) =>
   item === highlight ? "hover:text-[#E33C30]" : " hover:text-[#E33C30]";
@@ -355,7 +355,11 @@ export default function Navbar() {
               {serviceColumns.map((col, idx) => (
                 <React.Fragment key={idx}>
                   <div key={idx} className="min-w-[180px]">
-                    <div className={`text-[#838B80] ${idx == 1 ? "flex-grow w-80" : "flex-shrink-0"} mb-2 text-[15px] tracking-wide`}>
+                    <div
+                      className={`text-[#838B80] ${
+                        idx == 1 ? "flex-grow w-80" : "flex-shrink-0"
+                      } mb-2 text-[15px] tracking-wide`}
+                    >
                       {col.heading}
                     </div>
                     <ul className="mb-4 space-y-2">
