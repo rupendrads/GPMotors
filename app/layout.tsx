@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className}`}>
         <Navbar />
-        {/* <AdminMenuDetail /> */}
+        <AdminMenuDetail />
         <main className="max-w-full mx-auto">{children}</main>
       </body>
     </html>

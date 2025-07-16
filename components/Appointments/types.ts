@@ -61,3 +61,34 @@ export interface IBookingSlots {
   time: string;
   slots: number;
 }
+
+export interface IClientFormInput {
+  title: string;
+  firstName: string;
+  lastName: string;
+  address1: string;
+  address2: string;
+  postCode: string;
+  contactNo: string;
+  serviceType: string;
+  serviceDate: Date | undefined;
+  creationDate: Date | undefined;
+  registrationNo: string;
+  remarks: string;
+}
+
+export interface IClientDetailDB {
+  ID: number;
+  Title: string;
+  FirstName: string;
+  LastName: string;
+  Address1: string;
+  Address2: string;
+  PostCode: string;
+  ContactNo: string;
+  ServiceType: string;
+  ServiceDate: Date | undefined;
+  CreationDate: Date | undefined;
+  RegistrationNo: string;
+  Remarks: string;
+}
