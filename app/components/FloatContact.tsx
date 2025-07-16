@@ -120,7 +120,7 @@ export default function FloatContact() {
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-lg font-bold">Get in Touch</h2>
-              <p className="text-blue-100 text-xs">We'd love to hear from you</p>
+              <p className="text-blue-100 text-xs">We&apos;d love to hear from you</p>
             </div>
             <button
               onClick={closeCard}
@@ -313,7 +313,7 @@ export default function FloatContact() {
         {/* Footer */}
         <div className="bg-gray-50 px-4 py-2 rounded-bl-2xl border-t">
           <p className="text-xs text-gray-500 text-center">
-            We'll get back to you within 24 hours
+            We&apos;ll get back to you within 24 hours
           </p>
         </div>
       </div>
