@@ -83,7 +83,7 @@ export default function FloatContact() {
   };
 
   return (
-    <div className="fixed top-1/5 right-0 z-50">
+    <div className="fixed top-1/7 right-0 z-50">
       {/* Contact Us Icon Button */}
       <button
         onClick={toggleOpen}
