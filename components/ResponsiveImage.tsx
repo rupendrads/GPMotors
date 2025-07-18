@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 
 type Props = {
-  desktopImage: HTMLImageElement;
-  tabletImage: HTMLImageElement;
-  mobileImage: HTMLImageElement;
+  desktopImage: ReactElement<HTMLImageElement>;
+  tabletImage: ReactElement<HTMLImageElement>;
+  mobileImage: ReactElement<HTMLImageElement>;
 };
 
 function ResponsiveImage({ desktopImage, tabletImage, mobileImage }: Props) {

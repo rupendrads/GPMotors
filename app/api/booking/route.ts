@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 import { GetDBSettings, IDBSettings } from "@/sharedCode/dbSettings";
 
@@ -6,7 +6,7 @@ const connectionParams: IDBSettings = GetDBSettings();
 
 // GET /api/booking
 export async function GET(request: Request) {
-  //console.log(request);
+  console.log(request);
   try {
     const connection = await mysql.createConnection(connectionParams);
 

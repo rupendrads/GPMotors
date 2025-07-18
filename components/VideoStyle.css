@@ -27,3 +27,25 @@
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 768px) {
+  .video-player {
+    min-height: 150px;
+  }
+
+  .play-button {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .video-player {
+    min-height: 400px;
+  }
+
+  .play-button {
+    width: 75px;
+    height: 75px;
+  }
+}

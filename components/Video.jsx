@@ -26,9 +26,6 @@ const Video = ({ src, backgroundImage }) => {
     <div className="video-container">
       {showVideo === false && (
         <button className="play-button" onClick={playVideo}>
-          {/* <i className="material-icons" style={{ fontSize: "96px" }}>
-            arrow_right
-          </i> */}
           <Image priority src={motVideoPlayButton} alt="Play Video" />
         </button>
       )}

@@ -63,9 +63,12 @@ export default function EmailSender() {
       setStatus("✅ Emails sent!");
       setForm({ name: "", email: "", subject: "", message: "" });
       formRef.current?.reset();
-    } catch (err: any) {
-      console.error(err);
-      setStatus(`❌ ${err.message || "Failed to send emails."}`);
+    } catch (error: unknown) {
+      if (typeof error === 'object' && error !== null && 'message' in error) {
+       setStatus(`❌ ${error.message || "Failed to send emails."}`);
+      } else {
+        console.error("Caught an unknown type of error:", error);
+      }
     } finally {
       setLoading(false);
     }
@@ -86,6 +89,7 @@ export default function EmailSender() {
           />
         </div>
 
+        {/* Email */}
         <div>
           <label className="block text-sm font-medium">Email</label>
           <input
@@ -97,6 +101,7 @@ export default function EmailSender() {
           />
         </div>
 
+        {/* Subject */}
         <div>
           <label className="block text-sm font-medium">Subject</label>
           <input
@@ -108,6 +113,7 @@ export default function EmailSender() {
           />
         </div>
 
+        {/* Message */}
         <div>
           <label className="block text-sm font-medium">Message</label>
           <textarea

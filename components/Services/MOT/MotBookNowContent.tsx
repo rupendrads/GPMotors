@@ -5,6 +5,7 @@ import {
   listItemStyle,
 } from "./MotBookNowStyle";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   header: string;
@@ -15,6 +16,7 @@ type Props = {
 function MotBookNowContent({ header, description, listItems }: Props) {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,7 +60,10 @@ function MotBookNowContent({ header, description, listItems }: Props) {
               className="bg-white text-neutral-900 text-[7.5px] md:text-[9px] lg:text-[16px] font-[500]
             w-[73px] h-[23px] md:w-[86px] md:h-[27px] lg:w-[155px] lg:h-[48px] flex justify-center items-center cursor-pointer"
             >
-              <div className="flex gap-1 md:gap-2 items-center justify-center">
+              <div
+                className="flex gap-1 md:gap-2 items-center justify-center cursor-pointer"
+                onClick={() => router.push("/book-appointment")}
+              >
                 {isMobile ? (
                   <Calendar size="10" />
                 ) : isTablet ? (

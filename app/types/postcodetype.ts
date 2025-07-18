@@ -8,7 +8,7 @@ export interface PostcodeResult {
   country: string;
   postcode: string;
   
-  [key: string]: any; // for additional fields
+  [key: string]: string; // for additional fields
 }
 
 export interface PostcodeAPIResponse {

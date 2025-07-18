@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Alert from "@/components/Alert";
 import { useForm } from "react-hook-form";
 import { IClientFormInput } from "./Appointments/types";
@@ -334,10 +334,10 @@ function ClientDetailForm() {
 
 const formStyle =
   "max-w-lg w-[500px] flex flex-col gap-y-4 p-4 mt-2 mb-2 shadow rounded  border border-gray-300 rounded";
-const signinHeadingBoxStyle =
-  "flex items-center gap-5 mt-2 p-4 border border-gray-300 rounded";
-const signinHeadingStyle =
-  "text-[14px] text-zinc-800 font-[400] leading-[1.5] traking-[0%]";
+// const signinHeadingBoxStyle =
+//   "flex items-center gap-5 mt-2 p-4 border border-gray-300 rounded";
+// const signinHeadingStyle =
+//   "text-[14px] text-zinc-800 font-[400] leading-[1.5] traking-[0%]";
 const titleStyle =
   "text-[22px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4 text-center";
 const headingStyle =
@@ -352,18 +352,18 @@ const inputStyle =
   "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
 const errorInputStyle =
   "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800 border-red-500 focus:border-red-500 focus:outline-red-500";
-const ulStyle =
-  "border border-gray-100 shadow rounded py-2 px-2 text-[14px] font-[400] leading-[100%] traking-[0%] max-h-[150px] text-neutral-600 list-none overflow-y-auto";
-const listStyle =
-  "border-b border-gray-50 py-1 cursor-pointer px-2 text-[14px] font-[400] leading-[100%] traking-[0%]  text-neutral-500 ";
+// const ulStyle =
+//   "border border-gray-100 shadow rounded py-2 px-2 text-[14px] font-[400] leading-[100%] traking-[0%] max-h-[150px] text-neutral-600 list-none overflow-y-auto";
+// const listStyle =
+//   "border-b border-gray-50 py-1 cursor-pointer px-2 text-[14px] font-[400] leading-[100%] traking-[0%]  text-neutral-500 ";
 const buttonStyle =
   "bg-red-500 hover:bg-red-700 text-white text-[18px] font-[600] py-2 px-4 rounded-[22px] mt-4";
 const errorStyle =
   "text-[16px] font-[400] leading-[100%] traking-[0%] text-red-500";
-const calenderLabelStyle =
-  "text-[18px] font-[600] leading-[100%] traking-[0%] text-zinc-600";
-const timeButtonStyle =
-  "hover:bg-red-400 hover:cursor-pointer text-[18px] font-[600] py-2 px-4 rounded mt-4";
+// const calenderLabelStyle =
+//   "text-[18px] font-[600] leading-[100%] traking-[0%] text-zinc-600";
+// const timeButtonStyle =
+//   "hover:bg-red-400 hover:cursor-pointer text-[18px] font-[600] py-2 px-4 rounded mt-4";
 
 export default ClientDetailForm;
 

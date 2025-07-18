@@ -3,8 +3,13 @@ import Image from "next/image";
 import motServiceHeaderImage from "@/images/motservice_header.png";
 import motServiceHeaderMdImage from "@/images/motservice_header_md.jpg";
 import ResponsiveImage from "@/components/ResponsiveImage";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function MotHeader() {
+  const [inputValue, setInputValue] = useState("");
+  const router = useRouter();
+
   const desktopImage = (
     <Image
       src={motServiceHeaderImage}
@@ -27,6 +32,24 @@ function MotHeader() {
     />
   );
 
+  const navigateMotChecker = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      redirectToMotChecker();
+    }
+  };
+
+  const redirectToMotChecker = () => {
+    if (inputValue.trim().length > 0) {
+      window.open(
+        "https://www.check-mot.service.gov.uk/results?registration=".concat(
+          inputValue.trim().toUpperCase()
+        ),
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
+  };
+
   return (
     <div className="flex justify-center items-center">
       <div className="w-full h-[600px] relative">
@@ -42,22 +65,32 @@ function MotHeader() {
               <span className="text-yellow-300">MOT Service</span> In One Go
             </span>
           </div>
-          <div className="flex gap-8 max-md:flex-col max-md:items-center">
+          <div className="flex gap-8 max-md:flex-col max-md:items-center max-md:justify-center">
             <button
               type="button"
-              className="bg-red-500 hover:bg-red-700 text-white text-[16px] font-[500] w-[155px] h-[48px] flex justify-center items-center"
+              className="bg-red-500 hover:bg-red-700 text-white text-[16px] font-[500] w-[155px] h-[48px] flex justify-center items-center cursor-pointer"
+              onClick={() => router.push("/book-appointment")}
             >
               Book Now
             </button>
             <div className="flex max-md:h-[45px] h-[48px] max-md:w-[120px] w-[165px]">
-              <div className="w-[41px] bg-indigo-900 rounded-l-lg flex flex-col justify-center items-center gap-1">
+              <div
+                className="max-md:min-w-[30px] w-[41px] bg-indigo-900 rounded-l-lg flex flex-col justify-center items-center gap-1 cursor-pointer"
+                onClick={redirectToMotChecker}
+              >
                 <div className="rounded-full border border-dotted border-yellow-300 h-[12px] w-[12px]"></div>
                 <div className="font-[500] text-[12px] text-white">UK</div>
               </div>
               <div className="bg-white grow-1 rounded-r-lg flex justify-center items-center">
-                <span className="font-[400] text-[12px] max-md:text-[10px] text-zinc-500">
-                  MOT Checker
-                </span>
+                <input
+                  type="text"
+                  value={inputValue}
+                  placeholder="MOT Checker"
+                  className="font-[400] text-[12px] max-md:text-[10px] text-zinc-500 max-md:max-w-[90px] max-w-[120px] py-2 px-3
+                   outline-hidden uppercase"
+                  onChange={(event) => setInputValue(event.target.value)}
+                  onKeyDown={navigateMotChecker}
+                />
               </div>
             </div>
           </div>
