@@ -33,8 +33,6 @@ function ClientDetailForm() {
     formState,
     reset,
     formState: { errors },
-    setValue,
-    watch,
   } = useForm<IClientFormInput>();
 
   const [alert, setAlert] = useState({ message: "", type: "" });

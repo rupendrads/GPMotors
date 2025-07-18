@@ -4,7 +4,6 @@ import "material-icons/iconfont/material-icons.css";
 import "../public/globals.css";
 // import "./globals.css";
 import Navbar from "./components/navbar";
-import AdminMenuDetail from "@/components/AdminMenu";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700"], // Add the weights you need
