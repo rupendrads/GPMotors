@@ -29,7 +29,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <Navbar />
-        <AdminMenuDetail />
+        {/* <AdminMenuDetail /> */}
         <main className="max-w-full mx-auto">{children}</main>
       </body>
     </html>
