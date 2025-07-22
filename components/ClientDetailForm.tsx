@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Alert from "@/components/Alert";
 import { useForm } from "react-hook-form";
+import { IClientFormInput } from "./Appointments/types";
 //import { searchPostcodeSuggestions } from "@/app/api/postcode";
 //import { PostcodeResult } from "@/app/types/postcodetype";
 
@@ -25,21 +26,6 @@ const VEHICLE_REGISTRATION_REGEX_VALIDATION =
 //For Example, Reg No is
 //AB51ABC
 
-interface IFormInput {
-  title: string;
-  firstName: string;
-  lastName: string;
-  address1: string;
-  address2: string;
-  postCode: string;
-  contactNo: string;
-  serviceType: string;
-  serviceDate: string;
-  creationDate: string;
-  registrationNo: string;
-  remarks: string;
-}
-
 function ClientDetailForm() {
   const {
     register,
@@ -47,21 +33,23 @@ function ClientDetailForm() {
     formState,
     reset,
     formState: { errors },
-    // setValue,
-    // watch,
-  } = useForm<IFormInput>();
+  } = useForm<IClientFormInput>();
 
   const [alert, setAlert] = useState({ message: "", type: "" });
   const handleShowAlert = (type: string, message: string) => {
     setAlert({ type, message });
   };
 
-  const onSubmit = async (data: IFormInput) => {
+  // const formatDate = (date: Date | undefined) => {
+  //   return date ? date.toISOString().slice(0, 10) : null;
+  // };
+
+  const onSubmit = async (data: IClientFormInput) => {
     console.log(data);
     const clientData = { ...data };
     console.log("ClientData", clientData);
     try {
-      const response = await fetch("/api/clientdata", {
+      const response = await fetch("/api/clientdetail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,8 +63,8 @@ function ClientDetailForm() {
           PostCode: clientData.postCode,
           ContactNo: clientData.contactNo,
           ServiceType: clientData.serviceType,
-          ServiceDate: clientData.serviceDate,
-          CreationDate: clientData.creationDate,
+          ServiceDate: clientData.serviceDate?.toISOString().slice(0, 10),
+          CreationDate: clientData.creationDate?.toISOString().slice(0, 10),
           RegistrationNo: clientData.registrationNo,
           Remarks: clientData.remarks,
         }),
@@ -86,6 +74,8 @@ function ClientDetailForm() {
       console.log(result);
       handleShowAlert(result["status"], result["message"]);
       if (result["status"] === "success") {
+        const clientId = result["results"]["insertId"];
+        console.log("insert client id", clientId);
         reset();
       }
     } catch (error) {
@@ -251,10 +241,10 @@ function ClientDetailForm() {
               {...register("serviceType", { required: true })}
               className={errors.serviceType ? errorInputStyle : inputStyle}
             >
-              <option value="Service">Select</option>
               {serviceTypes.map((serviceType) => {
                 return (
                   <option key={serviceType} value={serviceType}>
+                    {" "}
                     {serviceType}
                   </option>
                 );

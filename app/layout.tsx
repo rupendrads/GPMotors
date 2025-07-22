@@ -4,7 +4,6 @@ import "material-icons/iconfont/material-icons.css";
 import "../public/globals.css";
 // import "./globals.css";
 import Navbar from "./components/navbar";
-// import AdminMenuDetail from "@/components/AdminMenu";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700"], // Add the weights you need
@@ -24,12 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body 
-        className={`${poppins.className}`}
-        suppressHydrationWarning={true}
-      >
+      <body className={`${poppins.className}`} suppressHydrationWarning={true}>
         <Navbar />
-        {/* <AdminMenuDetail /> */}
         {/* <AdminMenuDetail /> */}
         <main className="max-w-full mx-auto">{children}</main>
       </body>
