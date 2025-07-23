@@ -1,6 +1,7 @@
 import ContactUsPage from "./contactus/page";
 import Footer from "./components/footer";
 import FloatContact from "./components/FloatContact";
+import Homepage from "./Homepage/Homepage";
 export default function Home() {
   return (
     <div
@@ -11,8 +12,9 @@ export default function Home() {
     //   minHeight: "100vh", 
     // }}
     >
-      <ContactUsPage />
-      <FloatContact/>
+      {/* <ContactUsPage />
+      <FloatContact/> */}
+      <Homepage/>
       {/* <FloatingWhatsApp/> */}
       {/* <EmailSender/> */}
       <Footer />
