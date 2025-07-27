@@ -6,6 +6,7 @@ import WhyChooseUs from './WhyChooseUs';
 import Data from './Data';
 import Blogs from './Bolgs';
 import FAQ from "./FAQ";
+import Link from 'next/link';
 import HomeFooter from '../components/HomeFooter';
 export default function Homepage() {
   return (
@@ -37,9 +38,11 @@ export default function Homepage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 items-start">
-              <button className="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-md transition-colors duration-200">
-                Book Now
-              </button>
+               <Link href="/book-appointment">
+      <button className="bg-red-600 cursor-pointer hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-md transition-colors duration-200">
+        Book Now
+      </button>
+    </Link>
               <div className="flex items-center gap-3">
                 <div className="bg-red-600 p-3 rounded-full">
                   <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
