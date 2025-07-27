@@ -1,5 +1,5 @@
-import ClientDetailForm from "@/components/ClientDetailForm";
 import { Metadata } from "next";
+import ClientDetailForm from "@/components/ClientDetailForm";
 
 export const metadata: Metadata = {
   title: "Client Detail | Car Repair",
@@ -9,9 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function ClientDetailPage() {
+
   return (
     <main>
-      <ClientDetailForm />
+      <ClientDetailForm/>
     </main>
   );
 }

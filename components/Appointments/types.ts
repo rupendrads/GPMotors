@@ -78,7 +78,7 @@ export interface IClientFormInput {
 }
 
 export interface IClientDetailDB {
-  ID: number;
+  Id: number;
   Title: string;
   FirstName: string;
   LastName: string;

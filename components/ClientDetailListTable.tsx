@@ -1,11 +1,14 @@
 "use client";
 import { IClientDetailDB } from "./Appointments/types";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ChevronDoubleLeftIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronDoubleRightIcon,
+  TrashIcon,
+  PencilIcon,
 } from "@heroicons/react/24/solid";
 
 const ITEMS_PER_PAGE = 10;
@@ -14,24 +17,57 @@ function ClientDetailListTable() {
   const [clientdetails, setClientDetails] = useState<IClientDetailDB[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  useEffect(() => {
-    const fetchCDetails = async () => {
-      try {
+const onEdit = (client: IClientDetailDB) => {
+  console.log("Editing Client ID:", client.Id); 
+  router.push(`/client-detail/form?id=${client.Id}`);
+};
+
+  const fetchCDetails = async () => {
+    try {
         const response = await fetch("/api/clientdetail");
         const clientData = await response.json();
-        console.error(clientData);
+        console.log("fetch clients:", clientData);
         setClientDetails(clientData);
       } catch (error) {
         console.error("Error fetching client details:", error);
       } finally {
         setLoading(false);
       }
-    };
+  };
 
+  useEffect(() => {
     fetchCDetails();
   }, []);
 
+  const onDelete = async (Id: number) => {
+    if (confirm("Are you sure you want to delete this record?")) {
+      try {
+        const res = await fetch(`/api/clientdetail?id=${Id}`, {
+          method: "DELETE",
+        });
+
+        if (!res.ok) {
+        const errorData = await res.text();
+        console.error("Delete failed:", errorData);
+        alert("Failed to delete");
+        return;
+       }
+
+        const result = await res.json();
+        if (result.status === "success") {
+          fetchCDetails(); // Refresh table
+        } else {
+          alert("Failed to delete");
+        }
+      }
+        catch (error) {
+        console.error("Delete error:", error);
+      }
+    };
+  }
+  
   const totalPages = Math.ceil(clientdetails.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentItems = clientdetails.slice(
@@ -69,17 +105,18 @@ function ClientDetailListTable() {
                   <th className={thStyle}>CreationDate</th>
                   <th className={thStyle}>Reg. No</th>
                   <th className={thStyle}>Remarks</th>
+                  <th className={thStyle}>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((client, index) => (
+                {currentItems.map((client:any, index: number) => (
                   <tr
-                    key={index}
+                    key={client.Id}
                     className={`border-b border-gray-200 ${
                       index % 2 === 0 ? "bg-gray-50" : "bg-white"
                     } hover:bg-blue-50 transition duration-150`}
                   >
-                    <td className={tdStyle}>{index + 1}</td>
+                    <td className={tdStyle}>{client.Id}</td>
                     <td className={tdStyle}>{client.Title}</td>
                     <td className={tdStyle}>{client.FirstName}</td>
                     <td className={tdStyle}>{client.LastName}</td>
@@ -108,8 +145,17 @@ function ClientDetailListTable() {
                         ? `${client.Remarks.slice(0, 15)}...`
                         : client.Remarks}
                     </td>
+                    <td className="flex items-center justify-center pt-3">
+                      <button onClick={() => onEdit(client)}  
+                          title="Edit">
+                        <PencilIcon className="h-5 w-5 text-blue-500 mr-3 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
+                      </button>
+                      <button onClick={() => onDelete(client.Id)} 
+                          title="Delete"><TrashIcon className="h-5 w-5 text-red-500 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
+                      </button>
+                    </td>
                   </tr>
-                ))}
+                ))}   
               </tbody>
             </table>
           </div>

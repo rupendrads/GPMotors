@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "@/components/Alert";
 import { useForm } from "react-hook-form";
 import { IClientFormInput } from "./Appointments/types";
@@ -8,6 +8,7 @@ import { IClientFormInput } from "./Appointments/types";
 
 const titles = ["Mr", "Mrs", "Ms"];
 const serviceTypes = ["MOT", "Oiling"];
+
 
 const PHONE_REGEX_VALIDATION =
   /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+441\s?\d{3}|\(?01\d{3}\)?)\s?\d{5})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
@@ -26,13 +27,18 @@ const VEHICLE_REGISTRATION_REGEX_VALIDATION =
 //For Example, Reg No is
 //AB51ABC
 
-function ClientDetailForm() {
+interface ClientDetailFormProps {
+  clientId?: number;
+}
+
+function ClientDetailForm({ clientId }: ClientDetailFormProps) {
   const {
     register,
     handleSubmit,
     formState,
     reset,
-    formState: { errors },
+    setValue, 
+    formState: { errors, isSubmitting },
   } = useForm<IClientFormInput>();
 
   const [alert, setAlert] = useState({ message: "", type: "" });
@@ -40,50 +46,56 @@ function ClientDetailForm() {
     setAlert({ type, message });
   };
 
-  // const formatDate = (date: Date | undefined) => {
-  //   return date ? date.toISOString().slice(0, 10) : null;
-  // };
-
-  const onSubmit = async (data: IClientFormInput) => {
-    console.log(data);
-    const clientData = { ...data };
-    console.log("ClientData", clientData);
-    try {
-      const response = await fetch("/api/clientdetail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Title: clientData.title,
-          FirstName: clientData.firstName,
-          LastName: clientData.lastName,
-          Address1: clientData.address1,
-          Address2: clientData.address2,
-          PostCode: clientData.postCode,
-          ContactNo: clientData.contactNo,
-          ServiceType: clientData.serviceType,
-          ServiceDate: clientData.serviceDate?.toISOString().slice(0, 10),
-          CreationDate: clientData.creationDate?.toISOString().slice(0, 10),
-          RegistrationNo: clientData.registrationNo,
-          Remarks: clientData.remarks,
-        }),
+  useEffect(() => {
+  if (clientId) {
+    fetch(`/api/clientdetail/${clientId}`)
+      .then(res => res.json())
+      .then(data => {
+        reset({
+          title: data.Title,
+          firstName: data.FirstName,
+          lastName: data.LastName,
+          address1: data.Address1,
+          address2: data.Address2,
+          postCode: data.PostCode,
+          contactNo: data.ContactNo,
+          serviceType: data.ServiceType,
+          serviceDate: data.ServiceDate?.split("T")[0],
+          creationDate: data.CreationDate?.split("T")[0],
+          registrationNo: data.RegistrationNo,
+          remarks: data.Remarks,
+        });
       });
+  }
+}, [clientId]); 
 
-      const result = await response.json();
-      console.log(result);
-      handleShowAlert(result["status"], result["message"]);
-      if (result["status"] === "success") {
-        const clientId = result["results"]["insertId"];
-        console.log("insert client id", clientId);
-        reset();
-      }
-    } catch (error) {
-      console.error(error);
-      handleShowAlert("error", "Failed to submit client data");
-    }
-  };
+const onSubmit = async (clientData: IClientFormInput) => {
+  try {
 
+  const url = clientId ? `/api/clientdetail/${clientId}` : "/api/clientdetail";        
+  const method = clientId ? "PUT" : "POST";
+  
+  const response = await fetch(url, {
+    method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({...clientData, Id: clientId }),
+  });
+
+  if (!response.ok) {
+  throw new Error("Network response was not ok");
+}
+  const result = await response.json();
+  console.log(result);
+  handleShowAlert(result["status"], result["message"]);
+
+  if (!clientId && result["status"] === "success") {
+    reset();
+  }
+}  catch (error) {
+    console.log(error);
+    handleShowAlert("error", "Failed to submit client data");
+  }  
+};
   const handleCloseAlert = () => {
     setAlert({ message: "", type: "" });
   };
@@ -92,7 +104,7 @@ function ClientDetailForm() {
     <div className=" w-full flex flex-row justify-center gap-2">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={formStyle}>
-          <h2 className={titleStyle}>Client Information</h2>
+          <h2 className={titleStyle}>{clientId ? "Edit Client" : "New Client"}</h2>
           <label className={headingStyle}>Your details</label>
           <div className={inputGroupStyle}>
             <label className={inputLabelStyle} htmlFor="title">
@@ -315,7 +327,7 @@ function ClientDetailForm() {
             className={buttonStyle}
             disabled={formState.isSubmitting}
           >
-            {formState.isSubmitting ? "Submitting..." : "Submit"}
+            {isSubmitting ? "Submitting..." : clientId ? "Update" : "Save"}
           </button>
           {alert.message !== "" && (
             <Alert
@@ -365,11 +377,6 @@ const errorStyle =
 
 export default ClientDetailForm;
 
-{
-  /* 
-	const inputStyle =
-  "border border-gray-300 shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"; 
-*/
-}
 
-//https://account.ideal-postcodes.co.uk/tokens
+// I am facing few problems. pl solve. In this project I want clientDetailForm.tsx as a separate page. ClientDetailListTable.tsx as a separate page. On click event on onEdit(), which is in ClientDetailListTable.tsx, the client data should populate clientDetailForm. And on Update event the data in table and database should get updated. pl write onEdit() function
+
