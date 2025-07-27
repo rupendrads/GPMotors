@@ -1,144 +1,174 @@
 import React from 'react'
-
+import Image from 'next/image';
+import Img1 from "../../public/images/homeCarImg.png"
+import service1 from "../../public/images/service1.svg"
+import service2 from "../../public/images/service2.svg"
+import service3 from "../../public/images/service3.svg"
+import service4 from "../../public/images/service4.svg"
+import service5 from "../../public/images/service5.svg"
+import service6 from "../../public/images/service6.svg"
 const Services = () => {
   return (
-<section className="py-16 lg:py-24 bg-gray-50">
-  <div className="max-w-7xl mx-auto px-4">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      {/* Left Content */}
-      <div>
-        <p className="text-red-600 uppercase tracking-wide font-semibold mb-3 text-sm">
-          OUR SERVICES
-        </p>
-        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-          Expert Services That<br />
-          Drive Confidence
-        </h2>
-        <p className="text-gray-600 mb-8 leading-relaxed">
-          Expert Automotive Services With Certified Technicians,<br />
-          Genuine Parts, And Transparent Pricing.
-        </p>
-
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Coolant Change */}
-          <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div className="bg-pink-100 p-3 rounded-lg flex-shrink-0">
-              <svg className="w-6 h-6 text-pink-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
+    <section className="py-16 lg:py-24">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Header Section */}
+        <div className="text-center mb-12 flex justify-center items-center">
+          <p className="text-gray-600 text-right mb-8 leading-relaxed">
+            Expert Automotive Services With Certified Technicians,<br />
+            Genuine Parts, And Transparent Pricing.
+          </p>
+          <span className='border-l-2 border-gray-300 h-35 mx-6'></span>
+          <div className='text-left'>
+            <div className='flex'>
+            <p className="text-red-600 uppercase tracking-wide font-semibold mb-3 text-sm">
+            OUR SERVICES
+          </p>
+              <span className='border-t-2 mt-2 ml-2 w-20 border-red-600 block'></span>
             </div>
-            <div>
-              <h3 className="font-bold text-gray-900 mb-1">Coolant Change</h3>
-              <p className="text-gray-600 text-sm">
-                Quick Checkups And Tune-ups<br />
-                To Keep Your Car Healthy And<br />
-                Reliable.
-              </p>
-            </div>
-          </div>
-
-          {/* Minor Service */}
-          <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div className="bg-green-100 p-3 rounded-lg flex-shrink-0">
-              <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-900 mb-1">Minor Service</h3>
-              <p className="text-gray-600 text-sm">
-                Quick Checkups And Tune-ups To<br />
-                Keep Your Car Healthy And<br />
-                Reliable For Daily Driving.
-              </p>
-            </div>
-          </div>
-
-          {/* Transmission Service */}
-          <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div className="bg-pink-100 p-3 rounded-lg flex-shrink-0">
-              <svg className="w-6 h-6 text-pink-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-900 mb-1">Transmission Service</h3>
-              <p className="text-gray-600 text-sm">
-                Quick Checkups And Tune-ups<br />
-                To Keep Your Car Healthy And<br />
-                Reliable.
-              </p>
-            </div>
-          </div>
-
-          {/* Intermediate Service */}
-          <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div className="bg-pink-100 p-3 rounded-lg flex-shrink-0">
-              <svg className="w-6 h-6 text-pink-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              </svg>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-900 mb-1">Intermediate Service</h3>
-              <p className="text-gray-600 text-sm">
-                Quick Checkups And Tune-ups To<br />
-                Keep Your Car Healthy And Reliable<br />
-                For Longer Journeys.
-              </p>
-            </div>
-          </div>
-
-          {/* Clutch Repair */}
-          <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div className="bg-pink-100 p-3 rounded-lg flex-shrink-0">
-              <svg className="w-6 h-6 text-pink-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-900 mb-1">Clutch Repair</h3>
-              <p className="text-gray-600 text-sm">
-                Quick Checkups And Tune-ups<br />
-                To Keep Your Car Healthy And<br />
-                Reliable.
-              </p>
-            </div>
-          </div>
-
-          {/* Full Service */}
-          <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div className="bg-pink-100 p-3 rounded-lg flex-shrink-0">
-              <svg className="w-6 h-6 text-pink-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-              </svg>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-900 mb-1">Full Service</h3>
-              <p className="text-gray-600 text-sm">
-                Comprehensive And Tune-ups To<br />
-                Keep Your Car Healthy And Reliable<br />
-                For Extended Performance.
-              </p>
-            </div>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+            Expert Services That<br />
+            Drive Confidence
+          </h2>
           </div>
         </div>
-      </div>
 
-      {/* Right Content - Car Image */}
-      <div className="flex justify-center lg:justify-end">
-        <div className="relative">
-          <img
-            src="/car-top-view.png" // Replace with actual car image
-            alt="Car top view showing service areas"
-            className="w-full max-w-md h-auto"
-          />
+        {/* Main Layout: Left Cards - Car Image - Right Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+          
+          {/* Left Side - 3 Service Cards */}
+          <div className="space-y-20">
+            {/* Coolant Change */}
+            <div className="flex items-center justify-end rounded-lg">
+              <div className='text-right'>
+                <h3 className="font-bold text-[#434343] mb-1 text-2xl">Coolant Change</h3>
+                <p className="text-[#626363] font-light  text-sm">
+                  Quick Checkups And Tune-ups<br />
+                  To Keep Your Car Healthy And<br />
+                  Reliable.
+                </p>
+              </div>
+              <div className='bg-[#F7F2F2] rounded-md ms-6 p-2'>
+                <Image
+                src={service1}
+                alt="Car top view showing service areas"
+                className=" w-[40px] h-[40px]"
+              />
+              </div>
+            </div>
+
+            {/* Minor Service */}
+            <div className="flex items-center justify-end rounded-lg">
+              <div className='text-right'>
+                <h3 className="font-bold text-[#434343] mb-1 text-2xl">Transmission Service</h3>
+                <p className="text-[#626363] font-light  text-sm">
+                  Quick Checkups And Tune-ups<br />
+                  To Keep Your Car Healthy And<br />
+                  Reliable.
+                </p>
+              </div>
+              <div className='bg-[#F7F2F2] rounded-md ms-6 p-2'>
+                <Image
+                src={service2}
+                alt="Car top view showing service areas"
+                className=" w-[40px] h-[40px]"
+              />
+              </div>
+            </div>
+
+            {/* Transmission Service */}
+           <div className="flex items-center justify-end rounded-lg">
+              <div className='text-right'>
+                <h3 className="font-bold text-[#434343] mb-1 text-2xl">Clutch Repair</h3>
+                <p className="text-[#626363] font-light  text-sm">
+                  Quick Checkups And Tune-ups<br />
+                  To Keep Your Car Healthy And<br />
+                  Reliable.
+                </p>
+              </div>
+              <div className='bg-[#F7F2F2] rounded-md ms-6 p-2'>
+                <Image
+                src={service3}
+                alt="Car top view showing service areas"
+                className=" w-[40px] h-[40px]"
+              />
+              </div>
+            </div>
+          </div>
+
+          {/* Center - Car Image */}
+          <div className="flex justify-center">
+            <div className="relative">
+              <Image
+                src={Img1}
+                alt="Car top view showing service areas"
+                className=""
+              />
+            </div>
+          </div>
+
+          {/* Right Side - 3 Service Cards */}
+          <div className="space-y-20">
+            {/* Coolant Change */}
+            <div className="flex items-center justify-start rounded-lg">
+              <div className='bg-[#F7F2F2] rounded-md mr-6 p-2'>
+                <Image
+                src={service4}
+                alt="Car top view showing service areas"
+                className=" w-[40px] h-[40px]"
+              />
+              </div>
+              <div className='text-left'>
+                <h3 className="font-bold text-[#434343] mb-1 text-2xl">Minor Service</h3>
+                <p className="text-[#626363] font-light  text-sm">
+                  Quick Checkups And Tune-ups<br />
+                  To Keep Your Car Healthy And<br />
+                  Reliable.
+                </p>
+              </div>
+            </div>
+
+            {/* Minor Service */}
+            <div className="flex items-center justify-start rounded-lg">
+              <div className='bg-[#F7F2F2] rounded-md mr-6 p-2'>
+                <Image
+                src={service5}
+                alt="Car top view showing service areas"
+                className=" w-[40px] h-[40px]"
+              />
+              </div>
+              <div className='text-left'>
+                <h3 className="font-bold text-[#434343] mb-1 text-2xl">Intermediate Service</h3>
+                <p className="text-[#626363] font-light  text-sm">
+                  Quick Checkups And Tune-ups<br />
+                  To Keep Your Car Healthy And<br />
+                  Reliable.
+                </p>
+              </div>
+            </div>
+
+            {/* Transmission Service */}
+           <div className="flex items-center justify-start rounded-lg">
+              <div className='bg-[#F7F2F2] rounded-md mr-6 p-2'>
+                <Image
+                src={service6}
+                alt="Car top view showing service areas"
+                className=" w-[40px] h-[40px]"
+              />
+              </div>
+              <div className='text-left'>
+                <h3 className="font-bold text-[#434343] mb-1 text-2xl">Full Service</h3>
+                <p className="text-[#626363] font-light  text-sm">
+                  Quick Checkups And Tune-ups<br />
+                  To Keep Your Car Healthy And<br />
+                  Reliable.
+                </p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
+    </section>
   )
 }
 

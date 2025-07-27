@@ -134,14 +134,17 @@ export default function Navbar() {
           <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Gallery
           </Link>
-          <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
+          <Link href="/aboutus" className=" hover:text-[#E33C30] px-3 py-2 transition">
             About
           </Link>
-          <div className="relative">
+          <Link href="/contactus" className=" hover:text-[#E33C30] px-3 py-2 transition">
+            Contact
+          </Link>
+          {/* <div className="relative">
             <button className="flex items-center  hover:text-[#E33C30] px-3 py-2 transition">
-              Contact <ChevronDownIcon className="w-4 h-4 ml-1" />
+              Contact
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="flex items-center space-x-4">
           <Link

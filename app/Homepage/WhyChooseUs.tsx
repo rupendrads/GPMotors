@@ -22,7 +22,7 @@ const WhyChooseUs = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Service Card 1 */}
             <div className="group cursor-pointer">
-              <div className="relative overflow-hidden rounded-lg mb-4 h-64">
+              <div className="relative overflow-hidden rounded-lg mb-4 h-[385px]">
                 <Image
                   src={Img1}
                   alt="Mechanic working on engine"
@@ -30,52 +30,52 @@ const WhyChooseUs = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
-                  <h3 className="text-white font-bold text-lg">Mechanic Masters</h3>
+                  <h3 className="text-white font-bold text-lg">Mechanic <br /> Masters</h3>
                 </div>
               </div>
             </div>
 
             {/* Service Card 2 */}
             <div className="group cursor-pointer">
-              <div className="relative overflow-hidden rounded-lg mb-4 h-64">
-                <img
-                  src="/speedy-repair.jpg" // Replace with actual image
+              <div className="relative overflow-hidden rounded-lg mb-4 h-[385px]">
+                <Image
+                  src={Img2}
                   alt="Car lift in garage"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
-                  <h3 className="text-white font-bold text-lg">Speedy Auto Repair</h3>
+                  <h3 className="text-white font-bold text-lg">Speedy Auto <br /> Repair</h3>
                 </div>
               </div>
             </div>
 
             {/* Service Card 3 */}
             <div className="group cursor-pointer">
-              <div className="relative overflow-hidden rounded-lg mb-4 h-64">
-                <img
-                  src="/precision-works.jpg" // Replace with actual image
+              <div className="relative overflow-hidden rounded-lg mb-4 h-[385px]">
+                <Image
+                  src={Img3}
                   alt="Mechanic with wrench"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
-                  <h3 className="text-white font-bold text-lg">Precision Auto Works</h3>
+                  <h3 className="text-white font-bold text-lg">Precision Auto <br /> Works</h3>
                 </div>
               </div>
             </div>
 
             {/* Service Card 4 */}
             <div className="group cursor-pointer">
-              <div className="relative overflow-hidden rounded-lg mb-4 h-64">
-                <img
-                  src="/professional-tech.jpg" // Replace with actual image
+              <div className="relative overflow-hidden rounded-lg mb-4 h-[385px]">
+                <Image
+                  src={Img4}
                   alt="Professional technician"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-4 left-4">
-                  <h3 className="text-white font-bold text-lg">Professional Technicians</h3>
+                  <h3 className="text-white font-bold text-lg">Professional <br /> Technicians</h3>
                 </div>
               </div>
             </div>

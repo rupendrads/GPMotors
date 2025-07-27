@@ -56,11 +56,11 @@ export default function ContactUsPage() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="material-icons text-lg">phone</span>
-                <span className="text-base">+1012 3456 789</span>
+                <span className="text-base">0208 943 4103</span>
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="material-icons text-lg">email</span>
-                <span className="text-base">demo@gmail.com</span>
+                <span className="text-base">gpmotorstedd@gmail.com</span>
               </div>
               <div className="flex items-center gap-3 mb-10">
                 <span className="material-icons text-lg">location_on</span>

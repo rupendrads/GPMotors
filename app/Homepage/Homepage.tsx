@@ -1,11 +1,15 @@
 import React from 'react';
-import Services from './services';
+import Services from './Services';
 import Image from 'next/image';
 import banner from "../../public/images/homeBanner.png"
-import WhyChooseUs from './whyChooseUs';
+import WhyChooseUs from './WhyChooseUs';
+import Data from './Data';
+import Blogs from './Bolgs';
+import FAQ from "./FAQ";
+import HomeFooter from '../components/HomeFooter';
 export default function Homepage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-black text-white overflow-hidden">
         <div className="absolute inset-0">
@@ -55,6 +59,10 @@ export default function Homepage() {
       </section>
      <WhyChooseUs/>
     <Services/>
+    <Data/>
+    <Blogs/>
+    <FAQ />
+    <HomeFooter/>
     </div>
   );
 }
