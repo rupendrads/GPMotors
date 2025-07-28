@@ -9,7 +9,6 @@ import { IClientFormInput } from "./Appointments/types";
 const titles = ["Mr", "Mrs", "Ms"];
 const serviceTypes = ["MOT", "Oiling"];
 
-
 const PHONE_REGEX_VALIDATION =
   /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+441\s?\d{3}|\(?01\d{3}\)?)\s?\d{5})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
 // For Example, Mob No.is
@@ -37,7 +36,6 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
     handleSubmit,
     formState,
     reset,
-    setValue, 
     formState: { errors, isSubmitting },
   } = useForm<IClientFormInput>();
 
@@ -47,55 +45,57 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
   };
 
   useEffect(() => {
-  if (clientId) {
-    fetch(`/api/clientdetail/${clientId}`)
-      .then(res => res.json())
-      .then(data => {
-        reset({
-          title: data.Title,
-          firstName: data.FirstName,
-          lastName: data.LastName,
-          address1: data.Address1,
-          address2: data.Address2,
-          postCode: data.PostCode,
-          contactNo: data.ContactNo,
-          serviceType: data.ServiceType,
-          serviceDate: data.ServiceDate?.split("T")[0],
-          creationDate: data.CreationDate?.split("T")[0],
-          registrationNo: data.RegistrationNo,
-          remarks: data.Remarks,
+    if (clientId) {
+      fetch(`/api/clientdetail/${clientId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          reset({
+            title: data.Title,
+            firstName: data.FirstName,
+            lastName: data.LastName,
+            address1: data.Address1,
+            address2: data.Address2,
+            postCode: data.PostCode,
+            contactNo: data.ContactNo,
+            serviceType: data.ServiceType,
+            serviceDate: data.ServiceDate?.split("T")[0],
+            creationDate: data.CreationDate?.split("T")[0],
+            registrationNo: data.RegistrationNo,
+            remarks: data.Remarks,
+          });
         });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clientId]);
+
+  const onSubmit = async (clientData: IClientFormInput) => {
+    try {
+      const url = clientId
+        ? `/api/clientdetail/${clientId}`
+        : "/api/clientdetail";
+      const method = clientId ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...clientData, Id: clientId }),
       });
-  }
-}, [clientId]); 
 
-const onSubmit = async (clientData: IClientFormInput) => {
-  try {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const result = await response.json();
+      console.log(result);
+      handleShowAlert(result["status"], result["message"]);
 
-  const url = clientId ? `/api/clientdetail/${clientId}` : "/api/clientdetail";        
-  const method = clientId ? "PUT" : "POST";
-  
-  const response = await fetch(url, {
-    method,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({...clientData, Id: clientId }),
-  });
-
-  if (!response.ok) {
-  throw new Error("Network response was not ok");
-}
-  const result = await response.json();
-  console.log(result);
-  handleShowAlert(result["status"], result["message"]);
-
-  if (!clientId && result["status"] === "success") {
-    reset();
-  }
-}  catch (error) {
-    console.log(error);
-    handleShowAlert("error", "Failed to submit client data");
-  }  
-};
+      if (!clientId && result["status"] === "success") {
+        reset();
+      }
+    } catch (error) {
+      console.log(error);
+      handleShowAlert("error", "Failed to submit client data");
+    }
+  };
   const handleCloseAlert = () => {
     setAlert({ message: "", type: "" });
   };
@@ -104,7 +104,9 @@ const onSubmit = async (clientData: IClientFormInput) => {
     <div className=" w-full flex flex-row justify-center gap-2">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={formStyle}>
-          <h2 className={titleStyle}>{clientId ? "Edit Client" : "New Client"}</h2>
+          <h2 className={titleStyle}>
+            {clientId ? "Edit Client" : "New Client"}
+          </h2>
           <label className={headingStyle}>Your details</label>
           <div className={inputGroupStyle}>
             <label className={inputLabelStyle} htmlFor="title">
@@ -377,6 +379,4 @@ const errorStyle =
 
 export default ClientDetailForm;
 
-
 // I am facing few problems. pl solve. In this project I want clientDetailForm.tsx as a separate page. ClientDetailListTable.tsx as a separate page. On click event on onEdit(), which is in ClientDetailListTable.tsx, the client data should populate clientDetailForm. And on Update event the data in table and database should get updated. pl write onEdit() function
-

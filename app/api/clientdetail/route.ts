@@ -8,10 +8,12 @@ const connectionParams: IDBSettings = GetDBSettings();
 export async function GET() {
   try {
     const connection = await mysql.createConnection(connectionParams);
+    // eslint-disable-next-line
     const [rows]: any = await connection.execute("SELECT * FROM clientdetail");
     await connection.end();
 
     // Map ID to Id
+    // eslint-disable-next-line
     const results = rows.map((row: any) => ({
       ...row,
       Id: row.ID,
@@ -76,7 +78,6 @@ export const POST = async (request: NextRequest) => {
 
 //DELETE: client by ID
 export async function DELETE(request: NextRequest) {
-
   const { searchParams } = new URL(request.url);
   const ID = searchParams.get("id");
 
@@ -89,7 +90,7 @@ export async function DELETE(request: NextRequest) {
     const query = `DELETE FROM clientdetail WHERE ID = ?`;
     const [results] = await connection.execute(query, [ID]);
     connection.end();
-    
+
     return NextResponse.json({
       status: "success",
       message: "Client data deleted successfully",

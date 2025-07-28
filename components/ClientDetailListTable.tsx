@@ -19,22 +19,22 @@ function ClientDetailListTable() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-const onEdit = (client: IClientDetailDB) => {
-  console.log("Editing Client ID:", client.Id); 
-  router.push(`/client-detail/form?id=${client.Id}`);
-};
+  const onEdit = (client: IClientDetailDB) => {
+    console.log("Editing Client ID:", client.Id);
+    router.push(`/client-detail/form?id=${client.Id}`);
+  };
 
   const fetchCDetails = async () => {
     try {
-        const response = await fetch("/api/clientdetail");
-        const clientData = await response.json();
-        console.log("fetch clients:", clientData);
-        setClientDetails(clientData);
-      } catch (error) {
-        console.error("Error fetching client details:", error);
-      } finally {
-        setLoading(false);
-      }
+      const response = await fetch("/api/clientdetail");
+      const clientData = await response.json();
+      console.log("fetch clients:", clientData);
+      setClientDetails(clientData);
+    } catch (error) {
+      console.error("Error fetching client details:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -49,11 +49,11 @@ const onEdit = (client: IClientDetailDB) => {
         });
 
         if (!res.ok) {
-        const errorData = await res.text();
-        console.error("Delete failed:", errorData);
-        alert("Failed to delete");
-        return;
-       }
+          const errorData = await res.text();
+          console.error("Delete failed:", errorData);
+          alert("Failed to delete");
+          return;
+        }
 
         const result = await res.json();
         if (result.status === "success") {
@@ -61,13 +61,12 @@ const onEdit = (client: IClientDetailDB) => {
         } else {
           alert("Failed to delete");
         }
-      }
-        catch (error) {
+      } catch (error) {
         console.error("Delete error:", error);
       }
-    };
-  }
-  
+    }
+  };
+
   const totalPages = Math.ceil(clientdetails.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentItems = clientdetails.slice(
@@ -109,7 +108,7 @@ const onEdit = (client: IClientDetailDB) => {
                 </tr>
               </thead>
               <tbody>
-                {currentItems.map((client:any, index: number) => (
+                {currentItems.map((client: IClientDetailDB, index: number) => (
                   <tr
                     key={client.Id}
                     className={`border-b border-gray-200 ${
@@ -146,16 +145,18 @@ const onEdit = (client: IClientDetailDB) => {
                         : client.Remarks}
                     </td>
                     <td className="flex items-center justify-center pt-3">
-                      <button onClick={() => onEdit(client)}  
-                          title="Edit">
+                      <button onClick={() => onEdit(client)} title="Edit">
                         <PencilIcon className="h-5 w-5 text-blue-500 mr-3 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
                       </button>
-                      <button onClick={() => onDelete(client.Id)} 
-                          title="Delete"><TrashIcon className="h-5 w-5 text-red-500 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
+                      <button
+                        onClick={() => onDelete(client.Id)}
+                        title="Delete"
+                      >
+                        <TrashIcon className="h-5 w-5 text-red-500 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
                       </button>
                     </td>
                   </tr>
-                ))}   
+                ))}
               </tbody>
             </table>
           </div>

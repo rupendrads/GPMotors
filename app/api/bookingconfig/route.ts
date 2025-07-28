@@ -6,15 +6,18 @@ const connectionParams: IDBSettings = GetDBSettings();
 
 // GET /api/bookingconfig
 export async function GET(request: Request) {
-  console.log(request)
+  console.log(request);
   try {
     console.log(connectionParams);
     const connection = await mysql.createConnection(connectionParams);
 
-    const [rows] = await connection.execute("SELECT * FROM bookingconfig LIMIT 1");
+    const [rows] = await connection.execute(
+      "SELECT * FROM bookingconfig LIMIT 1"
+    );
     connection.end();
 
     if (Array.isArray(rows) && rows.length > 0) {
+      // eslint-disable-next-line
       const dbRow = rows[0] as any;
 
       // map DB → Form
@@ -53,7 +56,7 @@ export async function PUT(request: Request) {
     const mins = String(d.getMinutes()).padStart(2, "0");
     const secs = String(d.getSeconds()).padStart(2, "0");
     return `${hours}:${mins}:${secs}`;
-}
+  }
 
   try {
     const connection = await mysql.createConnection(connectionParams);

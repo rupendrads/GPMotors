@@ -20,7 +20,7 @@ function BookingConfigurationForm() {
     handleSubmit,
     formState,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     watch,
     control,
   } = useForm<IBookingConfig>({
@@ -42,41 +42,40 @@ function BookingConfigurationForm() {
     fetch("/api/bookingconfig")
       .then((res) => res.json())
       .then((bookingconfig: IBookingConfig) => {
-        if (bookingconfig) reset({
-          ...bookingconfig,
-          officeStartTime: new Date(bookingconfig
-            .officeStartTime),
-          officeEndTime: new Date(bookingconfig
-            .officeEndTime),
-        });
+        if (bookingconfig)
+          reset({
+            ...bookingconfig,
+            officeStartTime: new Date(bookingconfig.officeStartTime),
+            officeEndTime: new Date(bookingconfig.officeEndTime),
+          });
       })
       .finally(() => setLoading(false));
   }, [reset]);
 
-
   const onSave: SubmitHandler<IBookingConfig> = async (
-    data: IBookingConfig ) => {
+    data: IBookingConfig
+  ) => {
     //console.log(data);
     const bookingSlotData = { ...data };
     console.log("Booking configuration", bookingSlotData);
     try {
-    	const response = await fetch("/api/bookingconfig", {
-    		method: "PUT",
-    		headers:  {
-    			"Content-Type": "application/json",
-    		},
-    		body: JSON.stringify(data),
-    	});
+      const response = await fetch("/api/bookingconfig", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    	const result = await response.json();
-    	console.log(result);
-    	// handleShowAlert(result["status"], result["message"]);
-    	// if(result["status"] === "success") {
-    	// 	reset();
-    	// }
-    } catch(error) {
-    	console.error(error);
-    	handleShowAlert("error", "Failed to save booking slot data")
+      const result = await response.json();
+      console.log(result);
+      // handleShowAlert(result["status"], result["message"]);
+      // if(result["status"] === "success") {
+      // 	reset();
+      // }
+    } catch (error) {
+      console.error(error);
+      handleShowAlert("error", "Failed to save booking slot data");
     }
   };
 
@@ -91,160 +90,170 @@ function BookingConfigurationForm() {
       <form onSubmit={handleSubmit(onSave)}>
         <div className={formStyle}>
           <h2 className={titleStyle}>Booking Configuration</h2>
-            { loading ? (
-              <p className="text-center">Loading...</p>
-              ) : (
-              <div>
-                <div className={inputGroupStyle}>
-                  <div className={inputLabelBoxStyle}>
-                    <label className={inputLabelStyle} htmlFor="officeStartTime">
-                      Office Start Time
-                    </label>
-                    {errors.officeStartTime && <span className={errorStyle}>*</span>}
-                  </div>
-                  <Controller
-                    name="officeStartTime"
-                    control={control}
-                    rules={{ required: "Start time is required" }}
-                    render={({ field }) => (
-                      <DatePicker
-                        selected={field.value}
-                        onChange={field.onChange}
-                        showTimeSelect
-                        showTimeSelectOnly
-                        timeIntervals={15}
-                        timeCaption="Time"
-                        dateFormat="h:mm aa"
-                        className={
-                          errors.officeStartTime ? errorInputStyle : inputStyle
-                        }
-                      />
-                    )}
-                  />
+          {loading ? (
+            <p className="text-center">Loading...</p>
+          ) : (
+            <div>
+              <div className={inputGroupStyle}>
+                <div className={inputLabelBoxStyle}>
+                  <label className={inputLabelStyle} htmlFor="officeStartTime">
+                    Office Start Time
+                  </label>
                   {errors.officeStartTime && (
-                    <span className={errorStyle}>
-                      {errors.officeStartTime.message}
-                    </span>
+                    <span className={errorStyle}>*</span>
                   )}
                 </div>
-                <div className={inputGroupStyle}>
-                  <div className={inputLabelBoxStyle}>
-                    <label className={inputLabelStyle} htmlFor="officeEndTime">
-                      Office End Time
-                    </label>
-                    {errors.officeEndTime && <span className={errorStyle}>*</span>}
-                  </div>
-                  <Controller
-                    name="officeEndTime"
-                    control={control}
-                    rules={{
-                      required: "End time is required",
-                      validate: (endTime) =>
-                        endTime > watchStartTime ||
-                        '"The End time should be after the Start time"',
-                    }}
-                    render={({ field }) => (
-                      <DatePicker
-                        selected={field.value}
-                        onChange={field.onChange}
-                        showTimeSelect
-                        showTimeSelectOnly
-                        timeIntervals={15}
-                        timeCaption="Time"
-                        dateFormat="h:mm aa"
-                        className={
-                          errors.officeEndTime ? errorInputStyle : inputStyle
-                        }
-                      />
-                    )}
-                  />
-                  {errors.officeEndTime && (
-                    <span className={errorStyle}>{errors.officeEndTime.message}</span>
-                  )}
-                </div>
-                <div className={inputGroupStyle}>
-                  <div className={inputLabelBoxStyle}>
-                    <label className={inputLabelStyle} htmlFor="noOfEmployees">
-                      No Of Employees
-                    </label>
-                    {errors.noOfEmployees && <span className={errorStyle}>*</span>}
-                  </div>
-                  <input
-                    type="number"
-                    className={inputStyle}
-                    {...register("noOfEmployees", {
-                      required: true,
-                      min: { value: 1, message: "Cannot be 0 or negative value" },
-                      valueAsNumber: true,
-                    })}
-                    placeholder="Enter no of employees"
-                  />
-                  {errors.noOfEmployees && (
-                    <span className={errorStyle}>{errors.noOfEmployees.message}</span>
-                  )}
-                </div>
-                <div className={inputGroupStyle}>
-                  <div className={inputLabelBoxStyle}>
-                    <label className={inputLabelStyle} htmlFor="slotGap">
-                      Slot Gap (in hours)
-                    </label>
-                    {errors.slotGap && <span className={errorStyle}>*</span>}
-                  </div>
-                  <input
-                    type="number"
-                    className={inputStyle}
-                    {...register("slotGap", {
-                      required: true,
-                      min: { value: 0, message: "Cannot be negative value" },
-                      valueAsNumber: true,
-                    })}
-                    placeholder="Enter no"
-                  />
-                  {errors.slotGap && (
-                    <span className={errorStyle}>{errors.slotGap.message}</span>
-                  )}
-                </div>
-                <div className={inputGroupStyle}>
-                  <div className={inputLabelBoxStyle}>
-                    <label className={inputLabelStyle} htmlFor="maxMOT">
-                      Max MOT
-                    </label>
-                    {errors.maxMOT && <span className={errorStyle}>*</span>}
-                  </div>
-                  <input
-                    type="number"
-                    className={inputStyle}
-                    {...register("maxMOT", {
-                      required: true,
-                      min: { value: 0, message: "Cannot be negative value" },
-                      valueAsNumber: true,
-                      validate: (value) =>
-                        !watchEmployees ||
-                        value <= watchEmployees ||
-                        "Max MOT cannot exceed No. of Employees",
-                    })}
-                    placeholder="Enter no"
-                  />
-                  {errors.maxMOT && (
-                    <span className={errorStyle}>{errors.maxMOT.message}</span>
-                  )}
-                </div>
-                <button
-                  type="submit"
-                  className={buttonStyle}
-                  disabled={formState.isSubmitting}
-                >
-                  {formState.isSubmitting ? "Saving..." : "Save"}
-                </button>
-                  {alert.message !== "" && (
-                    <Alert
-                      message={alert.message}
-                      type={alert.type}
-                      onClose={handleCloseAlert}
+                <Controller
+                  name="officeStartTime"
+                  control={control}
+                  rules={{ required: "Start time is required" }}
+                  render={({ field }) => (
+                    <DatePicker
+                      selected={field.value}
+                      onChange={field.onChange}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      timeCaption="Time"
+                      dateFormat="h:mm aa"
+                      className={
+                        errors.officeStartTime ? errorInputStyle : inputStyle
+                      }
                     />
-                  )} 
-              </div> 
-            )}    
+                  )}
+                />
+                {errors.officeStartTime && (
+                  <span className={errorStyle}>
+                    {errors.officeStartTime.message}
+                  </span>
+                )}
+              </div>
+              <div className={inputGroupStyle}>
+                <div className={inputLabelBoxStyle}>
+                  <label className={inputLabelStyle} htmlFor="officeEndTime">
+                    Office End Time
+                  </label>
+                  {errors.officeEndTime && (
+                    <span className={errorStyle}>*</span>
+                  )}
+                </div>
+                <Controller
+                  name="officeEndTime"
+                  control={control}
+                  rules={{
+                    required: "End time is required",
+                    validate: (endTime) =>
+                      endTime > watchStartTime ||
+                      '"The End time should be after the Start time"',
+                  }}
+                  render={({ field }) => (
+                    <DatePicker
+                      selected={field.value}
+                      onChange={field.onChange}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      timeCaption="Time"
+                      dateFormat="h:mm aa"
+                      className={
+                        errors.officeEndTime ? errorInputStyle : inputStyle
+                      }
+                    />
+                  )}
+                />
+                {errors.officeEndTime && (
+                  <span className={errorStyle}>
+                    {errors.officeEndTime.message}
+                  </span>
+                )}
+              </div>
+              <div className={inputGroupStyle}>
+                <div className={inputLabelBoxStyle}>
+                  <label className={inputLabelStyle} htmlFor="noOfEmployees">
+                    No Of Employees
+                  </label>
+                  {errors.noOfEmployees && (
+                    <span className={errorStyle}>*</span>
+                  )}
+                </div>
+                <input
+                  type="number"
+                  className={inputStyle}
+                  {...register("noOfEmployees", {
+                    required: true,
+                    min: { value: 1, message: "Cannot be 0 or negative value" },
+                    valueAsNumber: true,
+                  })}
+                  placeholder="Enter no of employees"
+                />
+                {errors.noOfEmployees && (
+                  <span className={errorStyle}>
+                    {errors.noOfEmployees.message}
+                  </span>
+                )}
+              </div>
+              <div className={inputGroupStyle}>
+                <div className={inputLabelBoxStyle}>
+                  <label className={inputLabelStyle} htmlFor="slotGap">
+                    Slot Gap (in hours)
+                  </label>
+                  {errors.slotGap && <span className={errorStyle}>*</span>}
+                </div>
+                <input
+                  type="number"
+                  className={inputStyle}
+                  {...register("slotGap", {
+                    required: true,
+                    min: { value: 0, message: "Cannot be negative value" },
+                    valueAsNumber: true,
+                  })}
+                  placeholder="Enter no"
+                />
+                {errors.slotGap && (
+                  <span className={errorStyle}>{errors.slotGap.message}</span>
+                )}
+              </div>
+              <div className={inputGroupStyle}>
+                <div className={inputLabelBoxStyle}>
+                  <label className={inputLabelStyle} htmlFor="maxMOT">
+                    Max MOT
+                  </label>
+                  {errors.maxMOT && <span className={errorStyle}>*</span>}
+                </div>
+                <input
+                  type="number"
+                  className={inputStyle}
+                  {...register("maxMOT", {
+                    required: true,
+                    min: { value: 0, message: "Cannot be negative value" },
+                    valueAsNumber: true,
+                    validate: (value) =>
+                      !watchEmployees ||
+                      value <= watchEmployees ||
+                      "Max MOT cannot exceed No. of Employees",
+                  })}
+                  placeholder="Enter no"
+                />
+                {errors.maxMOT && (
+                  <span className={errorStyle}>{errors.maxMOT.message}</span>
+                )}
+              </div>
+              <button
+                type="submit"
+                className={buttonStyle}
+                disabled={formState.isSubmitting}
+              >
+                {formState.isSubmitting ? "Saving..." : "Save"}
+              </button>
+              {alert.message !== "" && (
+                <Alert
+                  message={alert.message}
+                  type={alert.type}
+                  onClose={handleCloseAlert}
+                />
+              )}
+            </div>
+          )}
         </div>
       </form>
     </div>
