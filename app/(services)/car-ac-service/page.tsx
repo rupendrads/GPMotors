@@ -1,3 +1,4 @@
+import AcRepair from "@/components/Services/AcRepair/AcRepair";
 import BusinessProcess from "@/components/Services/BusinessProcess/BusinessProcess";
 import { Metadata } from "next";
 
@@ -13,6 +14,7 @@ function CarAcServicePage() {
     <main className="mx-auto">
       <div className="flex flex-col gap-8 mx-8 md:mx-16">
         <BusinessProcess />
+        <AcRepair />
       </div>
     </main>
   );
