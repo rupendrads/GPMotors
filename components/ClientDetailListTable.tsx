@@ -81,7 +81,7 @@ function ClientDetailListTable() {
   const goToLast = () => setCurrentPage(totalPages);
 
   return (
-    <div className="p-6 mb-4 max-w-full">
+    <div className="p-6 mb-4 max-w-full relative z-60">
       <h1 className={tableHeadingStyle}>Client Detail List</h1>
       {loading ? (
         <p>Loading...</p>
@@ -120,7 +120,7 @@ function ClientDetailListTable() {
                     <td className={tdStyle}>{client.FirstName}</td>
                     <td className={tdStyle}>{client.LastName}</td>
                     <td className={tdStyle}>
-                      {client.Address1.length > 15
+                      {(client.Address1 || "").length > 15
                         ? `${client.Address1.slice(0, 15)}...`
                         : client.Address1}
                     </td>
@@ -140,7 +140,7 @@ function ClientDetailListTable() {
                     </td>
                     <td className={tdStyle}>{client.RegistrationNo}</td>
                     <td className={tdStyle}>
-                      {client.Remarks.length > 15
+                      {(client.Remarks || "").length > 15
                         ? `${client.Remarks.slice(0, 15)}...`
                         : client.Remarks}
                     </td>
@@ -209,7 +209,7 @@ function ClientDetailListTable() {
 export default ClientDetailListTable;
 
 const tableContainer =
-  "max-w-full mb-2 overflow-auto h-[500px] bg-white shadow-md rounded-sm border border-gray-200";
+  "w-full overflow-x-auto overflow-y-auto max-h-[500px] bg-white shadow-md rounded-sm border border-gray-200";
 const tableHeadingStyle =
   "text-2xl font-bold mb-4 mt-4 text-center text-gray-700 leading-[100%] traking-[0%] ";
 const tableStyle =
