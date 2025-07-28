@@ -5,34 +5,20 @@ import { GetDBSettings, IDBSettings } from "@/sharedCode/dbSettings";
 const connectionParams: IDBSettings = GetDBSettings();
 
 // GET /api/bookingconfig
+// eslint-disable-next-line
 export async function GET(request: Request) {
-  console.log(request);
   try {
-    console.log(connectionParams);
     const connection = await mysql.createConnection(connectionParams);
 
-    const [rows] = await connection.execute(
-      "SELECT * FROM bookingconfig LIMIT 1"
-    );
+    const query = "SELECT * FROM bookingconfig";
+
+    const values: string[] = [];
+
+    const [results] = await connection.execute(query, values);
+
     connection.end();
 
-    if (Array.isArray(rows) && rows.length > 0) {
-      // eslint-disable-next-line
-      const dbRow = rows[0] as any;
-
-      // map DB → Form
-      const configFormData = {
-        officeStartTime: `1970-01-01T${dbRow.OfficeStartTime}`, // make it Date
-        officeEndTime: `1970-01-01T${dbRow.OfficeEndTime}`,
-        noOfEmployees: dbRow.NoOfEmployees,
-        slotGap: dbRow.SlotGap,
-        maxMOT: dbRow.LimitPerSlot, // map!
-      };
-
-      return NextResponse.json(configFormData);
-    } else {
-      return NextResponse.json({ error: "No data found" }, { status: 404 });
-    }
+    return Response.json(results);
   } catch (err) {
     console.log("ERROR: API - ", (err as Error).message);
 

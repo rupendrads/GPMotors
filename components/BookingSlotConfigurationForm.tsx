@@ -41,13 +41,20 @@ function BookingConfigurationForm() {
   useEffect(() => {
     fetch("/api/bookingconfig")
       .then((res) => res.json())
-      .then((bookingconfig: IBookingConfig) => {
-        if (bookingconfig)
-          reset({
-            ...bookingconfig,
-            officeStartTime: new Date(bookingconfig.officeStartTime),
-            officeEndTime: new Date(bookingconfig.officeEndTime),
-          });
+      .then((result) => {
+        console.log(result);
+        if (result) {
+          const bookinConfigData: IBookingConfig = {
+            officeStartTime: new Date(
+              `1970-01-01T${result[0]["OfficeStartTime"]}`
+            ),
+            officeEndTime: new Date(`1970-01-01T${result[0]["OfficeEndTime"]}`),
+            noOfEmployees: result[0]["NoOfEmployees"],
+            slotGap: result[0]["SlotGap"],
+            maxMOT: result[0]["LimitPerSlot"],
+          };
+          reset(bookinConfigData);
+        }
       })
       .finally(() => setLoading(false));
   }, [reset]);
