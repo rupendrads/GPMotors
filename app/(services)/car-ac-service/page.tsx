@@ -1,5 +1,4 @@
-import AcRepair from "@/components/Services/AcRepair/AcRepair";
-import BusinessProcess from "@/components/Services/BusinessProcess/BusinessProcess";
+import AcService from "@/components/Services/AC/AcService";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,8 +12,7 @@ function CarAcServicePage() {
   return (
     <main className="mx-auto">
       <div className="flex flex-col gap-8 mx-8 md:mx-16">
-        <BusinessProcess />
-        <AcRepair />
+        <AcService />
       </div>
     </main>
   );
