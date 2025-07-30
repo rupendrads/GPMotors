@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Alert from "@/components/Alert";
 import { useForm } from "react-hook-form";
 import { IClientFormInput } from "./Appointments/types";
+import { useRouter } from "next/navigation";
 //import { searchPostcodeSuggestions } from "@/app/api/postcode";
 //import { PostcodeResult } from "@/app/types/postcodetype";
 
@@ -43,6 +44,7 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
   const handleShowAlert = (type: string, message: string) => {
     setAlert({ type, message });
   };
+  const router = useRouter();
 
   useEffect(() => {
     if (clientId) {
@@ -86,11 +88,18 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
       }
       const result = await response.json();
       console.log(result);
+      
       handleShowAlert(result["status"], result["message"]);
 
       if (!clientId && result["status"] === "success") {
         reset();
       }
+
+      if (result["status"] === "success") {
+      setTimeout(() => {
+        router.push(`/client-detail-list`);
+      }, 1000);
+    }
     } catch (error) {
       console.log(error);
       handleShowAlert("error", "Failed to submit client data");
