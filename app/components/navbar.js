@@ -134,10 +134,16 @@ export default function Navbar() {
           <Link href="/" className=" hover:text-[#E33C30] px-3 py-2 transition">
             Gallery
           </Link>
-          <Link href="/aboutus" className=" hover:text-[#E33C30] px-3 py-2 transition">
+          <Link
+            href="/aboutus"
+            className=" hover:text-[#E33C30] px-3 py-2 transition"
+          >
             About
           </Link>
-          <Link href="/contactus" className=" hover:text-[#E33C30] px-3 py-2 transition">
+          <Link
+            href="/contactus"
+            className=" hover:text-[#E33C30] px-3 py-2 transition"
+          >
             Contact
           </Link>
           {/* <div className="relative">
