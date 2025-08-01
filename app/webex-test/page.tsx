@@ -6,7 +6,7 @@ function WebExTest() {
     <button
       className="cursor-pointer"
       onClick={() =>
-        sendSms("+447919453190", "+442089434103", "Hello from React!")
+        sendSms("+447919453190", "+447533326624", "Hello from React!")
       }
     >
       Send SMS
