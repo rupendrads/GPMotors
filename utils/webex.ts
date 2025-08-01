@@ -40,8 +40,8 @@ export const sendSms = async (toNumber, fromNumber, messageContent) => {
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`, // Or your specific authentication header
+        "content-type": "application/json",
+        "X-AUTH-KEY": apiKey, // Or your specific authentication header
       },
       body: JSON.stringify({
         message_body: messageContent,
@@ -50,7 +50,7 @@ export const sendSms = async (toNumber, fromNumber, messageContent) => {
         skip_optout_check: true,
         to: [
           {
-            phone: [{ toNumber }],
+            phone: [toNumber],
           },
         ],
       }),
