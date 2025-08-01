@@ -1,12 +1,12 @@
-'use client'
+"use client";
 import { Poppins } from "next/font/google";
 import "material-icons/iconfont/material-icons.css";
 import "../public/globals.css";
 // import "./globals.css";
 import Navbar from "./components/navbar";
-import AdminMenuDetail from "@/components/AdminMenu";
+//import AdminMenuDetail from "@/components/AdminMenu";
 import Footer from "./components/footer";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 import FloatingWhatsApp from "./components/Whatsapp";
 import FloatContact from "./components/FloatContact";
 
@@ -22,14 +22,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+  const isHomePage = pathname === "/";
 
   return (
     <html lang="en">
       <body className={`${poppins.className}`} suppressHydrationWarning={true}>
         <Navbar />
         {/* <AdminMenuDetail/> */}
-        <FloatingWhatsApp/>
+        <FloatingWhatsApp />
         <FloatContact />
         <main className="max-w-full mx-auto">{children}</main>
         {!isHomePage && <Footer />}

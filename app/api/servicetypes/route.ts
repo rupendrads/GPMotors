@@ -6,7 +6,7 @@ const connectionParams: IDBSettings = GetDBSettings();
 
 // GET /api/service
 export async function GET(request: Request) {
-  console.log(request)
+  console.log(request);
   try {
     const connection = await mysql.createConnection(connectionParams);
 

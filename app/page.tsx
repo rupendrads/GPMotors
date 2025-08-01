@@ -1,8 +1,8 @@
-import ContactUsPage from "./contactus/page";
-import Footer from "./components/footer";
-import FloatContact from "./components/FloatContact";
+//import ContactUsPage from "./contactus/page";
+//import Footer from "./components/footer";
+//import FloatContact from "./components/FloatContact";
 import Homepage from "./Homepage/Homepage";
-import FloatingWhatsApp from "./components/Whatsapp";
+//import FloatingWhatsApp from "./components/Whatsapp";
 export default function Home() {
   return (
     <div
@@ -10,10 +10,10 @@ export default function Home() {
     //   backgroundImage: `url(${home.src})`,
     //   backgroundSize: "cover",
     //   backgroundPosition: "center",
-    //   minHeight: "100vh", 
+    //   minHeight: "100vh",
     // }}
     >
-      <Homepage/>
+      <Homepage />
       {/* <EmailSender/> */}
       {/* <Footer /> */}
     </div>

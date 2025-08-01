@@ -5,16 +5,22 @@ import { GetDBSettings, IDBSettings } from "@/sharedCode/dbSettings";
 const connectionParams: IDBSettings = GetDBSettings();
 
 // GET: /api/clientdetail by Id
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  console.log(request);
   try {
-    const id = params.id;
+    const id = (await params).id;
     const connection = await mysql.createConnection(connectionParams);
 
     const [results] = await connection.execute(
-      "SELECT * FROM clientdetail WHERE ID = ?", [id]
+      "SELECT * FROM clientdetail WHERE ID = ?",
+      [id]
     );
     connection.end();
 
+    // eslint-disable-next-line
     if ((results as any[]).length === 0) {
       return NextResponse.json(
         { status: "error", message: "Client not found" },
@@ -33,13 +39,15 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-//PUT: Update by ID
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  
-  const ID = params.id;
+// PUT: Update by ID
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const id = (await params).id;
   const data = await request.json();
-  console.log(data);
-  if (!ID) {
+  //console.log(data);
+  if (!id) {
     return Response.json(
       { status: "error", message: "Missing client ID" },
       { status: 400 }
@@ -63,7 +71,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       data.creationDate ? data.creationDate.slice(0, 10) : null,
       data.registrationNo || null,
       data.remarks || null,
-      ID,
+      id,
     ];
     console.log("Executing Query:\n", query);
     console.log("With Values:\n", values);
@@ -87,4 +95,3 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     });
   }
 }
-
