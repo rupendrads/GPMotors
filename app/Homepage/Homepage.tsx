@@ -39,10 +39,10 @@ export default function Homepage() {
             
             <div className="flex flex-col sm:flex-row gap-4 items-start">
                <Link href="/book-appointment">
-      <button className="bg-red-600 cursor-pointer hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-md transition-colors duration-200">
-        Book Now
-      </button>
-    </Link>
+            <button className="bg-red-600 cursor-pointer hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-md transition-colors duration-200">
+              Book Now
+            </button>
+          </Link>
               <div className="flex items-center gap-3">
                 <div className="bg-red-600 p-3 rounded-full">
                   <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -52,7 +52,7 @@ export default function Homepage() {
                 <div>
                   <p className="text-sm text-gray-300">Requesting a Call:</p>
                   <a href="tel:02825054654" className="text-white font-semibold text-lg hover:text-yellow-400 transition-colors">
-                    028 250 54654
+                    020 8943 4103
                   </a>
                 </div>
               </div>

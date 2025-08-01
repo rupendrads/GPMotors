@@ -233,28 +233,6 @@ export default function FloatContact() {
                 <input
                   type="radio"
                   name="subject"
-                  value="Support"
-                  checked={form.subject === "Support"}
-                  onChange={handleChange}
-                  className="accent-blue-600"
-                />
-                Support
-              </label>
-              <label className="flex items-center gap-1 text-xs font-medium text-gray-700">
-                <input
-                  type="radio"
-                  name="subject"
-                  value="Partnership"
-                  checked={form.subject === "Partnership"}
-                  onChange={handleChange}
-                  className="accent-blue-600"
-                />
-                Partnership
-              </label>
-              <label className="flex items-center gap-1 text-xs font-medium text-gray-700">
-                <input
-                  type="radio"
-                  name="subject"
                   value="Feedback"
                   checked={form.subject === "Feedback"}
                   onChange={handleChange}
