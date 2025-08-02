@@ -8,6 +8,7 @@ import Blogs from "./Bolgs";
 import FAQ from "./FAQ";
 import Link from "next/link";
 import HomeFooter from "../components/HomeFooter";
+import ReviewWidget from "../components/FloatReview";
 export default function Homepage() {
   return (
     <div className="min-h-screen">
@@ -76,6 +77,7 @@ export default function Homepage() {
       <Blogs />
       <FAQ />
       <HomeFooter />
+      <ReviewWidget />
     </div>
   );
 }

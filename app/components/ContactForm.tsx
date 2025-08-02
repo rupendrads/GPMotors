@@ -172,29 +172,7 @@ export default function ContactForm() {
               onChange={handleChange}
               className="accent-[#428DCA]"
             />
-            General Inquiry
-          </label>
-          <label className="flex items-center gap-1 text-xs font-medium text-gray-700">
-            <input
-              type="radio"
-              name="subject"
-              value="General Inquiry"
-              checked={form.subject === "General Inquiry"}
-              onChange={handleChange}
-              className="accent-[#428DCA]"
-            />
-            General Inquiry
-          </label>
-          <label className="flex items-center gap-1 text-xs font-medium text-gray-700">
-            <input
-              type="radio"
-              name="subject"
-              value="General Inquiry"
-              checked={form.subject === "General Inquiry"}
-              onChange={handleChange}
-              className="accent-[#428DCA]"
-            />
-            General Inquiry
+           Feedback
           </label>
         </div>
       </div>
