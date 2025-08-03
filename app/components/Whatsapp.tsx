@@ -11,7 +11,7 @@ interface FloatingWhatsAppProps {
 }
 
 const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ 
-  phoneNumber = "+918103531353", 
+  phoneNumber = "+44 7354 201581", 
   message = "Hello! I need help with...",
   position = "bottom-right" 
 }) => {
