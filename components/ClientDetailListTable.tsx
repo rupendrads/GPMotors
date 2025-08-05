@@ -81,7 +81,7 @@ function ClientDetailListTable() {
   const goToLast = () => setCurrentPage(totalPages);
 
   return (
-    <div className="p-6 mb-4 max-w-full relative z-60">
+    <div className="p-6 mb-4 max-w-full relative">
       <h1 className={tableHeadingStyle}>Client Detail List</h1>
       {loading ? (
         <p>Loading...</p>

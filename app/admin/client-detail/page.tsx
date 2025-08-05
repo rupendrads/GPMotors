@@ -9,10 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function ClientDetailPage() {
-
   return (
     <main>
-      <ClientDetailForm/>
+      <ClientDetailForm />
     </main>
   );
 }
