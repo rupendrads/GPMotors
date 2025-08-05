@@ -21,7 +21,7 @@ function BookingListTable() {
 
   const onEdit = (booking: IBookingDB) => {
     console.log("Editing Booking ID:", booking.ID);
-    router.push(`/book-appointment/bookingform?id=${booking.ID}`);
+    router.push(`/book-appointment?id=${booking.ID}`);
   };
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function BookingListTable() {
       try {
         const response = await fetch('/api/booking');
         const bookingData = await response.json();
-        console.error(bookingData);
+        console.log(bookingData);
         setBookings(bookingData);
       } catch (error) {
         console.error('Error fetching bookings:', error);

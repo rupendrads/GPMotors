@@ -26,7 +26,6 @@ type Props = {
   changeBookingTimeSlots: (timeSlots: IBookingSlots[]) => void;
   resetBookingTimeSlots: (slotLimit: number) => void;
   bookingFilled: IBookingFilled[];
-  cBookingId?: number;
 };
 
 const BookAppointmentForm = ({
@@ -39,7 +38,6 @@ const BookAppointmentForm = ({
   changeBookingTimeSlots,
   resetBookingTimeSlots,
   bookingFilled,
-  cBookingId,
 }: Props) => {
   const [serviceType, setServiceType] = useState<IServiceType>();
   const [bookingDateTime, setBookingDateTime] = useState<IDateTime>({
@@ -48,8 +46,6 @@ const BookAppointmentForm = ({
   });
   const [clientDetails, setClientDetails] = useState<IFormInput>();
   const [disabledDates, setDisabledDates] = useState<Date[]>([]);
-
-  console.log("Client Booking ID:", cBookingId);
 
   const getSlotsLimit = (serviceType: IServiceType) => {
     return serviceType.logic === 1
@@ -176,7 +172,6 @@ const BookAppointmentForm = ({
               resetBookingDateTime={resetBookingDateTime}
               clientDetails={clientDetails}
               updateClientDetails={updateClientDetails}
-              cBookingId={cBookingId} 
             />
           </div>
         </div>

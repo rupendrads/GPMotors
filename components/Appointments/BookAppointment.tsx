@@ -13,11 +13,7 @@ import {
 import { getBookingsAvailable, getBookingTimes } from "./calc";
 import Loading from "../Loading";
 
-interface BookAppointmentProps {
-  cBookingId?: number;
-}
-
-function BookAppointment({ cBookingId }: BookAppointmentProps) { 
+function BookAppointment() { 
   const [stepIndex, setStepIndex] = useState(1);
   const [bookingConfig, setBookingConfig] = useState<IBookingConfig>();
   const [serviceTypes, setServiceTypes] = useState<IServiceType[]>([]);
@@ -145,7 +141,6 @@ function BookAppointment({ cBookingId }: BookAppointmentProps) {
             changeBookingTimeSlots={changeBookingTimeSlots}
             resetBookingTimeSlots={resetBookingTimeSlots}
             bookingFilled={bookingFilled}
-            cBookingId={cBookingId}
           />
           <BookAppointmentFooter />
         </>

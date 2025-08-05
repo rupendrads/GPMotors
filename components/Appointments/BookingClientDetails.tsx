@@ -17,7 +17,6 @@ type Props = {
   resetBookingDateTime: () => void;
   clientDetails: IFormInput | undefined;
   updateClientDetails: (clientDetails: IFormInput, index: number) => void;
-  cBookingId?: number;
 };
 
 const titles = ["Mr", "Mrs", "Ms"];
@@ -29,7 +28,6 @@ const BookingClientDetails = ({
   resetBookingDateTime,
   clientDetails,
   updateClientDetails,
-  cBookingId,
 }: Props) => {
   const [alert, setAlert] = useState({ message: "", type: "" });
   const {
@@ -58,25 +56,6 @@ const BookingClientDetails = ({
     resetBookingDateTime();
     resetServiceType();
   };
-
-  useEffect(() => {
-    if (cBookingId) {
-      fetch(`/api/booking/${cBookingId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          reset({
-            title: data.Title,
-            firstName: data.FirstName,
-            lastName: data.LastName,
-            email: data.email,
-            postCode: data.PostCode,
-            registrationNo: data.RegistrationNo,
-            comments: data.Comments,
-            phoneNo: data.PhoneNo,
-          });
-        });
-    }
-  }, [cBookingId]);
 
   const bookAppointment = async (data: IFormInput) => {
     console.log(data);
