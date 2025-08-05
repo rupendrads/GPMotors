@@ -150,11 +150,11 @@ export const getBookingsAvailable = (bookings: IBookingDB[]) => {
   console.log("datesInMonth", datesInMonth);
 
   datesInMonth.map((date) => {
-    console.log("booking data date", date);
+    //console.log("booking data date", date);
     const data = bookings.filter(
       (b) => formatDate(new Date(b.BookingDate as Date)) === formatDate(date)
     );
-    console.log("booking data filtered", data);
+    //console.log("booking data filtered", data);
     const timeSlots: string[] = [];
     const timeWithLogicSlots: string[] = [];
     if (data.length > 0) {

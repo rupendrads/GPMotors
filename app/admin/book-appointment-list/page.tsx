@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function BookAppointmentListPage() {
   return (
-    <main className="w-full flex justify-center">
+    <main className="w-full flex justify-center relative z-60">
       <BookingListTable />
     </main>
   );

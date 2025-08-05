@@ -8,6 +8,7 @@ import Footer from "./components/footer";
 import { usePathname } from "next/navigation";
 import FloatingWhatsApp from "./components/Whatsapp";
 import FloatContact from "./components/FloatContact";
+import ReviewWidget from "./components/FloatReview";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className={`${poppins.className}`} suppressHydrationWarning={true}>
         <Navbar />
         <FloatingWhatsApp />
+        <ReviewWidget />
         {isAdmin() ? <></> : <FloatContact />}
         <main className="max-w-full mx-auto">{children}</main>
         {!isHomePage && <Footer />}
