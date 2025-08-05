@@ -13,7 +13,11 @@ import {
 import { getBookingsAvailable, getBookingTimes } from "./calc";
 import Loading from "../Loading";
 
-function BookAppointment() {
+interface BookAppointmentProps {
+  cBookingId?: number;
+}
+
+function BookAppointment({ cBookingId }: BookAppointmentProps) { 
   const [stepIndex, setStepIndex] = useState(1);
   const [bookingConfig, setBookingConfig] = useState<IBookingConfig>();
   const [serviceTypes, setServiceTypes] = useState<IServiceType[]>([]);
@@ -24,6 +28,7 @@ function BookAppointment() {
 
   useEffect(() => {
     try {
+      
       const fetchData = async () => {
         console.log("fetch -request bookings");
         const response = await fetch("/api/booking/futures", {
@@ -140,6 +145,7 @@ function BookAppointment() {
             changeBookingTimeSlots={changeBookingTimeSlots}
             resetBookingTimeSlots={resetBookingTimeSlots}
             bookingFilled={bookingFilled}
+            cBookingId={cBookingId}
           />
           <BookAppointmentFooter />
         </>
