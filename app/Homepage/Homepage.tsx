@@ -8,7 +8,6 @@ import Blogs from "./Bolgs";
 import FAQ from "./FAQ";
 import Link from "next/link";
 import HomeFooter from "../components/HomeFooter";
-import ReviewWidget from "../components/FloatReview";
 export default function Homepage() {
   return (
     <div className="min-h-screen">
@@ -60,10 +59,10 @@ export default function Homepage() {
                 <div>
                   <p className="text-sm text-gray-300">Requesting a Call:</p>
                   <a
-                    href="tel:02825054654"
+                    href="tel:02089434103"
                     className="text-white font-semibold text-lg hover:text-yellow-400 transition-colors"
                   >
-                    028 250 54654
+                   020 8943 4103
                   </a>
                 </div>
               </div>
@@ -77,7 +76,6 @@ export default function Homepage() {
       <Blogs />
       <FAQ />
       <HomeFooter />
-      <ReviewWidget />
     </div>
   );
 }
