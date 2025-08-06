@@ -11,9 +11,7 @@ export const metadata: Metadata = {
 function CarAcServicePage() {
   return (
     <main className="mx-auto">
-      <div className="flex flex-col gap-8 mx-8 md:mx-16">
-        <AcService />
-      </div>
+      <AcService />
     </main>
   );
 }
