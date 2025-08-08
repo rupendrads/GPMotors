@@ -1,4 +1,4 @@
-import ServiceHeader from "@/components/ServiceHeader";
+import ServiceHeader from "@/components/Services/ServiceHeader";
 import AcServiceHeaderImage from "@/images/ac-service-header.jpg";
 
 const title = "Beat the Heat with GP motors Car AC Repair!";

@@ -1,6 +1,7 @@
-import AcRepair from "@/components/Services/AcRepair/AcRepair";
+import AcRepair from "./AcRepair";
 import BusinessProcess from "@/components/Services/BusinessProcess/BusinessProcess";
-import HeatProtection from "./HeatProtection";
+//import CustomerReviews from "@/components/Services/CustomerReviews/CustomerReviews";
+import HeatProtection from "./AcServiceSubHeader";
 import AcServiceHeader from "./AcServiceHeader";
 import AcServiceAdv from "./AcServiceAdv";
 
@@ -10,6 +11,7 @@ function AcService() {
       <AcServiceHeader />
       <div className="flex flex-col gap-8 mx-8 md:mx-16">
         <HeatProtection />
+        {/* <CustomerReviews /> */}
         <BusinessProcess />
         <AcRepair />
         <AcServiceAdv />
