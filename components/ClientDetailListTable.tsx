@@ -21,7 +21,7 @@ function ClientDetailListTable() {
 
   const onEdit = (client: IClientDetailDB) => {
     console.log("Editing Client ID:", client.Id);
-    router.push(`/client-detail/form?id=${client.Id}`);
+    router.push(`/admin/client-detail/form?id=${client.Id}`);
   };
 
   const fetchCDetails = async () => {
