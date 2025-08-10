@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { StarIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
 
 // Car repair shop testimonials for GP Motors
 const testimonials = [
@@ -9,49 +10,46 @@ const testimonials = [
     name: "Priya Sharma",
     title: "Customer at GP Motors, Mumbai",
     rating: 5,
-    feedback: "GP Motors fixed my Honda in record time. Honest pricing, polite staff, and transparent service. Will definitely recommend to my friends!",
-    companyLogos: [
-      { label: "Honda", img: "/logos/honda.png" }
-    ]
+    feedback:
+      "GP Motors fixed my Honda in record time. Honest pricing, polite staff, and transparent service. Will definitely recommend to my friends!",
+    companyLogos: [{ label: "Honda", img: "/logos/honda.png" }],
   },
   {
     id: 2,
     name: "Rahul Sen",
     title: "Regular Customer, GP Motors",
     rating: 4,
-    feedback: "The team at GP Motors always delivers quality repairs. The workshop is clean and the staff explain everything clearly.",
-    companyLogos: [
-      { label: "Suzuki", img: "/logos/suzuki.png" }
-    ]
+    feedback:
+      "The team at GP Motors always delivers quality repairs. The workshop is clean and the staff explain everything clearly.",
+    companyLogos: [{ label: "Suzuki", img: "/logos/suzuki.png" }],
   },
   {
     id: 3,
     name: "Meena Gupta",
     title: "Car Owner, Thane",
     rating: 5,
-    feedback: "Got my car serviced here twice. Both times, their pickup and drop facility and prompt updates made it a breeze. Highly trustworthy!",
-    companyLogos: [
-      { label: "Hyundai", img: "/logos/hyundai.png" }
-    ]
+    feedback:
+      "Got my car serviced here twice. Both times, their pickup and drop facility and prompt updates made it a breeze. Highly trustworthy!",
+    companyLogos: [{ label: "Hyundai", img: "/logos/hyundai.png" }],
   },
   {
     id: 4,
     name: "Aakash Verma",
     title: "Swift Owner",
     rating: 5,
-    feedback: "Very professional. My Swift’s clutch was replaced quickly and runs better than ever. GP Motors is my go-to garage in Mumbai.",
-    companyLogos: [
-      { label: "Maruti Suzuki", img: "/logos/maruti.png" }
-    ]
+    feedback:
+      "Very professional. My Swift’s clutch was replaced quickly and runs better than ever. GP Motors is my go-to garage in Mumbai.",
+    companyLogos: [{ label: "Maruti Suzuki", img: "/logos/maruti.png" }],
   },
   {
     id: 5,
     name: "Sameer Dixit",
     title: "Freelancer, Andheri",
     rating: 5,
-    feedback: "Excellent diagnostic skills at GP Motors. Spotted issues other garages missed. My car is running smooth since their tune-up!",
-    companyLogos: []
-  }
+    feedback:
+      "Excellent diagnostic skills at GP Motors. Spotted issues other garages missed. My car is running smooth since their tune-up!",
+    companyLogos: [],
+  },
 ];
 
 function Stars({ count }) {
@@ -83,29 +81,45 @@ export default function ReviewWidget() {
           </div>
           <div className="flex-1 overflow-y-auto space-y-4">
             {testimonials.map((t) => (
-              <div key={t.id} className="bg-gray-50 rounded-lg p-3 flex flex-col relative">
+              <div
+                key={t.id}
+                className="bg-gray-50 rounded-lg p-3 flex flex-col relative"
+              >
                 <div className="flex items-center mb-2">
                   {/* Avatar placeholder */}
                   <div className="w-10 h-10 rounded-full bg-gray-300 mr-3" />
                   <div>
-                    <div className="font-bold text-gray-900 leading-tight">{t.name}</div>
-                    <div className="text-gray-500 text-sm font-semibold">{t.title}</div>
+                    <div className="font-bold text-gray-900 leading-tight">
+                      {t.name}
+                    </div>
+                    <div className="text-gray-500 text-sm font-semibold">
+                      {t.title}
+                    </div>
                   </div>
                 </div>
                 <Stars count={t.rating} />
                 <div className="text-gray-700 text-sm mb-2">
-                  {t.feedback.length > 98
-                    ? <>
-                        {t.feedback.slice(0, 98)}...
-                        <button className="text-blue-600 text-xs font-bold ml-1">READ MORE →</button>
-                      </>
-                    : t.feedback}
+                  {t.feedback.length > 98 ? (
+                    <>
+                      {t.feedback.slice(0, 98)}...
+                      <button className="text-blue-600 text-xs font-bold ml-1">
+                        READ MORE →
+                      </button>
+                    </>
+                  ) : (
+                    t.feedback
+                  )}
                 </div>
                 {t.companyLogos.length > 0 && (
                   <div className="flex space-x-3 mt-1">
                     {t.companyLogos.map(({ label, img }) => (
                       <div key={label} className="flex items-center">
-                        <img src={img} alt={label} className="max-h-5 object-contain" />
+                        <Image
+                          src={img}
+                          layout="fill"
+                          objectFit="contain"
+                          alt={label}
+                        />
                       </div>
                     ))}
                   </div>
@@ -115,7 +129,7 @@ export default function ReviewWidget() {
           </div>
           <button
             className="mt-4 w-full cursor-pointer bg-blue-600 text-white rounded-lg py-2 hover:bg-blue-700 transition"
-            onClick={() => alert('Leave a review clicked!')}
+            onClick={() => alert("Leave a review clicked!")}
           >
             Leave a Review
           </button>
@@ -130,8 +144,14 @@ export default function ReviewWidget() {
       </button>
       <style jsx global>{`
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(24px);}
-          to { opacity: 1; transform: translateY(0);}
+          from {
+            opacity: 0;
+            transform: translateY(24px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         .animate-fadeIn {
           animation: fadeIn 0.2s ease;
