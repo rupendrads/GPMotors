@@ -8,6 +8,7 @@ import Blogs from "./Bolgs";
 import FAQ from "./FAQ";
 import Link from "next/link";
 import HomeFooter from "../components/HomeFooter";
+import WhatWeOffer from "./WhatWeOffer";
 export default function Homepage() {
   return (
     <div className="min-h-screen">
@@ -74,6 +75,7 @@ export default function Homepage() {
       <Services />
       <Data />
       <Blogs />
+      <WhatWeOffer />
       <FAQ />
       <HomeFooter />
     </div>

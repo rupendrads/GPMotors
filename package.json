@@ -20,6 +20,7 @@
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "iconsax-reactjs": "^0.0.8",
+    "keen-slider": "^6.8.6",
     "material-icons": "^1.13.14",
     "mysql2": "^3.14.1",
     "next": "15.3.1",
