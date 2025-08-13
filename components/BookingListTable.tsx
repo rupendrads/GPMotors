@@ -1,11 +1,13 @@
 'use client'
 import { IBookingDB } from './Appointments/types';
 import React, { useEffect, useState } from 'react'; 
+import { useRouter } from "next/navigation";
 import {
   ChevronDoubleLeftIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronDoubleRightIcon,
+  PencilIcon,
 } from '@heroicons/react/24/solid';
 
 const ITEMS_PER_PAGE = 10;
@@ -15,13 +17,19 @@ function BookingListTable() {
   const [bookings, setBookings] = useState<IBookingDB[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  const onEdit = (booking: IBookingDB) => {
+    console.log("Editing Booking ID:", booking.ID);
+    router.push(`/book-appointment?id=${booking.ID}`);
+  };
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const response = await fetch('/api/booking');
         const bookingData = await response.json();
-        console.error(bookingData);
+        console.log(bookingData);
         setBookings(bookingData);
       } catch (error) {
         console.error('Error fetching bookings:', error);
@@ -65,17 +73,18 @@ function BookingListTable() {
                     <th className={thStyle}>Reg. No</th>
                     <th className={thStyle}>Service Type</th>
                     <th className={thStyle}>Comments</th>
+                    <th className={thStyle}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems.map((booking, index) => (
+                  {currentItems.map((booking: IBookingDB, index: number) => (
                     <tr
-                      key={index}
+                      key={booking.ID}
                       className={`border-b border-gray-200 ${
                         index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
                       } hover:bg-blue-50 transition duration-150`}
                     >
-                      <td className={tdStyle}>{index + 1}</td>
+                      <td className={tdStyle}>{booking.ID}</td>
                       <td className={tdStyle}>{booking.BookingDate ? new Date(booking.BookingDate).toLocaleDateString() : ''}</td>
                       <td className={tdStyle}>{booking.BookingTime}</td>
                       <td className={tdStyle}>{booking.Title}</td>
@@ -86,7 +95,12 @@ function BookingListTable() {
                       <td className={tdStyle}>{booking.PhoneNo}</td>
                       <td className={tdStyle}>{booking.RegistrationNo}</td>
                       <td className={tdStyle}>{booking.ServiceType}</td>
-                      <td className={tdStyle}>{booking.Comments.length > 30 ? `${booking.Comments.slice(0, 15)}...`: booking.Comments}</td>
+                      <td className={tdStyle}>{(booking.Comments || "").length > 15 ? `${booking.Comments.slice(0, 15)}...`: booking.Comments}</td>
+                      <td className="flex items-center justify-center pt-3">
+                      <button onClick={() => onEdit(booking)} title="Edit">
+                        <PencilIcon className="h-5 w-5 text-blue-500 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
+                      </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -151,8 +165,8 @@ const tableContainer = "max-w-full mb-2 overflow-auto h-[500px] bg-white shadow-
 const tableHeadingStyle = "text-2xl font-bold mb-4 mt-4 text-center text-gray-700 leading-[100%] traking-[0%] ";
 const tableStyle  = "table-auto min-w-[1000px] text-sm text-left text-gray-700 whitespace-nowrap";
 const theadStyle = "text-sm text-white uppercase bg-black sticky top-0 z-10";
-const thStyle = "px-3 py-3"
-const tdStyle = "px-3 py-3"
+const thStyle = "px-2 py-3"
+const tdStyle = "px-2 py-3"
 const pagingBtnStyle = "flex items-center gap-1 px-2 py-2 text-sm font-medium border rounded-md bg-gray-50 text-gray-800 border-gray-400 hover:bg-blue-100 disabled:opacity-50 transition duration-350";
 const pagingSpanStyle = "text-sm font-semibold gap-1 px-2 py-2 bg-gray-100 text-gray-800  border rounded-md border-gray-400";
 // const inputGroupStyle = "flex flex-col gap-2";

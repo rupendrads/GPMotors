@@ -3,7 +3,7 @@ import Alert from "@/components/Alert";
 import { formatDate } from "@/utils/formatter";
 import { inputLabelStyle } from "./styles";
 import { IDateTime, IFormInput, IServiceType } from "./types";
-import { useState } from "react";
+import React, { useState } from "react";
 import ChangeBookingDateTime from "./ChangeBookingDateTime";
 import ChangeService from "./ChangeService";
 import { useRouter } from "next/navigation";

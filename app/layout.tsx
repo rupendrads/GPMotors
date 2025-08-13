@@ -4,7 +4,6 @@ import "material-icons/iconfont/material-icons.css";
 import "../public/globals.css";
 // import "./globals.css";
 import Navbar from "./components/navbar";
-//import AdminMenuDetail from "@/components/AdminMenu";
 import Footer from "./components/footer";
 import { usePathname } from "next/navigation";
 import FloatingWhatsApp from "./components/Whatsapp";
@@ -24,15 +23,17 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isAdmin = () => {
+    return pathname.includes("/admin") ? true : false;
+  };
 
   return (
     <html lang="en">
       <body className={`${poppins.className}`} suppressHydrationWarning={true}>
         <Navbar />
-        {/* <AdminMenuDetail/> */}
         <FloatingWhatsApp />
-        <ReviewWidget/>
-        <FloatContact />
+        <ReviewWidget />
+        {isAdmin() ? <></> : <FloatContact />}
         <main className="max-w-full mx-auto">{children}</main>
         {!isHomePage && <Footer />}
       </body>

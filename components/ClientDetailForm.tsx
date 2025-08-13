@@ -11,7 +11,9 @@ const titles = ["Mr", "Mrs", "Ms"];
 const serviceTypes = ["MOT", "Oiling"];
 
 const PHONE_REGEX_VALIDATION =
-  /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+441\s?\d{3}|\(?01\d{3}\)?)\s?\d{5})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
+  /^(0\d{10}|44\d{9,11})$/;
+  // /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+441\s?\d{3}|\(?01\d{3}\)?)\s?\d{5})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
+
 // For Example, Mob No.is
 // 04474474859
 
@@ -97,7 +99,7 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
 
       if (result["status"] === "success") {
       setTimeout(() => {
-        router.push(`/client-detail-list`);
+        router.push(`/admin/client-detail-list`);
       }, 1000);
     }
     } catch (error) {
@@ -169,7 +171,7 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
               type="text"
               className={errors.lastName ? errorInputStyle : inputStyle}
               {...register("lastName", {
-                required: true,
+                required: false,
                 minLength: 3,
                 maxLength: 255,
               })}
@@ -211,7 +213,7 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
           <div className={inputGroupStyle}>
             <div className={inputLabelBoxStyle}>
               <label
-                className={errors.firstName ? errorStyle : inputLabelStyle}
+                className={errors.postCode ? errorStyle : inputLabelStyle}
                 htmlFor="postCode"
               >
                 Post code
@@ -222,7 +224,7 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
               type="text"
               className={inputStyle}
               {...register("postCode", {
-                required: true,
+                required: false,
                 pattern: POSTCODE_REGEX_VALIDATION,
               })}
               placeholder="Your Postcode"
@@ -239,6 +241,7 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
               type="text"
               className={inputStyle}
               {...register("contactNo", {
+                required: true,
                 pattern: PHONE_REGEX_VALIDATION,
               })}
               placeholder="Your ContactNo"
@@ -277,13 +280,19 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
           <div className={inputGroupStyle}>
             <label className={inputLabelStyle} htmlFor="serviceDate">
               Service Date
-            </label>
+            </label> 
             <input
               type="date"
               className={inputStyle}
-              {...register("serviceDate", { valueAsDate: true })}
+              {...register("serviceDate", { 
+                required: true, 
+                valueAsDate: true 
+              })}
               placeholder="Enter Date"
             />
+            {errors.serviceDate && (
+              <span className={errorStyle}>Select Service Date</span>
+            )}
           </div>
 
           <div className={inputGroupStyle}>
@@ -293,9 +302,15 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
             <input
               type="date"
               className={inputStyle}
-              {...register("creationDate", { valueAsDate: true })}
+              {...register("creationDate", { 
+                required: true, 
+                valueAsDate: true 
+              })}
               placeholder="Enter Date"
             />
+            {errors.creationDate && (
+              <span className={errorStyle}>Select Creation Date</span>
+            )}
           </div>
           <div className={inputGroupStyle}>
             <div className={inputLabelBoxStyle}>
@@ -311,7 +326,7 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
               type="text"
               className={errors.registrationNo ? errorInputStyle : inputStyle}
               {...register("registrationNo", {
-                required: true,
+                required: false,
                 pattern: VEHICLE_REGISTRATION_REGEX_VALIDATION,
               })}
               placeholder="Your Vehicle No"
@@ -327,7 +342,9 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
             </label>
             <textarea
               className={inputStyle}
-              {...register("remarks", { maxLength: 1000 })}
+              {...register("remarks", { 
+                required: false,
+                maxLength: 1000 })}
               rows={3}
               placeholder="Your Remarks Here..."
             />

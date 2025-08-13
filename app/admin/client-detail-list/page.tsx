@@ -1,4 +1,3 @@
-
 import ClientDetailListTable from "@/components/ClientDetailListTable";
 import { Metadata } from "next";
 
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ClientDetailListPage() {
   return (
-    <main className="w-full flex justify-center relative z-60">
+    <main className="w-full flex justify-center relative">
       <ClientDetailListTable />
     </main>
   );
