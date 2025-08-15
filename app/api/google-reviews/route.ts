@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
+  console.log(request);
   //`https://places.googleapis.com/v1/places/ChIJj61dQgK6j4AR4GeTYWZsKWw?fields=name%2Crating%2Cformatted_phone_number&key=AIzaSyCixNnRQ2x_zHJ8iI-mUN0lsBurTLh_gyk`
   try {
     const url = `https://maps.googleapis.com/maps/api/place/details/json?fields=name,rating,reviews&place_id=ChIJo796dWALdkgRmymnES30qoU&key=AIzaSyCixNnRQ2x_zHJ8iI-mUN0lsBurTLh_gyk`;

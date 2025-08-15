@@ -19,7 +19,7 @@ const listItems = [
 function MotBookNow1() {
   return (
     <div className="relative">
-      <div className="absolute inset-0 bg-black opacity-70 z-10 p-8 flex flex-col gap-4">
+      <div className="absolute inset-0 bg-black opacity-70 z-10 p-8 flex flex-col gap-4 z-70">
         <MotBookNowContent
           header={header}
           description={description}

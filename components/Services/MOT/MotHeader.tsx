@@ -58,7 +58,7 @@ function MotHeader() {
           tabletImage={tabletImage}
           mobileImage={tabletImage}
         />
-        <div className="z-10 absolute w-[200px] md:w-[466px] lg:w-[640px] top-[20%] left-[10%] max-md:left-[15%] max-lg:left-[30%] pt-10 gap-y-8 flex flex-col">
+        <div className="z-70 absolute w-[200px] md:w-[466px] lg:w-[640px] top-[20%] left-[10%] max-md:left-[15%] max-lg:left-[30%] pt-10 gap-y-8 flex flex-col">
           <div className="leading-[2] traking-[0%]">
             <span className="text-[36px] lg:text-[64px] font-[700] text-white leading-[100%] traking-[0%]">
               Fail-Proof Car{" "}
