@@ -3,6 +3,7 @@
 //import FloatContact from "./components/FloatContact";
 import Homepage from "./Homepage/Homepage";
 //import FloatingWhatsApp from "./components/Whatsapp";
+import "keen-slider/keen-slider.min.css";
 export default function Home() {
   return (
     <div
