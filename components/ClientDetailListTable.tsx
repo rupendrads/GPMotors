@@ -2,6 +2,7 @@
 import { IClientDetailDB } from "./Appointments/types";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+//import Papa from "papaparse";
 import {
   ChevronDoubleLeftIcon,
   ChevronLeftIcon,
@@ -17,7 +18,28 @@ function ClientDetailListTable() {
   const [clientdetails, setClientDetails] = useState<IClientDetailDB[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  //const [csvData, setCsvData] = useState<IClientDetailDB[]>([]);
   const router = useRouter();
+
+   // Function to load and parse CSV
+  // const loadCSV = async () => {
+  //   try {
+  //     const response = await fetch("/data/clientdata.csv");
+  //     const csvText = await response.text();
+
+  //     Papa.parse(csvText, {
+  //       header: true, // First row as keys
+  //       skipEmptyLines: true,
+  //       complete: (result) => {
+  //         console.log("CSV parsed to JSON:", result.data);
+  //         setCsvData(result.data as IClientDetailDB[]);
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error("Error loading CSV:", error);
+  //   }
+  // };
+
 
   const onEdit = (client: IClientDetailDB) => {
     console.log("Editing Client ID:", client.Id);
@@ -39,6 +61,7 @@ function ClientDetailListTable() {
 
   useEffect(() => {
     fetchCDetails();
+    //loadCSV();
   }, []);
 
   const onDelete = async (Id: number) => {
@@ -202,7 +225,13 @@ function ClientDetailListTable() {
           </div>
         </div>
       )}
+
+      {/* <div className="p-6">
+        <h1 className="text-xl font-bold mb-4">CSV Data Loader</h1>
+        <pre>{JSON.stringify(csvData, null, 2)}</pre>
+      </div> */}
     </div>
+    
   );
 }
 

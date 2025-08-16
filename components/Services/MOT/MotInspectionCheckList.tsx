@@ -76,7 +76,7 @@ function MotInspectionCheckList() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 z-70">
       <div className="flex flex-col gap-4">
         <div className="text-[24px] max-lg:text-center lg:text-[40px] font-[600] text-neutral-700">
           <span>Car MOT Inspection Checklist At LMS Garage</span>

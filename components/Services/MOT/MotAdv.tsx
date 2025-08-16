@@ -19,7 +19,7 @@ function MotAdv() {
               After Inspection
             </span>
           </div>
-          <div>
+          <div className="z-70">
             <button
               type="button"
               className="bg-white text-black text-[21px] font-[400] w-[175px] h-[52px] flex justify-center items-center cursor-pointer"
