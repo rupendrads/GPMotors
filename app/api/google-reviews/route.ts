@@ -3,8 +3,32 @@ import { NextResponse } from "next/server";
 import fs from 'fs/promises';
 import path from 'path';
 
+// Define proper types for Google Places API response
+interface GoogleReview {
+  author_name: string;
+  author_url?: string;
+  language: string;
+  profile_photo_url: string;
+  rating: number;
+  relative_time_description: string;
+  text: string;
+  time: number;
+}
+
+interface GooglePlacesResult {
+  name: string;
+  rating: number;
+  reviews: GoogleReview[];
+}
+
+interface GooglePlacesResponse {
+  result: GooglePlacesResult;
+  status: string;
+  error_message?: string;
+}
+
 interface CachedReviews {
-  data: any;
+  data: GooglePlacesResponse;
   lastFetched: string;
   nextFetchDate: string;
 }
@@ -29,12 +53,12 @@ async function readCache(): Promise<CachedReviews | null> {
     const fileContent = await fs.readFile(CACHE_FILE_PATH, 'utf-8');
     return JSON.parse(fileContent);
   } catch (error) {
-    console.log('No cache file found or error reading cache');
+    console.log('No cache file found or error reading cache', error);
     return null;
   }
 }
 
-async function writeCache(data: any): Promise<void> {
+async function writeCache(data: GooglePlacesResponse): Promise<void> {
   try {
     const cacheData: CachedReviews = {
       data,
@@ -57,7 +81,7 @@ async function shouldFetchNewData(cache: CachedReviews | null): Promise<boolean>
   return isMonday() && now >= nextFetchDate;
 }
 
-async function fetchGoogleReviews() {
+async function fetchGoogleReviews(): Promise<GooglePlacesResponse> {
   const url = `https://maps.googleapis.com/maps/api/place/details/json?fields=name,rating,reviews&place_id=ChIJo796dWALdkgRmymnES30qoU&key=AIzaSyCixNnRQ2x_zHJ8iI-mUN0lsBurTLh_gyk`;
   
   const res = await fetch(url, {
@@ -67,11 +91,11 @@ async function fetchGoogleReviews() {
     },
   });
   
-  return await res.json();
+  return await res.json() as GooglePlacesResponse;
 }
 
 export async function GET(request: Request) {
-  console.log('Google Reviews API called at:', new Date().toISOString());
+  console.log('Google Reviews API called at:',request, new Date().toISOString());
   
   try {
     // Read cached data

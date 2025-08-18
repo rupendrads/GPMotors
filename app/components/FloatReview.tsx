@@ -25,6 +25,16 @@ interface GoogleReviewsData {
   nextFetchDate?: string;
   error?: string;
 }
+interface Review {
+  id: string;
+  name: string;
+  title: string;
+  rating: number;
+  feedback: string;
+  profilePhoto?: string;
+  companyLogos: { label: string; img: string }[];
+  isGoogle: boolean;
+}
 
 // Fallback testimonials
 const fallbackTestimonials = [
@@ -85,7 +95,7 @@ function ReviewFeedback({ feedback }: { feedback: string }) {
 
 export default function ReviewWidget() {
   const [open, setOpen] = useState(false);
-  const [reviews, setReviews] = useState<any[]>(fallbackTestimonials);
+  const [reviews, setReviews] = useState<Review[]>(fallbackTestimonials);
   const [globalRating,setGlobalRating] =  useState<string | number>('');
   const [loading, setLoading] = useState(false);
   const [googleReviewsInfo, setGoogleReviewsInfo] = useState<{
@@ -177,11 +187,13 @@ export default function ReviewWidget() {
                   {/* Avatar */}
                   <div className="w-10 h-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
                     {review.profilePhoto ? (
-                      <img 
-                        src={review.profilePhoto} 
+                      <Image
+                        src={review.profilePhoto}
                         alt={review.name}
-                        referrerPolicy="no-referrer" 
-                        className="w-full h-full object-cover"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-cover rounded-full"
+                        referrerPolicy="no-referrer"
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-semibold">
