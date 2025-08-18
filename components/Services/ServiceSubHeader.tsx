@@ -23,7 +23,7 @@ const ServiceSubHeader: React.FC<Props> = ({
             {title}
           </span>
         </div>
-        <div className="w-[258px] md:w-[331px] lg:w-[480px] flex flex-col gap-8 font-[400] text-[12px] lg:text-[18px] capitalize leading-[1.2] tracker-[0%] text-neutral-500">
+        <div className="w-[258px] md:w-[331px] lg:w-[440px] flex flex-col gap-8 font-[400] text-[12px] lg:text-[18px] capitalize leading-[1.2] tracker-[0%] text-neutral-500">
           {desc.map((item, index) => {
             return <div key={index}>{item}</div>;
           })}

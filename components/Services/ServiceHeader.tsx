@@ -66,11 +66,11 @@ const ServiceHeader: React.FC<Props> = ({
         />
         <div className="absolute w-full h-full flex items-center pl-[10%]">
           <div className="flex flex-col">
-            <div className="w-[244px] h-[192px] md:w-[596px] md:h-[120px] lg:w-[738px] lg:h-[144px]">
+            <div className="w-[300px] h-[192px] md:w-[680px] md:h-[120px] lg:w-[820px] lg:h-[144px]">
               <span className={titlePart1Style}>{titlePart1}</span>
               <span className={titlePart2Style}>{titlePart2}</span>
             </div>
-            <div className="w-[230px] h-[200px] md:w-[562px] md:h-[117px] lg:w-[840px] lg:h-[81px]">
+            <div className="w-[270px] h-[200px] md:w-[562px] md:h-[117px] lg:w-[840px] lg:h-[81px]">
               <span className="font-[400] text-[16.5px] md:text-[20px] lg:text-[18px] leading-[1.2] tracker=[0%] capitalize text-white">
                 {desc}
               </span>
