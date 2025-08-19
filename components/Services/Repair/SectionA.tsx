@@ -14,7 +14,7 @@ function SectionA({ titleDescriptions }: Props) {
         </span>
       </div>
       <div className={boxStyle}>
-        <span className="font-[500] text-[12px] lg:text-[18px] text-white capitalize leading-[100%] tracker-[0%] text-[sky-100]">
+        <span className="font-[500] text-[12px] lg:text-[18px] text-white capitalize leading-[100%] tracker-[0%]">
           {titleDescriptions[0].desc}
         </span>
       </div>
