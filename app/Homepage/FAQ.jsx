@@ -112,12 +112,13 @@ const renderFAQItem = (item) => (
       <div className="max-w-7xl mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Frequently Asked{' '}
-            <span className="bg-[#3F662B] text-white px-3 py-1 rounded">
-              Question
-            </span>
-          </h2>
+         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+  Frequently Asked{' '}
+  <span className="bg-[#3F662B] text-white px-3 py-1 rounded mt-2 inline-block">
+    Question
+  </span>
+</h2>
+
           <p className="text-gray-600 max-w-2xl mx-auto">
             Have some questions before you get started? Check out our FAQs <br /> below or call us 0208 943 4103
           </p>

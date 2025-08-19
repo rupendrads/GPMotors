@@ -40,21 +40,23 @@ const Blogs = () => {
     <section className="py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header Section */}
-        <div className="flex justify-between items-end mb-12">
-          <div>
-            <div className='flex'>
-                <p className="text-red-600 uppercase tracking-wide font-semibold mb-3 text-sm">
-              BLOGS
-            </p>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12">
+          <div className='justify-center items-center text-center'>
+            <div className='flex justify-center md:justify-start'>
+              <span className='border-t-2 mt-2 mr-2 md:hidden w-10 border-red-600 block'></span>
+              <p className="text-red-600 uppercase tracking-wide font-semibold mb-3 text-sm">
+                BLOGS
+              </p>
               <span className='border-t-2 mt-2 ml-2 w-10 border-red-600 block'></span>
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
               Latest From The Workshop
             </h2>
           </div>
+          {/* View All button - hidden on mobile, shown on md+ screens */}
           <Link 
             href="/blog" 
-            className="text-gray-600 hover:text-red-600 font-medium transition-colors duration-200"
+            className="hidden md:block text-gray-600 hover:text-red-600 font-medium transition-colors duration-200"
           >
             View All
           </Link>
@@ -101,6 +103,16 @@ const Blogs = () => {
               </Link>
             </article>
           ))}
+        </div>
+
+        {/* View All button - centered on mobile screens, hidden on md+ screens */}
+        <div className="flex justify-center mt-12 md:hidden">
+          <Link 
+            href="/blog" 
+            className="text-gray-600 hover:text-red-600 font-medium transition-colors duration-200 px-6 py-3 border border-gray-300 rounded-lg hover:border-red-600"
+          >
+            View All
+          </Link>
         </div>
       </div>
     </section>

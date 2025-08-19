@@ -74,8 +74,8 @@ export default function Homepage() {
       <WhyChooseUs />
       <Services />
       <Data />
-      <Blogs />
       <WhatWeOffer />
+      <Blogs />
       <FAQ />
       <HomeFooter />
     </div>
