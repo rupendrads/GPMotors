@@ -14,12 +14,12 @@ const listItems = [
 
 const titleDescriptions = [
   {
-    title: "Why Should I Choose GP motors  for Paintless Auto Dent Repairs?",
-    desc: `At London Motor Sports, we offer expert paintless dent and ding removal using a gentle, massage-like technique that restores your car panels without affecting the original paint. Our process is quick, effective, and designed to get your vehicle looking like new with minimal downtime.We treat every car as if it were our own.`,
+    title: "Why Dent Removal Is Worth It?",
+    desc: `Many drivers think dents are “just cosmetic,” but the truth is they can affect your vehicle in bigger ways than you realize. Even small dents can chip the paint, exposing the metal underneath to moisture and rust. Over time, this can spread and weaken the bodywork, leading to expensive panel repairs or replacements. Dents also reduce your car’s resale value, making it look poorly maintained even if it runs perfectly.`,
   },
   {
-    title: "Ensuring top-quality craftsmanship in every repair.",
-    desc: `Our commitment to excellence sets us apart, delivering results that often surpass customer expectations. If you're looking for professional, paintless dent repair near you, visit LMS today for a free quote.`,
+    title: "How GP Motors Handles Dent Removal?",
+    desc: `At GP Motors, we use advanced dent removal methods such as paintless dent repair (PDR) to restore your vehicle’s panels without affecting the original finish. Our specialists carefully massage out dents from behind the panel, preserving your car’s paintwork while achieving a flawless result.`,
   },
 ];
 
