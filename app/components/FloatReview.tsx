@@ -213,7 +213,7 @@ export default function ReviewWidget() {
                   {/* Avatar */}
                   <div className="w-10 h-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
                     {review.profilePhoto ? (
-                      <Image
+                      <img
                         src={review.profilePhoto}
                         alt={review.name}
                         width={40}
