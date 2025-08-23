@@ -42,17 +42,43 @@ const fallbackTestimonials = [
 
 function Stars({ count }: { count: number }) {
   return (
-    <div className="flex items-center space-x-0.5 mb-1">
-      {[...Array(5)].map((_, i) => (
-        <StarIcon
-          key={i}
-          className={`w-4 h-4 ${i < count ? "text-yellow-400" : "text-gray-200"}`}
-          fill="currentColor"
-        />
-      ))}
+    <div className="flex flex-col mb-2">
+      {/* Google text */}
+      <div className="mb-2">
+        <span className="text-lg font-semibold">
+          <span style={{ color: '#4285F4' }}>G</span>
+          <span style={{ color: '#EA4335' }}>o</span>
+          <span style={{ color: '#FBBC05' }}>o</span>
+          <span style={{ color: '#4285F4' }}>g</span>
+          <span style={{ color: '#34A853' }}>l</span>
+          <span style={{ color: '#EA4335' }}>e</span>
+        </span>
+      </div>
+      
+      {/* Stars row */}
+      <div className="flex space-x-1 mb-1">
+        {[...Array(5)].map((_, i) => (
+          <StarIcon
+            key={i}
+            className={`w-5 h-5 ${i < Math.floor(count) ? "text-yellow-400" : "text-gray-300"}`}
+            fill="currentColor"
+          />
+        ))}
+      </div>
+      
+      {/* Rating text */}
+      <div className="">
+        <div className="text-lg font-bold text-gray-900 leading-tight">
+          {count} STAR
+        </div>
+        {/* <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">
+          CUSTOMER RATING
+        </div> */}
+      </div>
     </div>
   );
 }
+
 
 function GoogleReviewBadge() {
   return (
@@ -187,7 +213,7 @@ export default function ReviewWidget() {
                   {/* Avatar */}
                   <div className="w-10 h-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
                     {review.profilePhoto ? (
-                      <Image
+                      <img
                         src={review.profilePhoto}
                         alt={review.name}
                         width={40}
@@ -269,12 +295,80 @@ export default function ReviewWidget() {
       )}
       
       <button
-        className="bg-gradient-to-r cursor-pointer from-blue-600 to-blue-700 text-white rounded-full p-4 shadow-lg hover:bg-blue-500 transition"
-        onClick={() => setOpen((v) => !v)}
-        aria-label="Show reviews"
+  className="bg-gradient-to-r cursor-pointer from-blue-600 to-blue-700 text-white rounded-full shadow-lg hover:bg-blue-500 transition relative w-20 h-20"
+  onClick={() => setOpen((v) => !v)}
+  aria-label="Show reviews"
+>
+  {/* Individual letters positioned along the circle with Google colors */}
+  {/* <div className="absolute inset-0 w-full h-full">
+    {[
+      { letter: 'G', color: '#4285F4' },
+      { letter: 'O', color: '#EA4335' }, 
+      { letter: 'O', color: '#FBBC05' },
+      { letter: 'G', color: '#4285F4' },
+      { letter: 'L', color: '#34A853' },
+      { letter: 'E', color: '#EA4335' },
+      { letter: ' ', color: '#FFFFFF' },
+      { letter: 'R', color: '#4285F4' },
+      { letter: 'E', color: '#EA4335' },
+      { letter: 'V', color: '#FBBC05' },
+      { letter: 'I', color: '#4285F4' },
+      { letter: 'E', color: '#34A853' },
+      { letter: 'W', color: '#EA4335' },
+      { letter: 'S', color: '#4285F4' }
+    ].map((item, index) => (
+      <span
+        key={index}
+        className="absolute text-[8px] font-bold"
+        style={{
+          color: item.color,
+          left: '50%',
+          top: '50%',
+          transformOrigin: '0 32px',
+          transform: item.letter === ' ' ? 'none' : `translate(-50%, -50%) rotate(${-90 + (index * 15)}deg) translateY(-32px) rotate(${-(-90 + (index * 15))}deg)`,
+          display: item.letter === ' ' ? 'none' : 'block'
+        }}
       >
-        {globalRating}
-      </button>
+        {item.letter}
+      </span>
+    ))}
+  </div> */}
+  
+  {/* Main rating display centered */}
+<div className="flex flex-col items-center justify-center h-full">
+  <span className="text-lg font-bold text-white">{globalRating}</span>
+  
+  {/* Dynamic stars with float value support */}
+  <div className="flex items-center space-x-0.5">
+    {[...Array(5)].map((_, i) => {
+      const fillPercentage = Math.min(Math.max((Number(globalRating) - i) * 100, 0), 100);
+      
+      return (
+        <div key={i} className="relative w-2 h-2">
+          {/* Background star (unfilled) */}
+          <StarIcon
+            className="w-2 h-2 text-white opacity-30 absolute"
+            fill="currentColor"
+          />
+          
+          {/* Foreground star (filled) with dynamic width */}
+          <div 
+            className="overflow-hidden absolute top-0 left-0"
+            style={{ width: `${fillPercentage}%` }}
+          >
+            <StarIcon
+              className="w-2 h-2 text-yellow-400"
+              fill="currentColor"
+            />
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+</button>
+
       <style jsx global>{`
         @keyframes fadeIn {
           from {
