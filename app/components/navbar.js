@@ -23,14 +23,15 @@ const serviceColumns = [
     items: [
       { name: "MOT", link: "/mot-service" },
       { name: "Minor Service", link: "/minor-service" },
-      { name: "Intermediate", link: "/" },
-      { name: "Full Service", link: "/" },
+      { name: "Intermediate", link: "/intermediate-service" },
+      { name: "Full Service", link: "/full-service" },
       { name: "AC Service", link: "/car-ac-service" },
       { name: "Brake Fluid", link: "/brake-fluid-service" },
       { name: "Coolant Change", link: "/coolant-change" },
       { name: "Timing Belt Change", link: "/timing-belt-change" },
       { name: "Transmission Service", link: "/transmission-service" },
       { name: "Cluch Repair", link: "/clutch-change" },
+      { name: "Dent Removal", link: "/car-dent-removal" },
     ],
   },
   {
