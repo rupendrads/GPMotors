@@ -3,7 +3,7 @@
     "html_attributions": [],
     "result": {
       "name": "GP Motors (Teddington) Ltd",
-      "rating": 4.8,
+      "rating": 4.7,
       "reviews": [
         {
           "author_name": "mike francis",
@@ -69,6 +69,6 @@
     },
     "status": "OK"
   },
-  "lastFetched": "2025-08-25T10:44:04.620Z",
+  "lastFetched": "2025-08-25T13:05:35.653Z",
   "nextFetchDate": "2025-08-31T18:30:00.000Z"
 }
