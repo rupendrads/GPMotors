@@ -125,6 +125,11 @@ function Reminder() {
         SmsStatus: "",
         WhatsAppStatus: "",
         EmailStatus: "",
+        serviceDate: obj["BookingDate"],
+        timeSlot: obj["BookingTime"],
+        serviceType: obj["ServiceType"],
+        carRegistrationNo: obj["RegistrationNo"],
+        bookingId: obj["ID"],
       });
     });
     setFiltering(false);
