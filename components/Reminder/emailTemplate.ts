@@ -30,7 +30,7 @@ const getEmailTemplate = (emailParams: emailParams) => {
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Car Service Slot Confirmation</title>
+  <title>Car Service Slot Reminder</title>
   <style>
     body {
       margin: 0;
@@ -113,14 +113,14 @@ const getEmailTemplate = (emailParams: emailParams) => {
 
     <!-- Header Section -->
     <div class="main-header">
-      <h1>Service Appointment Confirmed</h1>
+      <h1>Service Appointment Reminder</h1>
       <p>Your booking reference: <strong>${bookingId}</strong></p>
     </div>
 
     <!-- Email Body -->
     <div class="content">
       <p>Dear <strong>${clientName}</strong>,</p>
-      <p>Thank you for choosing <strong>${companyName}</strong>. We're pleased to confirm your upcoming car service appointment.</p>
+      <p>Thank you for choosing <strong>${companyName}</strong>. We're pleased to remind your upcoming car service appointment.</p>
 
       <div class="highlight-box">
         <p><strong>📅 Date: </strong> ${serviceDate}</p>

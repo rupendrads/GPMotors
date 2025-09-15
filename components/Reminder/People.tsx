@@ -6,7 +6,7 @@ import Loading from "../Loading";
 import { sendSmsTemplate } from "@/utils/webex";
 import getEmailTemplate, { emailParams } from "./emailTemplate";
 import { initEmailJS, sendAutoReplyEmail } from "@/app/lib/emailService";
-//import { formatDate } from "@/utils/formatter";
+import { formatDate } from "@/utils/formatter";
 
 interface Props {
   filtering: boolean;
@@ -115,7 +115,7 @@ function People({
           const emailParams: emailParams = {
             companyName: "GP Motors",
             clientName: person.FirstName + " " + person.LastName,
-            serviceDate: person.serviceDate,
+            serviceDate: formatDate(new Date(person.serviceDate)),
             timeSlot: person.timeSlot,
             serviceType: person.serviceType,
             carRegistrationNo: person.carRegistrationNo,
@@ -128,13 +128,13 @@ function People({
           };
           const emailTemplate = getEmailTemplate(emailParams);
           console.log("emailParams", emailParams);
-          // initEmailJS();
-          // sendAutoReplyEmail({
-          //   to_name: "Admin",
-          //   to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-          //   reply_subject: "appointment reminder",
-          //   reply_message_html: emailTemplate,
-          // });
+          initEmailJS();
+          sendAutoReplyEmail({
+            to_name: emailParams.clientName,
+            to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+            reply_subject: "appointment reminder",
+            reply_message_html: emailTemplate,
+          });
           // call send email function end...
           setPersonList((prevList) => {
             const newList = [...prevList];
