@@ -3,8 +3,7 @@ import BrakeFluidServiceHeader from "./BrakeFluidServiceHeader";
 import BrakeFluidServiceSubHeader from "./BrakeFluidServiceSubHeader";
 import BrakeFluidReplace from "./BrakeFluidReplace";
 import BrakeFluidServiceAdv from "./BrakeFluidServiceAdv";
-//import CustomerReviews from "@/components/Services/CustomerReviews/CustomerReviews";
-
+import ExpertAdvice from "../ExpertAdvice/ExpertAdvice";
 
 function BrakeFluidService() {
   return (
@@ -12,7 +11,7 @@ function BrakeFluidService() {
       <BrakeFluidServiceHeader />
       <div className="flex flex-col gap-8 mx-8 md:mx-16">
         <BrakeFluidServiceSubHeader />
-        {/* <CustomerReviews /> */}
+        <ExpertAdvice />
         <BusinessProcess />
         <BrakeFluidReplace />
         <BrakeFluidServiceAdv />

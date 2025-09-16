@@ -3,8 +3,7 @@ import FullServiceHeader from "./FullServiceHeader";
 import FullRepair from "./FullRepair";
 import FullServiceSubHeader from "./FullServiceSubHeader";
 import FullServiceAdv from "./FullServiceAdv";
-//import CustomerReviews from "@/components/Services/CustomerReviews/CustomerReviews";
-
+import ExpertAdvice from "../ExpertAdvice/ExpertAdvice";
 
 function FullService() {
   return (
@@ -12,7 +11,7 @@ function FullService() {
       <FullServiceHeader />
       <div className="flex flex-col gap-8 mx-8 md:mx-16"> 
         <FullServiceSubHeader />
-        {/* <CustomerReviews /> */}
+        <ExpertAdvice />
         <BusinessProcess />
         <FullRepair />
         <FullServiceAdv />

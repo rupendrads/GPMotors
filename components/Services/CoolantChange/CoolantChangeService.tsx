@@ -3,8 +3,7 @@ import CoolantChangeServiceHeader from "./CoolantChangeServiceHeader";
 import CoolantChangeRepair from "./CoolantChangeRepair";
 import CoolantChangeServiceSubHeader from "./CoolantChangeServiceSubHeader";
 import CoolantChangeServiceAdv from "./CoolantChangeServiceAdv";
-//import CustomerReviews from "@/components/Services/CustomerReviews/CustomerReviews";
-
+import ExpertAdvice from "../ExpertAdvice/ExpertAdvice";
 
 function CoolantChangeService() {
   return (
@@ -12,7 +11,7 @@ function CoolantChangeService() {
       <CoolantChangeServiceHeader />
       <div className="flex flex-col gap-8 mx-8 md:mx-16"> 
         <CoolantChangeServiceSubHeader />
-        {/* <CustomerReviews /> */}
+        <ExpertAdvice />
         <BusinessProcess />
         <CoolantChangeRepair />
         <CoolantChangeServiceAdv />

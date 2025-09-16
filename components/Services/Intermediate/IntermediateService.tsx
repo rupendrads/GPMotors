@@ -3,8 +3,7 @@ import IntermediateServiceHeader from "./IntermediateServiceHeader";
 import IntermediateRepair from "./IntermediateRepair";
 import IntermediateServiceSubHeader from "./IntermediateServiceSubHeader";
 import IntermediateServiceAdv from "./IntermediateServiceAdv";
-//import CustomerReviews from "@/components/Services/CustomerReviews/CustomerReviews";
-
+import ExpertAdvice from "../ExpertAdvice/ExpertAdvice";
 
 function IntermediateService() {
   return (
@@ -12,7 +11,7 @@ function IntermediateService() {
       <IntermediateServiceHeader />
       <div className="flex flex-col gap-8 mx-8 md:mx-16"> 
         <IntermediateServiceSubHeader />
-        {/* <CustomerReviews /> */}
+        <ExpertAdvice />
         <BusinessProcess />
         <IntermediateRepair />
         <IntermediateServiceAdv />

@@ -75,7 +75,6 @@ const ServiceHeader: React.FC<Props> = ({
                 {desc}
               </span>
             </div>
-
             <button
               className="w-[155px] h-[48px] bg-red-500 text-white 
               flex justify-center items-center gap-2 cursor-pointer z-10"

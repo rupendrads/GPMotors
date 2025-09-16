@@ -3,8 +3,7 @@ import DentRemovalServiceHeader from "./DentRemovalServiceHeader";
 import DentRepair from "./DentRepair";
 import DentRemovalServiceAdv from "./DentRemovalServiceAdv";
 import DentRemovalServiceSubHeader from "./DentRemovalServiceSubHeader";
-//import CustomerReviews from "@/components/Services/CustomerReviews/CustomerReviews";
-
+import ExpertAdvice from "../ExpertAdvice/ExpertAdvice";
 
 function DentRemovalService() {
   return (
@@ -12,7 +11,7 @@ function DentRemovalService() {
       <DentRemovalServiceHeader />
       <div className="flex flex-col gap-8 mx-8 md:mx-16">
         <DentRemovalServiceSubHeader />
-        {/* <CustomerReviews /> */}
+        <ExpertAdvice />
         <BusinessProcess />
         <DentRepair />
         <DentRemovalServiceAdv />

@@ -3,8 +3,7 @@ import ClutchChangeServiceHeader from "./ClutchChangeServiceHeader";
 import ClutchChangeRepair from "./ClutchChangeRepair";
 import ClutchChangeServiceSubHeader from "./ClutchChangeServiceSubHeader";
 import ClutchChangeServiceAdv from "./ClutchChangeServiceAdv";
-//import CustomerReviews from "@/components/Services/CustomerReviews/CustomerReviews";
-
+import ExpertAdvice from "../ExpertAdvice/ExpertAdvice";
 
 function ClutchChangeService() {
   return (
@@ -12,7 +11,7 @@ function ClutchChangeService() {
       <ClutchChangeServiceHeader />
       <div className="flex flex-col gap-8 mx-8 md:mx-16"> 
         <ClutchChangeServiceSubHeader />
-        {/* <CustomerReviews /> */}
+        <ExpertAdvice />
         <BusinessProcess />
         <ClutchChangeRepair />
         <ClutchChangeServiceAdv />

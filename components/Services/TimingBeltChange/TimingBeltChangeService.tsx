@@ -3,8 +3,7 @@ import TimingBeltChangeServiceHeader from "./TimingBeltChangeServiceHeader";
 import TimingBeltChangeRepair from "./TimingBeltChangeRepair";
 import TimingBeltChangeServiceSubHeader from "./TimingBeltChangeServiceSubHeader";
 import TimingBeltChangeServiceAdv from "./TimingBeltChangeServiceAdv";
-//import CustomerReviews from "@/components/Services/CustomerReviews/CustomerReviews";
-
+import ExpertAdvice from "../ExpertAdvice/ExpertAdvice";
 
 function TimingBeltChangeService() {
   return (
@@ -12,7 +11,7 @@ function TimingBeltChangeService() {
       <TimingBeltChangeServiceHeader />
       <div className="flex flex-col gap-8 mx-8 md:mx-16"> 
         <TimingBeltChangeServiceSubHeader />
-        {/* <CustomerReviews /> */}
+        <ExpertAdvice />
         <BusinessProcess />
         <TimingBeltChangeRepair />
         <TimingBeltChangeServiceAdv />
