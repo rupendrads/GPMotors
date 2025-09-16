@@ -14,4 +14,9 @@ export type person = {
   SmsStatus: string;
   WhatsAppStatus: string;
   EmailStatus: string;
+  serviceDate: string;
+  timeSlot: string;
+  serviceType: string;
+  carRegistrationNo: string;
+  bookingId: string;
 };

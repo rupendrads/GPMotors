@@ -4,6 +4,9 @@ import { person } from "./types";
 import Progress from "../Progressbar/Progress";
 import Loading from "../Loading";
 import { sendSmsTemplate } from "@/utils/webex";
+import getEmailTemplate, { emailParams } from "./emailTemplate";
+import { initEmailJS, sendAutoReplyEmail } from "@/app/lib/emailService";
+import { formatDate } from "@/utils/formatter";
 
 interface Props {
   filtering: boolean;
@@ -54,25 +57,113 @@ function People({
     processingStart();
     setTitle("Email");
     progressRef.current?.resetValue();
+    //   const person = personList[i];
+    //   try {
+    //     const emailParams: emailParams = {
+    //       companyName: "GP Motors",
+    //       clientName: person.FirstName + " " + person.LastName,
+    //       serviceDate: person.serviceDate,
+    //       timeSlot: person.timeSlot,
+    //       serviceType: person.serviceType,
+    //       carRegistrationNo: person.carRegistrationNo,
+    //       bookingId: person.bookingId,
+    //       companyContactNo: "0208 943 4103",
+    //       websiteUrl: "https://gpmotorstedd.co.uk/",
+    //       year: new Date().getFullYear().toString(),
+    //       logoUrl:
+    //         "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+    //     };
+    //     const emailTemplate = getEmailTemplate(emailParams);
+    //     console.log("emailParams", emailParams);
+    //     // initEmailJS();
+    //     // sendAutoReplyEmail({
+    //     //   to_name: "Admin",
+    //     //   to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+    //     //   reply_subject: "appointment reminder",
+    //     //   reply_message_html: emailTemplate,
+    //     // });
+
+    //     // setPersonList((prevList) => {
+    //     //   const newList = [...prevList];
+    //     //   console.log("i value", i);
+    //     //   newList[i].EmailStatus = "success";
+    //     //   return [...newList];
+    //     // });
+    //     progressRef.current?.incrementValue();
+    //   } catch (error) {
+    //     console.log("email error", error);
+
+    //     setPersonList((prevList) => {
+    //       const newList = [...prevList];
+    //       console.log("i value", i);
+    //       newList[i].EmailStatus = "failed";
+    //       return [...newList];
+    //     });
+    //     progressRef.current?.incrementValue();
+    //   }
+    // }
+    // progressRef.current?.incrementValue();
 
     let i = -1;
     const intervalId = setInterval(() => {
       i++;
       if (i < personList.length) {
         console.log("processing id", personList[i].Id);
-        // call send sms function here...
-        setPersonList((prevList) => {
-          const newList = [...prevList];
-          console.log("i value", i);
-          newList[i].EmailStatus = "success";
-          if (i % 2 === 0) {
+        // call send email function start...
+        try {
+          const person = personList[i];
+          const emailParams: emailParams = {
+            companyName: "GP Motors",
+            clientName: person.FirstName + " " + person.LastName,
+            serviceDate: formatDate(new Date(person.serviceDate)),
+            timeSlot: person.timeSlot,
+            serviceType: person.serviceType,
+            carRegistrationNo: person.carRegistrationNo,
+            bookingId: person.bookingId,
+            companyContactNo: "0208 943 4103",
+            websiteUrl: "https://gpmotorstedd.co.uk/",
+            year: new Date().getFullYear().toString(),
+            logoUrl:
+              "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+          };
+          const emailTemplate = getEmailTemplate(emailParams);
+          console.log("emailParams", emailParams);
+          initEmailJS();
+          sendAutoReplyEmail({
+            to_name: emailParams.clientName,
+            to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+            reply_subject: "appointment reminder",
+            reply_message_html: emailTemplate,
+          });
+          // call send email function end...
+          setPersonList((prevList) => {
+            const newList = [...prevList];
+            console.log("i value", i);
             newList[i].EmailStatus = "success";
-          } else {
+            return [...newList];
+          });
+        } catch (error) {
+          console.log("email error", error);
+          setPersonList((prevList) => {
+            const newList = [...prevList];
+            console.log("i value", i);
             newList[i].EmailStatus = "failed";
-          }
-          return [...newList];
-        });
-        progressRef.current?.incrementValue();
+            return [...newList];
+          });
+        } finally {
+          progressRef.current?.incrementValue();
+        }
+        //   const newList = [...prevList];
+        //   console.log("i value", i);
+        //   newList[i].EmailStatus = "success";
+        //   // if (i % 2 === 0) {
+        //   //   newList[i].EmailStatus = "success";
+        //   // } else {
+        //   //   newList[i].EmailStatus = "failed";
+        //   // }
+        //   return [...newList];
+        // });
+        // progressRef.current?.incrementValue();
       } else {
         progressRef.current?.incrementValue();
         clearInterval(intervalId);

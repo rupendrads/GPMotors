@@ -56,6 +56,11 @@ function Reminder() {
     setWeekOrMonthRange(29);
   }, []);
 
+  const getServiceType = (serviceTypeId: number) => {
+    const serviceType = serviceTypes.find((st) => st.id === serviceTypeId);
+    return serviceType?.type;
+  };
+
   const updateServiceType = (serviceTypeId: number) => {
     const serviceType = serviceTypes.find((st) => st.id === serviceTypeId);
     setServiceType(serviceType);
@@ -114,6 +119,7 @@ function Reminder() {
     console.log("fetch - response appointments", result);
 
     const people: person[] = [];
+    // eslint-disable-next-line
     result.map((obj: any) => {
       people.push({
         Id: obj["ID"],
@@ -125,6 +131,11 @@ function Reminder() {
         SmsStatus: "",
         WhatsAppStatus: "",
         EmailStatus: "",
+        serviceDate: obj["BookingDate"],
+        timeSlot: obj["BookingTime"],
+        serviceType: getServiceType(obj["ServiceType"] as number) as string,
+        carRegistrationNo: obj["RegistrationNo"],
+        bookingId: obj["ID"],
       });
     });
     setFiltering(false);

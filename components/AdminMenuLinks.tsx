@@ -32,6 +32,13 @@ function AdminMenuLinks({ closeSidebar }: { closeSidebar?: () => void }) {
       >
         Client Detail List
       </Link>
+      <Link
+        href="/admin/reminder"
+        className=" hover:text-[#E33C30] px-3 py-2 transition"
+        onClick={closeSidebar ?? closeSidebar}
+      >
+        Appointment Reminder
+      </Link>
     </>
   );
 }
