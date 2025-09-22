@@ -10,7 +10,7 @@ export const convertTimeToMinutes = (time: string) => {
 };
 
 export const convertMinutesToTime = (totalMinutes: number) => {
-  const hours = totalMinutes / 60;
+  const hours = Math.trunc(totalMinutes / 60);
   const minutes = totalMinutes % 60;
   const time =
     (hours.toString().length === 1
