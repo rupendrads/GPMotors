@@ -19,9 +19,9 @@ import { JSX, useEffect, useState } from "react";
 import "../Carousel/CarouselStyle.css";
 
 function Gallery() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  // const [isDesktop, setIsDesktop] = useState(false);
   const [slides, setSlides] = useState<JSX.Element[]>([]);
-  
+
   const images = [
     image_1,
     image_2,
@@ -41,10 +41,10 @@ function Gallery() {
 
   useEffect(() => {
     const newSlides: JSX.Element[] = [];
-    
+
     images.forEach((image, index) => {
       newSlides.push(
-        <div key={index} className="flex flex-col">
+        <div key={index} className="flex flex-col w-[100%]">
           <div className="h-[230px] relative flex">
             <Image
               layout="fill"
@@ -54,16 +54,6 @@ function Gallery() {
               alt={`Gallery Image ${index + 1}`}
               className="z-0"
             />
-            <div className={numberBoxStyle}>
-              <span className={numberStyle}>
-                {index < 9 ? "0" + (index + 1).toString() : index + 1}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col gap-[16px] p-[45px] bg-zinc-100">
-            <div className="text-[20px] lg:text-[28px] font-[500] text-gray-950 leading-[125%] tracking-[0%]">
-              Gallery Image {index + 1}
-            </div>
           </div>
         </div>
       );
@@ -72,7 +62,7 @@ function Gallery() {
     setSlides(newSlides);
 
     const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+      //setIsDesktop(window.innerWidth >= 1024);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -87,47 +77,16 @@ function Gallery() {
         </div>
         <div className="text-[14px] lg:text-[20px] font-[400] md:max-lg:text-center text-stone-400 leading-[100%] traking-[0%]">
           <span>
-            Explore our collection of automotive service images showcasing our expertise and attention to detail in car maintenance and repairs.
+            Explore our collection of automotive service images showcasing our
+            expertise and attention to detail in car maintenance and repairs.
           </span>
         </div>
       </div>
-      {isDesktop ? (
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {images.map((image, index) => (
-            <div key={index} className="gallery-grid-item">
-              <div className="h-[250px] lg:h-[300px] relative flex rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <Image
-                  layout="fill"
-                  objectFit="cover"
-                  priority
-                  src={image}
-                  alt={`Gallery Image ${index + 1}`}
-                  className="z-0 hover:scale-105 transition-transform duration-300"
-                />
-                <div className={numberBoxStyle}>
-                  <span className={numberStyle}>
-                    {index < 9 ? "0" + (index + 1).toString() : index + 1}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="w-full">
-          {slides.length > 0 ? (
-            <EmblaCarousel slides={slides} options={OPTIONS} />
-          ) : (
-            <div className="text-center p-4">Loading gallery...</div>
-          )}
-        </div>
-      )}
+      <div className="w-full">
+        <EmblaCarousel slides={slides} options={OPTIONS} />
+      </div>
     </div>
   );
 }
-
-const numberBoxStyle =
-  "w-[49px] h-[49px] lg:w-[68px] lg:h-[68px] bg-red-500 text-white z-10 absolute flex justify-center items-center self-end rounded-tl-lg";
-const numberStyle = "text-[14px] lg:text-[16px] font-[600]";
 
 export default Gallery;
