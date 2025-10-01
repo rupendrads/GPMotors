@@ -151,7 +151,7 @@ export default function Navbar() {
                 </button>
               </div>
               <Link
-                href="/"
+                href="/gallery"
                 className=" hover:text-[#E33C30] px-3 py-2 transition"
               >
                 Gallery
@@ -299,7 +299,7 @@ export default function Navbar() {
                 )}
               </div>
               <Link
-                href="/"
+                href="/gallery"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
                 onClick={() => setSidebarOpen(false)}
               >
