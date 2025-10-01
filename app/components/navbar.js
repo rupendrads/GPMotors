@@ -54,8 +54,8 @@ const serviceColumns = [
     items: [
       { name: "Full diagnostic", link: "/full-diagnostic" },
       { name: "Electrical diagnostic", link: "/electrical-diagnostic" },
-      { name: "Specific system check", link: "/" },
-      { name: "All Warning light", link: "/" },
+      { name: "Specific system check", link: "/specific-system-check" },
+      { name: "All Warning light", link: "/warning-light" },
     ],
     subheading: "Body Work Paint",
     subitems: [
