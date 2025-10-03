@@ -20,7 +20,7 @@ function BookingConfigurationForm() {
     handleSubmit,
     formState,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     watch,
     control,
   } = useForm<IBookingConfig>({
@@ -74,12 +74,19 @@ function BookingConfigurationForm() {
         body: JSON.stringify(data),
       });
 
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
       const result = await response.json();
       console.log(result);
-      // handleShowAlert(result["status"], result["message"]);
-      // if(result["status"] === "success") {
-      // 	reset();
-      // }
+
+      handleShowAlert(result["status"], result["message"]);
+      if(result["status"] === "success") {
+        setTimeout(() => {
+          reset();
+        }, 1000);
+      }
     } catch (error) {
       console.error(error);
       handleShowAlert("error", "Failed to save booking slot data");
@@ -250,7 +257,7 @@ function BookingConfigurationForm() {
                 className={buttonStyle}
                 disabled={formState.isSubmitting}
               >
-                {formState.isSubmitting ? "Saving..." : "Save"}
+                {isSubmitting ? "Saving..." : "Save"}
               </button>
               {alert.message !== "" && (
                 <Alert
