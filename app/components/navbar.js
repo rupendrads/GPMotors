@@ -68,7 +68,7 @@ const serviceColumns = [
     items: [
       { name: "All Which", link: "/" },
       { name: "Resistor replacement", link: "/resistor-replacement" },
-      { name: "Head light blub", link: "/" },
+      { name: "Headlight bulb", link: "/headlight-replacement" },
       { name: "Wiring and rewiring", link: "/wiring-rewiring" },
       { name: "Alarm system", link: "/alarm-system" },
       { name: "Stereo system", link: "/stereo-system" },
