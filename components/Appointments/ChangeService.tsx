@@ -4,10 +4,12 @@ const ChangeService = ({
   stepIndex,
   changeStepIndex,
   serviceType,
+  isEdit,
 }: {
   stepIndex: number;
   changeStepIndex: (index: number) => void;
   serviceType: string | undefined;
+  isEdit: boolean;
 }) => {
   return (
     <div className={changeBoxStyle}>
@@ -15,12 +17,14 @@ const ChangeService = ({
         <label className={inputLabelStyle}>{serviceType}</label>
       </div>
       <div>
-        <button
-          className={changeButtonStyle}
-          onClick={() => changeStepIndex(stepIndex)}
-        >
-          Change
-        </button>
+        {isEdit === false && (
+          <button
+            className={changeButtonStyle}
+            onClick={() => changeStepIndex(stepIndex)}
+          >
+            Change
+          </button>
+        )}
       </div>
     </div>
   );
