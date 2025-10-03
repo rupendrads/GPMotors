@@ -40,13 +40,25 @@ const serviceColumns = [
       { name: "Engine Rebuild", link: "/engine-rebuild" },
       { name: "Gear box Rebuild", link: "/gearbox-rebuild" },
       { name: "Clutch Replacement", link: "/clutch-replacement" },
-      { name: "Brake pads and Disc Replacement", link: "/brake-disc-replacement" },
+      {
+        name: "Brake pads and Disc Replacement",
+        link: "/brake-disc-replacement",
+      },
       { name: "Brake Caliper Replacement", link: "/brake-caliper-replacement" },
-      { name: "Suspension Component Replacement", link: "/suspension-replacement" },
-      { name: "Compressor /Condensor Replacement", link: "/compressor-replacement" },
+      {
+        name: "Suspension Component Replacement",
+        link: "/suspension-replacement",
+      },
+      {
+        name: "Compressor /Condensor Replacement",
+        link: "/compressor-replacement",
+      },
       { name: "Turbocharger Replacement", link: "/turbocharger-replacement" },
       { name: "Head Gasket Overhaul", link: "/gasket-overhaul" },
-      { name: "Alternator /Starter Motor Replacement", link: "/alternator-replacement" },
+      {
+        name: "Alternator /Starter Motor Replacement",
+        link: "/alternator-replacement",
+      },
     ],
   },
   {
