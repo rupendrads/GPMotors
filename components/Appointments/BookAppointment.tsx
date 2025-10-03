@@ -9,11 +9,13 @@ import {
   IBookingSlots,
   IServiceType,
   IServiceTypeDB,
+  IBookingDB,
 } from "./types";
 import { getBookingsAvailable, getBookingTimes } from "./calc";
 import Loading from "../Loading";
+import { useSearchParams } from "next/navigation";
 
-function BookAppointment() { 
+function BookAppointment() {
   const [stepIndex, setStepIndex] = useState(1);
   const [bookingConfig, setBookingConfig] = useState<IBookingConfig>();
   const [serviceTypes, setServiceTypes] = useState<IServiceType[]>([]);
@@ -22,9 +24,32 @@ function BookAppointment() {
 
   const [loading, setLoading] = useState(true);
 
+  const [isEdit, setIsEdit] = useState(false);
+  const [appointment, setAppointment] = useState<IBookingDB>();
+
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  console.log("id", id);
+
   useEffect(() => {
     try {
-      
+      const fetchAppointment = async () => {
+        console.log("fetch -request appointment");
+        const response = await fetch(`/api/booking/${id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const result = await response.json();
+        console.log("fetch - response appointment", result);
+        setAppointment({
+          ...result,
+          BookingDate: new Date(result["BookingDate"]),
+        });
+      };
+
       const fetchData = async () => {
         console.log("fetch -request bookings");
         const response = await fetch("/api/booking/futures", {
@@ -36,6 +61,12 @@ function BookAppointment() {
 
         const result = await response.json();
         console.log("fetch - response bookings", result);
+
+        if (id !== null) {
+          fetchAppointment();
+          setIsEdit(true);
+          setStepIndex(2);
+        }
 
         setLoading(false);
 
@@ -141,6 +172,8 @@ function BookAppointment() {
             changeBookingTimeSlots={changeBookingTimeSlots}
             resetBookingTimeSlots={resetBookingTimeSlots}
             bookingFilled={bookingFilled}
+            isEdit={isEdit}
+            appointment={appointment}
           />
           <BookAppointmentFooter />
         </>

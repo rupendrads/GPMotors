@@ -1,6 +1,8 @@
+"use client";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { IDateTime } from "./types";
 import "react-day-picker/style.css";
+import { useEffect, useState } from "react";
 
 type Props = {
   bookingDateTime: IDateTime;
@@ -13,7 +15,14 @@ const BookingCalender = ({
   updateBookingDate,
   disabledDates,
 }: Props) => {
+  const [month, setMonth] = useState(
+    bookingDateTime.date ? bookingDateTime.date : new Date()
+  );
   const defaultClassNames = getDefaultClassNames();
+
+  useEffect(() => {
+    if (bookingDateTime.date) setMonth(bookingDateTime.date);
+  }, [bookingDateTime.date]);
 
   const disabledDays = [
     { before: new Date() },
@@ -22,11 +31,15 @@ const BookingCalender = ({
   ];
   console.log("disabledDates", disabledDays);
 
+  console.log("booking date time", bookingDateTime);
+
   return (
     <div className="mx-auto mb-2">
       <DayPicker
         animate
         mode="single"
+        month={month}
+        onMonthChange={setMonth}
         selected={bookingDateTime.date}
         onSelect={updateBookingDate}
         disabled={disabledDays}

@@ -1,5 +1,6 @@
 import BookAppointment from "@/components/Appointments/BookAppointment";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Book Appointment | Car Repair",
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
 export default function BookAppointmentPage() {
   return (
     <main>
-      <BookAppointment />
+      <Suspense>
+        <BookAppointment />
+      </Suspense>
     </main>
   );
 }
