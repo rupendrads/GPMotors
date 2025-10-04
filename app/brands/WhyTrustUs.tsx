@@ -122,7 +122,7 @@ const WhyTrustUs = ({data}) => {
       Need Expert Advice on Your Car Service?
     </h3>
     <p className="text-white/90 text-sm">
-      Our friendly team is on hand to guide you through any mechanical issues you're experiencing.
+      Our friendly team is on hand to guide you through any mechanical issues you&apos;re experiencing.
     </p>
   </div>
 

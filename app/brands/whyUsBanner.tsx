@@ -58,7 +58,7 @@ const WhyUsBanner = ({data}) => {
                 At GP Motors Tedd, We Understand That Dents Are More Than Just Cosmetic Flaws. 
                 Even Small Dents Can Chip The Paint, Expose Metal To Moisture, And Lead To Rust 
                 Over Time. Left Untreated, This Weakens The Bodywork And Can Result In Costly 
-                Repairs. Beyond Appearance, Dents Also Reduce Your Car's Resale Value. That's Why 
+                Repairs. Beyond Appearance, Dents Also Reduce Your Car&apos;s Resale Value. That&apos;s Why 
                 Our Expert Team Ensures Your Vehicle Not Only Looks Great But Stays Protected 
                 And Well-Maintained For The Long Run.
               </p>
