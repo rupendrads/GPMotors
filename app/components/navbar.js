@@ -22,55 +22,68 @@ const serviceColumns = [
     highlight: "Brake Repair",
     items: [
       { name: "MOT", link: "/mot-service" },
-      { name: "Minor Service", link: "/" },
-      { name: "Intermediate", link: "/" },
-      { name: "Full Service", link: "/" },
-      { name: "AC Service", link: "/" },
-      { name: "Brake Fluid", link: "/" },
-      { name: "Coolant Change", link: "/" },
-      { name: "Timing Bath/Changes", link: "/" },
-      { name: "Transmission Service", link: "/" },
-      { name: "Cluch Repair", link: "/" },
+      { name: "Minor Service", link: "/minor-service" },
+      { name: "Intermediate Service", link: "/intermediate-service" },
+      { name: "Full Service", link: "/full-service" },
+      { name: "AC Service", link: "/car-ac-service" },
+      { name: "Brake Fluid", link: "/brake-fluid-service" },
+      { name: "Coolant Change", link: "/coolant-change" },
+      { name: "Timing Belt Change", link: "/timing-belt-change" },
+      { name: "Transmission Service", link: "/transmission-service" },
+      { name: "Cluch Repair", link: "/clutch-change" },
+      { name: "Dent Removal", link: "/car-dent-removal" },
     ],
   },
   {
     heading: "ENGINE Maintanance",
     items: [
-      { name: "Engline Redbuild", link: "/" },
-      { name: "Gear box Rebuild", link: "/" },
-      { name: "Clutch Replacement", link: "/" },
-      { name: "Brake pads and disc replacement", link: "/" },
-      { name: "Break calipr replacement", link: "/" },
-      { name: "Suspension component replaecment", link: "/" },
-      { name: "compressor /Condensenor replacement", link: "/" },
-      { name: "Turbicharger", link: "/" },
-      { name: "Head Gasket overall", link: "/" },
-      { name: "Alternator /Starter motor replacement", link: "/" },
+      { name: "Engine Rebuild", link: "/engine-rebuild" },
+      { name: "Gear box Rebuild", link: "/gearbox-rebuild" },
+      { name: "Clutch Replacement", link: "/clutch-replacement" },
+      {
+        name: "Brake pads and Disc Replacement",
+        link: "/brake-disc-replacement",
+      },
+      { name: "Brake Caliper Replacement", link: "/brake-caliper-replacement" },
+      {
+        name: "Suspension Component Replacement",
+        link: "/suspension-replacement",
+      },
+      {
+        name: "Compressor /Condensor Replacement",
+        link: "/compressor-replacement",
+      },
+      { name: "Turbocharger Replacement", link: "/turbocharger-replacement" },
+      { name: "Head Gasket Overhaul", link: "/gasket-overhaul" },
+      {
+        name: "Alternator /Starter Motor Replacement",
+        link: "/alternator-replacement",
+      },
     ],
   },
   {
     heading: "Vehicle Diagnostic",
     items: [
-      { name: "full diagnostic", link: "/" },
-      { name: "Electrical", link: "/" },
-      { name: "Specific system check", link: "/" },
-      { name: "All Warning light", link: "/" },
+      { name: "Full diagnostic", link: "/full-diagnostic" },
+      { name: "Electrical diagnostic", link: "/electrical-diagnostic" },
+      { name: "Specific system check", link: "/specific-system-check" },
+      { name: "All Warning light", link: "/warning-light" },
     ],
     subheading: "Body Work Paint",
     subitems: [
       { name: "All which is there", link: "/" },
-      { name: "Minor Respray", link: "/" },
+      { name: "Minor Respray", link: "/minor-respray" },
     ],
   },
   {
     heading: "Electrical System",
     items: [
       { name: "All Which", link: "/" },
-      { name: "Resistor replacement", link: "/" },
-      { name: "Head light blub", link: "/" },
-      { name: "wiring and rewiring", link: "/" },
-      { name: "alram system", link: "/" },
-      { name: "stereo system", link: "/" },
+      { name: "Resistor replacement", link: "/resistor-replacement" },
+      { name: "Headlight bulb", link: "/headlight-replacement" },
+      { name: "Wiring and rewiring", link: "/wiring-rewiring" },
+      { name: "Alarm system", link: "/alarm-system" },
+      { name: "Stereo system", link: "/stereo-system" },
     ],
   },
 ];
@@ -201,7 +214,7 @@ export default function Navbar() {
                 </button>
               </div>
               <Link
-                href="/"
+                href="/gallery"
                 className=" hover:text-[#E33C30] px-3 py-2 transition"
               >
                 Gallery
@@ -375,7 +388,7 @@ export default function Navbar() {
                 )}
               </div>
               <Link
-                href="/"
+                href="/gallery"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
                 onClick={() => setSidebarOpen(false)}
               >

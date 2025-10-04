@@ -3,8 +3,7 @@ import TransmissionServiceHeader from "./TransmissionServiceHeader";
 import TransmissionServiceSubHeader from "./TransmissionServiceSubHeader";
 import TransmissionRepair from "./TransmissionRepair";
 import TransmissionServiceAdv from "./TransmissionServiceAdv";
-//import CustomerReviews from "@/components/Services/CustomerReviews/CustomerReviews";
-
+import ExpertAdvice from "../ExpertAdvice/ExpertAdvice";
 
 function TransmissionService() {
   return (
@@ -12,7 +11,7 @@ function TransmissionService() {
       <TransmissionServiceHeader />
       <div className="flex flex-col gap-8 mx-8 md:mx-16"> 
         <TransmissionServiceSubHeader />
-        {/* <CustomerReviews /> */}
+        <ExpertAdvice />
         <BusinessProcess />
         <TransmissionRepair />
         <TransmissionServiceAdv />

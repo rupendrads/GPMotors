@@ -64,18 +64,17 @@ const ServiceHeader: React.FC<Props> = ({
           priority
           z-0="true"
         />
-        <div className="absolute w-full h-full flex items-center pl-[10%]">
+        <div className="absolute w-full h-full flex pl-[5%] md:pl-[10%] pt-[20px] md:pt-[100px]">
           <div className="flex flex-col">
-            <div className="w-[300px] h-[192px] md:w-[680px] md:h-[120px] lg:w-[820px] lg:h-[144px]">
+            <div className="w-[270px] h-[220px] md:w-[680px] md:h-[120px] lg:w-[820px] lg:h-[144px]">
               <span className={titlePart1Style}>{titlePart1}</span>
               <span className={titlePart2Style}>{titlePart2}</span>
             </div>
-            <div className="w-[270px] h-[200px] md:w-[562px] md:h-[117px] lg:w-[840px] lg:h-[81px]">
+            <div className="w-[270px] h-[280px] md:w-[562px] md:h-[200px] lg:w-[840px] lg:h-[130px]">
               <span className="font-[400] text-[16.5px] md:text-[20px] lg:text-[18px] leading-[1.2] tracker=[0%] capitalize text-white">
                 {desc}
               </span>
             </div>
-
             <button
               className="w-[155px] h-[48px] bg-red-500 text-white 
               flex justify-center items-center gap-2 cursor-pointer z-10"

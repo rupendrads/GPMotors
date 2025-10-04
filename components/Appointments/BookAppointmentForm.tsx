@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BookingService from "./BookingService";
 import ChangeService from "./ChangeService";
 //import ChangeBookingDateTime from "./ChangeBookingDateTime";
@@ -10,6 +10,7 @@ import {
   IBookingSlots,
   IServiceType,
   IFormInput,
+  IBookingDB,
 } from "./types";
 
 import BookingDateTime from "./BookingDateTime";
@@ -26,6 +27,8 @@ type Props = {
   changeBookingTimeSlots: (timeSlots: IBookingSlots[]) => void;
   resetBookingTimeSlots: (slotLimit: number) => void;
   bookingFilled: IBookingFilled[];
+  isEdit: boolean;
+  appointment: IBookingDB | undefined;
 };
 
 const BookAppointmentForm = ({
@@ -38,6 +41,8 @@ const BookAppointmentForm = ({
   changeBookingTimeSlots,
   resetBookingTimeSlots,
   bookingFilled,
+  isEdit,
+  appointment,
 }: Props) => {
   const [serviceType, setServiceType] = useState<IServiceType>();
   const [bookingDateTime, setBookingDateTime] = useState<IDateTime>({
@@ -46,6 +51,28 @@ const BookAppointmentForm = ({
   });
   const [clientDetails, setClientDetails] = useState<IFormInput>();
   const [disabledDates, setDisabledDates] = useState<Date[]>([]);
+
+  useEffect(() => {
+    if (isEdit === true && appointment) {
+      updateServiceType(appointment.ServiceType);
+      setClientDetails({
+        title: appointment.Title,
+        firstName: appointment.FirstName,
+        lastName: appointment.LastName,
+        postCode: appointment.PostCode,
+        email: appointment.Email,
+        registrationNo: appointment.RegistrationNo,
+        comments: appointment.Comments,
+        phoneNo: appointment.PhoneNo,
+      });
+      console.log("appointment.BookingDate", appointment.BookingDate);
+      updateBookingTimeSlots(appointment.BookingDate as Date, serviceType);
+      setBookingDateTime({
+        date: appointment.BookingDate as Date,
+        time: appointment.BookingTime,
+      });
+    }
+  }, [isEdit, appointment]);
 
   const getSlotsLimit = (serviceType: IServiceType) => {
     return serviceType.logic === 1
@@ -76,9 +103,13 @@ const BookAppointmentForm = ({
       if (bookingDateTime.date !== undefined) {
         updateBookingTimeSlots(bookingDateTime.date, serviceType);
         setBookingDateTime({ ...bookingDateTime, time: "" });
-        moveToNextStep();
+        if (!isEdit) {
+          moveToNextStep();
+        }
       } else {
-        moveToNextStep();
+        if (!isEdit) {
+          moveToNextStep();
+        }
       }
     }
   };
@@ -151,6 +182,7 @@ const BookAppointmentForm = ({
               stepIndex={1}
               changeStepIndex={changeStepIndex}
               serviceType={serviceType?.type}
+              isEdit={isEdit}
             />
             <BookingDateTime
               bookingDateTime={bookingDateTime}
@@ -172,6 +204,8 @@ const BookAppointmentForm = ({
               resetBookingDateTime={resetBookingDateTime}
               clientDetails={clientDetails}
               updateClientDetails={updateClientDetails}
+              isEdit={isEdit}
+              id={appointment?.ID}
             />
           </div>
         </div>

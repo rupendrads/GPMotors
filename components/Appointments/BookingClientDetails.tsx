@@ -17,6 +17,8 @@ type Props = {
   resetBookingDateTime: () => void;
   clientDetails: IFormInput | undefined;
   updateClientDetails: (clientDetails: IFormInput, index: number) => void;
+  isEdit: boolean;
+  id: number | undefined;
 };
 
 const titles = ["Mr", "Mrs", "Ms"];
@@ -28,7 +30,10 @@ const BookingClientDetails = ({
   resetBookingDateTime,
   clientDetails,
   updateClientDetails,
+  isEdit,
+  id,
 }: Props) => {
+  console.log("isEdit", isEdit);
   const [alert, setAlert] = useState({ message: "", type: "" });
   const {
     register,
@@ -57,6 +62,120 @@ const BookingClientDetails = ({
     resetServiceType();
   };
 
+  const insertAppointment = async (bookingData: IFormInput) => {
+    const response = await fetch("/api/booking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        BookingDate: formatDate(bookingDateTime.date),
+        BookingTime: bookingDateTime.time,
+        Title: bookingData.title,
+        FirstName: bookingData.firstName,
+        LastName: bookingData.lastName,
+        Email: bookingData.email,
+        PostCode: bookingData.postCode,
+        RegistrationNo: bookingData.registrationNo,
+        ServiceType: serviceType?.id,
+        Comments: bookingData.comments,
+        PhoneNo: bookingData.phoneNo,
+      }),
+    });
+
+    const result = await response.json();
+    console.log("insert appointment result", result);
+    handleShowAlert(result["status"], result["message"]);
+    if (result["status"] === "success") {
+      const bookingId = result["results"]["insertId"];
+      console.log("insert appointment id", bookingId);
+      resetForm();
+      try {
+        const emailParams: emailParams = {
+          companyName: "GP Motors",
+          clientName: bookingData.firstName + " " + bookingData.lastName,
+          serviceDate: formatDate(bookingDateTime.date),
+          timeSlot: bookingDateTime.time,
+          serviceType: serviceType?.type as string,
+          carRegistrationNo: bookingData.registrationNo,
+          bookingId: bookingId,
+          companyContactNo: "0208 943 4103",
+          websiteUrl: "https://gpmotorstedd.co.uk/",
+          year: new Date().getFullYear().toString(),
+          logoUrl:
+            "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+        };
+        const emailTemplate = getEmailTemplate(emailParams);
+        initEmailJS();
+        sendAutoReplyEmail({
+          to_name: "Admin",
+          to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+          reply_subject: "booking appointment confirmation",
+          reply_message_html: emailTemplate,
+        });
+      } catch (error) {
+        console.log("email error", error);
+      }
+    }
+  };
+
+  const updateAppointment = async (bookingData: IFormInput) => {
+    const response = await fetch(`/api/booking/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        bookingDate: formatDate(bookingDateTime.date),
+        bookingTime: bookingDateTime.time,
+        title: bookingData.title,
+        firstName: bookingData.firstName,
+        lastName: bookingData.lastName,
+        email: bookingData.email,
+        postCode: bookingData.postCode,
+        registrationNo: bookingData.registrationNo,
+        serviceType: serviceType?.id,
+        comments: bookingData.comments,
+        phoneNo: bookingData.phoneNo,
+      }),
+    });
+
+    const result = await response.json();
+    console.log("update appointment result", result);
+    handleShowAlert(result["status"], result["message"]);
+    if (result["status"] === "success") {
+      const bookingId = result["results"]["insertId"];
+      console.log("update appointment id", bookingId);
+      resetForm();
+      try {
+        const emailParams: emailParams = {
+          companyName: "GP Motors",
+          clientName: bookingData.firstName + " " + bookingData.lastName,
+          serviceDate: formatDate(bookingDateTime.date),
+          timeSlot: bookingDateTime.time,
+          serviceType: serviceType?.type as string,
+          carRegistrationNo: bookingData.registrationNo,
+          bookingId: bookingId,
+          companyContactNo: "0208 943 4103",
+          websiteUrl: "https://gpmotorstedd.co.uk/",
+          year: new Date().getFullYear().toString(),
+          logoUrl:
+            "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+        };
+        const emailTemplate = getEmailTemplate(emailParams);
+        initEmailJS();
+        sendAutoReplyEmail({
+          to_name: "Admin",
+          to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+          reply_subject: "booking appointment confirmation",
+          reply_message_html: emailTemplate,
+        });
+      } catch (error) {
+        console.log("email error", error);
+      }
+    }
+  };
+
   const bookAppointment = async (data: IFormInput) => {
     console.log(data);
     const bookingData = { ...data };
@@ -64,59 +183,10 @@ const BookingClientDetails = ({
     console.log("bookingDateTime", bookingDateTime);
     console.log("formatted bookingDate", formatDate(bookingDateTime.date));
     try {
-      const response = await fetch("/api/booking", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          BookingDate: formatDate(bookingDateTime.date),
-          BookingTime: bookingDateTime.time,
-          Title: bookingData.title,
-          FirstName: bookingData.firstName,
-          LastName: bookingData.lastName,
-          Email: bookingData.email,
-          PostCode: bookingData.postCode,
-          RegistrationNo: bookingData.registrationNo,
-          ServiceType: serviceType?.id,
-          Comments: bookingData.comments,
-          PhoneNo: bookingData.phoneNo,
-        }),
-      });
-
-      const result = await response.json();
-      console.log("insert appointment result", result);
-      handleShowAlert(result["status"], result["message"]);
-      if (result["status"] === "success") {
-        const bookingId = result["results"]["insertId"];
-        console.log("insert appointment id", bookingId);
-        resetForm();
-        try {
-          const emailParams: emailParams = {
-            companyName: "GP Motors",
-            clientName: bookingData.firstName + " " + bookingData.lastName,
-            serviceDate: formatDate(bookingDateTime.date),
-            timeSlot: bookingDateTime.time,
-            serviceType: serviceType?.type as string,
-            carRegistrationNo: bookingData.registrationNo,
-            bookingId: bookingId,
-            companyContactNo: "0208 943 4103",
-            websiteUrl: "https://gpmotorstedd.co.uk/",
-            year: new Date().getFullYear().toString(),
-            logoUrl:
-              "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
-          };
-          const emailTemplate = getEmailTemplate(emailParams);
-          initEmailJS();
-          sendAutoReplyEmail({
-            to_name: "Admin",
-            to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-            reply_subject: "booking appointment confirmation",
-            reply_message_html: emailTemplate,
-          });
-        } catch (error) {
-          console.log("email error", error);
-        }
+      if (isEdit === true) {
+        await updateAppointment(bookingData);
+      } else {
+        await insertAppointment(bookingData);
       }
     } catch (error) {
       console.error(error);
@@ -128,12 +198,23 @@ const BookingClientDetails = ({
     updateClientDetails(getValues(), index);
   };
 
+  const headingStyle = `text-[18px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4
+    ${isEdit === true ? "opacity-75" : "opacity-100"}`;
+
+  const inputGroupStyle = `flex flex-col gap-2 ${
+    isEdit === true
+      ? "pointer-events-none opacity-75"
+      : "pointer-events-auto opacity-100"
+  }`;
+  console.log("isEdit", inputGroupStyle);
+
   return (
     <>
       <ChangeService
         stepIndex={1}
         changeStepIndex={stepIndexChanged}
         serviceType={serviceType?.type}
+        isEdit={isEdit}
       />
       <ChangeBookingDateTime
         stepIndex={2}
@@ -276,7 +357,11 @@ const BookingClientDetails = ({
             className={buttonStyle}
             disabled={formState.isSubmitting}
           >
-            {formState.isSubmitting ? "Confirming..." : "Confirm appointment"}
+            {formState.isSubmitting
+              ? "Confirming..."
+              : isEdit === false
+              ? "Confirm appointment"
+              : "Update appointment"}
           </button>
         </div>
         {alert.message !== "" && (
@@ -297,9 +382,6 @@ const signinHeadingBoxStyle =
   "flex items-center gap-5 py-2 px-4 border border-gray-300 rounded";
 const signinHeadingStyle =
   "text-[14px] text-zinc-800 font-[400] leading-[1.5] traking-[0%]";
-const headingStyle =
-  "text-[18px] text-zinc-800 font-[600] leading-[100%] traking-[0%] mb-2 mt-4";
-const inputGroupStyle = "flex flex-col gap-2";
 const inputLabelBoxStyle = "flex items-center gap-2";
 const inputStyle =
   "border shadow rounded py-2 px-3 text-[16px] font-[400] leading-[100%] traking-[0%] text-neutral-800";
