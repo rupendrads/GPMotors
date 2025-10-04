@@ -75,14 +75,49 @@ const serviceColumns = [
   },
 ];
 
+const brandColumns = [
+  {
+    items: [
+      { name: "Audi", link: "/brands/Audi" },
+      { name: "Volks Wagen", link: "/brands/Volkswagen" },
+    ],
+  },
+  {
+    items: [
+      { name: "Ford", link: "/brands/Ford" },
+      { name: "Mercedes", link: "/brands/Mercedes" },
+    ],
+  },
+  {
+    items: [
+      { name: "BMW", link: "/brands/BMW" },
+      { name: "Land Rover", link: "/brands/Land-Rover" },
+    ],
+  },
+  {
+    items: [
+      { name: "Skoda", link: "/brands/Skoda" },
+      { name: "Toyota", link: "/brands/Toyota" },
+    ],
+  },
+  {
+    items: [
+      { name: "Honda", link: "/brands/Honda" },
+      { name: "Volvo", link: "/brands/Volvo" },
+    ],
+  },
+];
+
 const getItemClass = (item, highlight) =>
   item === highlight ? "hover:text-[#E33C30]" : " hover:text-[#E33C30]";
 
 export default function Navbar() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
+  const [showBrandsMegaMenu, setShowBrandsMegaMenu] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarAccordions, setSidebarAccordions] = useState({
     Services: false,
+    Brands: false,
     "CAR REPAIR": false,
     "ENGINE REPAIR": false,
     "BODYWORK & PAINT": false,
@@ -93,6 +128,9 @@ export default function Navbar() {
 
   const handleEnter = () => setShowMegaMenu(true);
   const handleLeave = () => setShowMegaMenu(false);
+
+  const handleBrandsEnter = () => setShowBrandsMegaMenu(true);
+  const handleBrandsLeave = () => setShowBrandsMegaMenu(false);
 
   const toggleAccordion = (key) => {
     setSidebarAccordions((prev) => ({
@@ -149,6 +187,19 @@ export default function Navbar() {
                   Services <ChevronDownIcon className="w-4 h-4 ml-1" />
                 </button>
               </div>
+              <div
+                className="relative"
+                onMouseEnter={handleBrandsEnter}
+                onMouseLeave={handleBrandsLeave}
+              >
+                <button
+                  className={`flex items-center px-3 py-5  hover:text-[#E33C30] transition ${
+                    showBrandsMegaMenu ? "text-[#E33C30]" : ""
+                  }`}
+                >
+                  Brands <ChevronDownIcon className="w-4 h-4 ml-1" />
+                </button>
+              </div>
               <Link
                 href="/"
                 className=" hover:text-[#E33C30] px-3 py-2 transition"
@@ -156,7 +207,7 @@ export default function Navbar() {
                 Gallery
               </Link>
               <Link
-                href="/aboutus"
+                href="/"
                 className=" hover:text-[#E33C30] px-3 py-2 transition"
               >
                 About
@@ -167,11 +218,6 @@ export default function Navbar() {
               >
                 Contact
               </Link>
-              {/* <div className="relative">
-            <button className="flex items-center  hover:text-[#E33C30] px-3 py-2 transition">
-              Contact
-            </button>
-          </div> */}
             </div>
             <div className="flex items-center space-x-4">
               <Link
@@ -297,6 +343,37 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
+              <div>
+                <button
+                  className="flex items-center justify-between w-full px-3 py-2 rounded-lg hover:bg-gray-100 font-medium text-gray-900"
+                  onClick={() => toggleAccordion("Brands")}
+                >
+                  <span>Brands</span>
+                  {sidebarAccordions["Brands"] ? (
+                    <ChevronUpIcon className="w-4 h-4" />
+                  ) : (
+                    <ChevronDownIcon className="w-4 h-4" />
+                  )}
+                </button>
+                {sidebarAccordions["Brands"] && (
+                  <div className="mt-1 space-y-1 pl-5">
+                    {brandColumns.map((col, idx) => (
+                      <div key={idx}>
+                        {col.items.map((brand) => (
+                          <Link
+                            key={brand.name}
+                            href={brand.link}
+                            className="block px-3 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
+                            onClick={() => setSidebarOpen(false)}
+                          >
+                            {brand.name}
+                          </Link>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
               <Link
                 href="/"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition font-medium text-gray-900"
@@ -326,6 +403,7 @@ export default function Navbar() {
         </nav>
       </div>
 
+      {/* Services Mega Menu */}
       {showMegaMenu && (
         <div
           className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-40 hidden lg:block"
@@ -415,14 +493,69 @@ export default function Navbar() {
               </span>
               What is call routing software?
               <Link
-                href="/"
-                className="underline text-[#8E840D]  hover:text-white ml-1"
+                href="/contact"
+                className="underline text-[#8E840D]  hover:text-red ml-1"
               >
                 lets connect
               </Link>
             </div>
             <Link
-              href="/"
+              href="/book-appointment"
+              className="bg-[#E33C30] text-white px-4 py-1 rounded text-xs font-semibold transition"
+            >
+              Book Appointment
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Brands Mega Menu */}
+      {showBrandsMegaMenu && (
+        <div
+          className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-40 hidden lg:block"
+          onMouseEnter={handleBrandsEnter}
+          onMouseLeave={handleBrandsLeave}
+        >
+          <div className="flex justify-center pt-8 pb-6 px-0">
+            <div className="mx-20 flex gap-16 w-full justify-between">
+              {brandColumns.map((col, idx) => (
+                <div key={idx} className="flex flex-col space-y-4">
+                  {col.items.map((brand, i) => (
+                    <Link
+                      key={i}
+                      href={brand.link}
+                      className="text-[16px] text-gray-800 hover:text-[#E33C30] transition font-medium"
+                    >
+                      {brand.name}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="w-full h-px " />
+          <div className="flex justify-between items-center px-10 py-5 bg-[#E8F3F2]">
+            <div className="flex items-center text-sm">
+              <span className="bg-[#CA382E] border-white border-2 mr-2 rounded-full">
+                <Image
+                  src={key}
+                  alt="Red Car"
+                  width={256}
+                  height={128}
+                  className="w-full h-full object-cover p-2 rounded-b-lg"
+                  style={{ objectPosition: "center bottom" }}
+                />
+              </span>
+              What is call routing software?
+              <Link
+                href="/contact"
+                className="underline text-[#8E840D] hover:text-red ml-1"
+              >
+                lets connect
+              </Link>
+            </div>
+            <Link
+              href="/book-appointment"
               className="bg-[#E33C30] text-white px-4 py-1 rounded text-xs font-semibold transition"
             >
               Book Appointment
