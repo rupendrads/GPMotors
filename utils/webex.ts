@@ -82,7 +82,7 @@ export const sendSms = async (
 
 export const sendSmsTemplate = async (toNumber, templateId) => {
   const apiUrl = "https://api.webexinteract.com/v1/sms"; // Replace {YourRegion}
-  const apiKey = "aky_30gLecjoiiFVXLqfSN8576zeZOa"; // Replace with your actual API key
+  const apiKey = "aky_33gzP5A4Q1XUIz7QdE271qrkc9N"; // Replace with your actual API key
 
   try {
     const response = await fetch(apiUrl, {
@@ -92,8 +92,8 @@ export const sendSmsTemplate = async (toNumber, templateId) => {
         "X-AUTH-KEY": apiKey, // Or your specific authentication header
       },
       body: JSON.stringify({
-        //message_body: messageContent,
-        template_id: templateId, //only one of message_body or template_id should be present
+        message_body: templateId,
+        //template_id: templateId, //only one of message_body or template_id should be present
         from: "GP Motors",
         skip_optout_check: true,
         to: [

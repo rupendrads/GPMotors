@@ -201,12 +201,39 @@ function People({
   //   }, 5000);
   // };
 
-  const sendSMSToPerson = async (person: person): Promise<string> => {
+  const sendSMSWithTemplateToPerson = async (
+    person: person
+  ): Promise<string> => {
     const sendSmsStatus = await sendSmsTemplate(
       person.PhoneNo,
       "stp_2wMCj3z1DOXf7cStPxEDMsJVWml"
     );
     return sendSmsStatus;
+  };
+
+  const getSMSTemplate = (person: person) => {
+    const sms = `Dear ${person.FirstName} ${person.LastName} 
+      Thank you for choosing G.P. Motors. 
+      We're pleased to remind your upcoming car service appointment.
+      Date: ${formatDate(new Date(person.serviceDate))}, 
+      Time Slot: ${person.timeSlot}, 
+      Service Type: ${person.serviceType}, 
+      Booking ID: ${person.bookingId}
+      If you need to make changes or have any questions, 
+      feel free to contact us at 0208 943 4103. 
+      We look forward to providing you with exceptional service.
+      Warm regards, 
+      The G.P. Motors (Teddington) LTD.`;
+    return sms;
+  };
+
+  //"+447533326624"
+  const sendSMSToPerson = async (person: person): Promise<string> => {
+    const smsTemplate = getSMSTemplate(person);
+    console.log(smsTemplate);
+    // const sendSmsStatus = await sendSmsTemplate("+447919453190", smsTemplate);
+    // return sendSmsStatus;
+    return "success";
   };
 
   const sendSMS = async () => {
