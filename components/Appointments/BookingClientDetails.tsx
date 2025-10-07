@@ -9,6 +9,7 @@ import ChangeService from "./ChangeService";
 import { useRouter } from "next/navigation";
 import { initEmailJS, sendAutoReplyEmail } from "@/app/lib/emailService";
 import getEmailTemplate, { emailParams } from "./emailTemplate";
+import { sendSmsTemplate } from "@/utils/webex";
 
 type Props = {
   serviceType: IServiceType | undefined;
@@ -60,6 +61,28 @@ const BookingClientDetails = ({
     reset();
     resetBookingDateTime();
     resetServiceType();
+  };
+
+  const getSMSTemplate = (
+    clientName: string,
+    serviceDate: string,
+    timeSlot: string,
+    serviceType: string,
+    bookingId: string
+  ) => {
+    const sms = `Dear ${clientName} 
+        Thank you for choosing G.P. Motors. 
+        We're pleased to remind your upcoming car service appointment.
+        Date: ${serviceDate}, 
+        Time Slot: ${timeSlot}, 
+        Service Type: ${serviceType}, 
+        Booking ID: ${bookingId}
+        If you need to make changes or have any questions, 
+        feel free to contact us at 0208 943 4103. 
+        We look forward to providing you with exceptional service.
+        Warm regards, 
+        The G.P. Motors (Teddington) LTD.`;
+    return sms;
   };
 
   const insertAppointment = async (bookingData: IFormInput) => {
@@ -116,6 +139,17 @@ const BookingClientDetails = ({
       } catch (error) {
         console.log("email error", error);
       }
+      // sending sms
+      const smsTemplate = getSMSTemplate(
+        bookingData.firstName + " " + bookingData.lastName,
+        formatDate(bookingDateTime.date),
+        bookingDateTime.time,
+        serviceType?.type as string,
+        bookingId
+      );
+      console.log(smsTemplate);
+      const sendSmsStatus = await sendSmsTemplate("+447919453190", smsTemplate);
+      console.log("send sms status", sendSmsStatus);
     }
   };
 
@@ -173,6 +207,17 @@ const BookingClientDetails = ({
       } catch (error) {
         console.log("email error", error);
       }
+      // sending sms
+      const smsTemplate = getSMSTemplate(
+        bookingData.firstName + " " + bookingData.lastName,
+        formatDate(bookingDateTime.date),
+        bookingDateTime.time,
+        serviceType?.type as string,
+        bookingId
+      );
+      console.log(smsTemplate);
+      const sendSmsStatus = await sendSmsTemplate("+447919453190", smsTemplate);
+      console.log("send sms status", sendSmsStatus);
     }
   };
 
