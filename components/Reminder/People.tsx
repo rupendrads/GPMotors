@@ -51,8 +51,6 @@ function People({
     setPersonList([...people]);
   };
 
-  const sendWhatsApp = () => {};
-
   const sendEmail = () => {
     processingStart();
     setTitle("Email");
@@ -170,46 +168,24 @@ function People({
       }
     }, 5000);
   };
-
-  // const sendSMS = async () => {
   //   processingStart();
   //   setTitle("SMS");
   //   progressRef.current?.resetValue();
 
-  //   let i = -1;
-  //   const intervalId = setInterval(() => {
-  //     i++;
-  //     if (i < personList.length) {
-  //       console.log("processing id", personList[i].Id);
-  //       // call send sms function here...
-  //       setPersonList((prevList) => {
-  //         const newList = [...prevList];
-  //         console.log("i value", i);
-  //         newList[i].SmsStatus = "success";
-  //         if (i % 2 === 0) {
-  //           newList[i].SmsStatus = "success";
-  //         } else {
-  //           newList[i].SmsStatus = "failed";
-  //         }
-  //         return [...newList];
-  //       });
-  //       progressRef.current?.incrementValue();
-  //     } else {
-  //       progressRef.current?.incrementValue();
-  //       clearInterval(intervalId);
-  //     }
-  //   }, 5000);
+  //   for (const person of personList) {
+  //     const sendSmsStatus = await sendSMSToPerson(person);
+  //     setPersonList((prevList) => {
+  //       const newList = [...prevList];
+  //       const i = newList.findIndex((p) => p.Id === person.Id);
+  //       if (i > -1) {
+  //         newList[i].SmsStatus = sendSmsStatus;
+  //       }
+  //       return [...newList];
+  //     });
+  //     progressRef.current?.incrementValue();
+  //   }
+  //   progressRef.current?.incrementValue();
   // };
-
-  const sendSMSWithTemplateToPerson = async (
-    person: person
-  ): Promise<string> => {
-    const sendSmsStatus = await sendSmsTemplate(
-      person.PhoneNo,
-      "stp_2wMCj3z1DOXf7cStPxEDMsJVWml"
-    );
-    return sendSmsStatus;
-  };
 
   const getSMSTemplate = (person: person) => {
     const sms = `Dear ${person.FirstName} ${person.LastName} 
@@ -241,20 +217,27 @@ function People({
     setTitle("SMS");
     progressRef.current?.resetValue();
 
-    for (const person of personList) {
-      const sendSmsStatus = await sendSMSToPerson(person);
-      setPersonList((prevList) => {
-        const newList = [...prevList];
-        const i = newList.findIndex((p) => p.Id === person.Id);
-        if (i > -1) {
+    let i = -1;
+    const intervalId = setInterval(async () => {
+      i++;
+      if (i < personList.length) {
+        console.log("processing id", personList[i].Id);
+        const sendSmsStatus = await sendSMSToPerson(personList[i]);
+        setPersonList((prevList) => {
+          const newList = [...prevList];
+          console.log("i value", i);
           newList[i].SmsStatus = sendSmsStatus;
-        }
-        return [...newList];
-      });
-      progressRef.current?.incrementValue();
-    }
-    progressRef.current?.incrementValue();
+          return [...newList];
+        });
+        progressRef.current?.incrementValue();
+      } else {
+        progressRef.current?.incrementValue();
+        clearInterval(intervalId);
+      }
+    }, 5000);
   };
+
+  const sendWhatsApp = () => {};
 
   return (
     <>
