@@ -13,80 +13,78 @@ import image_9 from "@/images/mot_checklist_9.png";
 import image_10 from "@/images/mot_checklist_10.png";
 import image_11 from "@/images/mot_checklist_11.png";
 import image_12 from "@/images/mot_checklist_12.png";
-import EmblaCarousel from "../Carousel/Carousel";
-import { EmblaOptionsType } from "embla-carousel";
-import { JSX, useEffect, useState } from "react";
-import "../Carousel/CarouselStyle.css";
 
-function Gallery() {
-  // const [isDesktop, setIsDesktop] = useState(false);
-  const [slides, setSlides] = useState<JSX.Element[]>([]);
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import "./GalleryStyle.css";
 
-  const images = [
-    image_1,
-    image_2,
-    image_3,
-    image_4,
-    image_5,
-    image_6,
-    image_7,
-    image_8,
-    image_9,
-    image_10,
-    image_11,
-    image_12,
-  ];
+export default function Gallery() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    slidesToScroll: 1,
+    align: "center",
+    containScroll: "trimSnaps",
+  });
 
-  const OPTIONS: EmblaOptionsType = { slidesToScroll: "auto" };
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
 
   useEffect(() => {
-    const newSlides: JSX.Element[] = [];
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+  }, [emblaApi, onSelect]);
 
-    images.forEach((image, index) => {
-      newSlides.push(
-        <div key={index} className="flex flex-col w-[100%]">
-          <div className="h-[230px] relative flex">
-            <Image
-              layout="fill"
-              objectFit="cover"
-              priority
-              src={image}
-              alt={`Gallery Image ${index + 1}`}
-              className="z-0"
-            />
-          </div>
-        </div>
-      );
-    });
-
-    setSlides(newSlides);
-
-    const handleResize = () => {
-      //setIsDesktop(window.innerWidth >= 1024);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const images = [
+    image_1, image_2, image_3, image_4, image_5, image_6,
+    image_7, image_8, image_9, image_10, image_11, image_12,
+  ];
 
   return (
-    <div className="flex flex-col gap-8 z-70 mx-4 lg:mx-8">
-      <div className="flex flex-col gap-4">
-        <div className="text-[24px] max-lg:text-center lg:text-[40px] font-[600] text-neutral-700">
-          <span>Our Gallery</span>
-        </div>
-        <div className="text-[14px] lg:text-[20px] font-[400] md:max-lg:text-center text-stone-400 leading-[100%] traking-[0%]">
-          <span>
-            Explore our collection of automotive service images showcasing our
-            expertise and attention to detail in car maintenance and repairs.
-          </span>
+    <div className="gallery-carousel embla">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          {images.map((src, i) => (
+            <div 
+              className={`embla__slide ${i === selectedIndex ? 'embla__slide--active' : ''}`} 
+              key={i}
+            >
+              <Image src={src} alt={`Gallery Image ${i + 1}`} fill className="object-cover" />
+              <div className="embla__slide__overlay">
+                <h2>Car Service</h2>
+                <p>2025 Project</p>
+                <p>G.P. Motors Teddington</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <div className="w-full">
-        <EmblaCarousel slides={slides} options={OPTIONS} />
-      </div>
+
+      <button className="embla__button embla__button--prev" onClick={scrollPrev} type="button">
+        <svg className="embla__button__svg" viewBox="0 0 532 532">
+          <path
+            fill="currentColor"
+            d="M355.66 11.354c13.793-13.805 36.208-13.805 50.001 0 13.785 13.804 13.785 36.238 0 50.034L201.22 266l204.442 204.61c13.785 13.805 13.785 36.239 0 50.044-13.793 13.796-36.208 13.796-50.002 0a5994246.277 5994246.277 0 0 0-229.332-229.454 35.065 35.065 0 0 1-10.326-25.126c0-9.2 3.393-18.26 10.326-25.2C172.192 194.973 332.731 34.31 355.66 11.354Z"
+          />
+        </svg>
+      </button>
+      <button className="embla__button embla__button--next" onClick={scrollNext} type="button">
+        <svg className="embla__button__svg" viewBox="0 0 532 532">
+          <path
+            fill="currentColor"
+            d="M176.34 520.646c-13.793 13.805-36.208 13.805-50.001 0-13.785-13.804-13.785-36.238 0-50.034L330.78 266 126.34 61.391c-13.785-13.805-13.785-36.239 0-50.044 13.793-13.796 36.208-13.796 50.002 0 22.928 22.947 206.395 206.507 229.332 229.454a35.065 35.065 0 0 1 10.326 25.126c0 9.2-3.393 18.26-10.326 25.2-45.865 45.901-206.404 206.564-229.332 229.52Z"
+          />
+        </svg>
+      </button>
     </div>
   );
 }
-
-export default Gallery;
