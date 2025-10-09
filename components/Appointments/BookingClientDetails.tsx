@@ -43,6 +43,7 @@ const BookingClientDetails = ({
     getValues,
     reset,
     formState: { errors },
+    setError,
   } = useForm<IFormInput>({
     defaultValues: { ...clientDetails },
   });
@@ -86,70 +87,113 @@ const BookingClientDetails = ({
   };
 
   const insertAppointment = async (bookingData: IFormInput) => {
-    const response = await fetch("/api/booking", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        BookingDate: formatDate(bookingDateTime.date),
-        BookingTime: bookingDateTime.time,
-        Title: bookingData.title,
-        FirstName: bookingData.firstName,
-        LastName: bookingData.lastName,
-        Email: bookingData.email,
-        PostCode: bookingData.postCode,
-        RegistrationNo: bookingData.registrationNo,
-        ServiceType: serviceType?.id,
-        Comments: bookingData.comments,
-        PhoneNo: bookingData.phoneNo,
-      }),
-    });
-
-    const result = await response.json();
-    console.log("insert appointment result", result);
-    handleShowAlert(result["status"], result["message"]);
-    if (result["status"] === "success") {
-      const bookingId = result["results"]["insertId"];
-      console.log("insert appointment id", bookingId);
-      resetForm();
-      try {
-        const emailParams: emailParams = {
-          companyName: "GP Motors",
-          clientName: bookingData.firstName + " " + bookingData.lastName,
-          serviceDate: formatDate(bookingDateTime.date),
-          timeSlot: bookingDateTime.time,
-          serviceType: serviceType?.type as string,
-          carRegistrationNo: bookingData.registrationNo,
-          bookingId: bookingId,
-          companyContactNo: "0208 943 4103",
-          websiteUrl: "https://gpmotorstedd.co.uk/",
-          year: new Date().getFullYear().toString(),
-          logoUrl:
-            "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
-        };
-        const emailTemplate = getEmailTemplate(emailParams);
-        initEmailJS();
-        sendAutoReplyEmail({
-          to_name: "Admin",
-          to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-          reply_subject: "booking appointment confirmation",
-          reply_message_html: emailTemplate,
-        });
-      } catch (error) {
-        console.log("email error", error);
+    const validationResponse = await fetch(
+      `/api/booking/validatetimereg?bookingDate='${formatDate(
+        bookingDateTime.date
+      )}'
+      &bookingTime='${bookingDateTime.time}'&registrationNo='${
+        bookingData.registrationNo
+      }'`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-      // sending sms
-      const smsTemplate = getSMSTemplate(
-        bookingData.firstName + " " + bookingData.lastName,
-        formatDate(bookingDateTime.date),
-        bookingDateTime.time,
-        serviceType?.type as string,
-        bookingId
+    );
+
+    const validationResult = await validationResponse.json();
+    console.log("validation result", validationResult);
+
+    let isDateTimeRegistrationNoValid = true;
+
+    console.log("validationResult.count", validationResult[0].count);
+    console.log(
+      "validationResult.count type",
+      typeof validationResult[0].count
+    );
+
+    if (validationResult[0].count && validationResult[0].count > 0) {
+      isDateTimeRegistrationNoValid = false;
+      setError(
+        "registrationNo",
+        {
+          type: "manual",
+          message: "Service is already booked",
+        },
+        { shouldFocus: true }
       );
-      console.log(smsTemplate);
-      const sendSmsStatus = await sendSmsTemplate("+447919453190", smsTemplate);
-      console.log("send sms status", sendSmsStatus);
+    }
+
+    if (isDateTimeRegistrationNoValid === true) {
+      const response = await fetch("/api/booking", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          BookingDate: formatDate(bookingDateTime.date),
+          BookingTime: bookingDateTime.time,
+          Title: bookingData.title,
+          FirstName: bookingData.firstName,
+          LastName: bookingData.lastName,
+          Email: bookingData.email,
+          PostCode: bookingData.postCode,
+          RegistrationNo: bookingData.registrationNo,
+          ServiceType: serviceType?.id,
+          Comments: bookingData.comments,
+          PhoneNo: bookingData.phoneNo,
+        }),
+      });
+
+      const result = await response.json();
+      console.log("insert appointment result", result);
+      handleShowAlert(result["status"], result["message"]);
+      if (result["status"] === "success") {
+        const bookingId = result["results"]["insertId"];
+        console.log("insert appointment id", bookingId);
+        resetForm();
+        try {
+          const emailParams: emailParams = {
+            companyName: "GP Motors",
+            clientName: bookingData.firstName + " " + bookingData.lastName,
+            serviceDate: formatDate(bookingDateTime.date),
+            timeSlot: bookingDateTime.time,
+            serviceType: serviceType?.type as string,
+            carRegistrationNo: bookingData.registrationNo,
+            bookingId: bookingId,
+            companyContactNo: "0208 943 4103",
+            websiteUrl: "https://gpmotorstedd.co.uk/",
+            year: new Date().getFullYear().toString(),
+            logoUrl:
+              "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+          };
+          const emailTemplate = getEmailTemplate(emailParams);
+          initEmailJS();
+          sendAutoReplyEmail({
+            to_name: "Admin",
+            to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+            reply_subject: "booking appointment confirmation",
+            reply_message_html: emailTemplate,
+          });
+        } catch (error) {
+          console.log("email error", error);
+        }
+        // sending sms
+        const smsTemplate = getSMSTemplate(
+          bookingData.firstName + " " + bookingData.lastName,
+          formatDate(bookingDateTime.date),
+          bookingDateTime.time,
+          serviceType?.type as string,
+          bookingId
+        );
+        console.log(smsTemplate);
+        const sendSmsStatus = await sendSmsTemplate(
+          "+447919453190",
+          smsTemplate
+        );
+        console.log("send sms status", sendSmsStatus);
+      }
     }
   };
 
@@ -375,6 +419,12 @@ const BookingClientDetails = ({
                 Registration no
               </label>
               {errors.registrationNo && <span className={errorStyle}>*</span>}
+              {errors.registrationNo &&
+                errors.registrationNo.type === "manual" && (
+                  <span className={errorStyle}>
+                    {errors.registrationNo.message}
+                  </span>
+                )}
             </div>
             <input
               {...register("registrationNo", {

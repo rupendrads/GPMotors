@@ -4,7 +4,7 @@ import { GetDBSettings, IDBSettings } from "@/sharedCode/dbSettings";
 
 const connectionParams: IDBSettings = GetDBSettings();
 
-// GET /api/service
+// GET /api/reminder
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;

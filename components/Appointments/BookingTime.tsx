@@ -27,10 +27,10 @@ const BookingTime = ({
             <button
               className={
                 bookingDateTime.time === timeSlot.time
-                  ? "bg-red-500 text-white hover:cursor-pointer text-[18px] font-[600] py-1 px-4 rounded"
-                  : `hover:bg-red-500 hover:cursor-pointer text-[18px] font-[600] py-1 px-4 rounded ${
+                  ? "bg-green-500 text-white hover:cursor-pointer text-[18px] font-[600] py-1 px-4 rounded"
+                  : `hover:bg-green-500 hover:cursor-pointer text-[18px] font-[600] py-1 px-4 rounded ${
                       timeSlot.slots === 0
-                        ? "opacity-50 pointer-events-none"
+                        ? "opacity-60 pointer-events-none bg-red-500 hover:bg-red-500"
                         : ""
                     }`
               }
