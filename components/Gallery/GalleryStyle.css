@@ -115,3 +115,70 @@
 .gallery-carousel .embla__dots {
   display: none;
 }
+
+.gallery-expert-advice {
+  width: 100%;
+  background-color: #d62828; /* bright red */
+  color: #fff;
+  margin-top: 2rem;
+  padding: 1.8rem 1.5rem;
+  border-radius: 0.6rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-expert-advice .expert-advice-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.gallery-expert-advice .expert-advice-text {
+  flex: 1 1 55%;
+  min-width: 260px;
+}
+
+.gallery-expert-advice .expert-advice-text h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.gallery-expert-advice .expert-advice-text p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.gallery-expert-advice .expert-advice-actions {
+  flex: 1 1 35%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  min-width: 260px;
+}
+
+.gallery-expert-advice .expert-advice-btn {
+  background-color: #fff;
+  color: #d62828;
+  border: none;
+  border-radius: 0.4rem;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gallery-expert-advice .expert-advice-btn:hover {
+  background-color: #f4f4f4;
+}
+
+.gallery-expert-advice .expert-advice-phone {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
