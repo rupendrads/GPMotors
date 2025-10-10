@@ -161,8 +161,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="relative z-50 w-full">
-      <div className="w-full bg-[#fff] flex items-center justify-between h-16 px-4 lg:px-10 poppins-font">
+    <nav className="relative z-50 w-full border-b border-gray-300">
+      <div className="w-full bg-[#fff] flex items-center justify-between  h-16 px-4 lg:px-10 poppins-font">
         <button
           className="lg:hidden p-2"
           onClick={() => setSidebarOpen(true)}
@@ -233,12 +233,6 @@ export default function Navbar() {
               </Link>
             </div>
             <div className="flex items-center space-x-4">
-              <Link
-                href="/"
-                className="hidden lg:flex items-center  hover:text-[#E33C30] transition"
-              >
-                <span className="mr-1">🔒</span> Login
-              </Link>
               <Link
                 href="/book-appointment"
                 className="bg-red-600 hover:bg-red-700 text-white text-xs lg:text-sm font-semibold py-2 px-6 rounded-full transition"

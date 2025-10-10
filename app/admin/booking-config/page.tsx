@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function BookingConfigurationPage() {
   return (
-    <main className="w-full flex justify-center">
+    <main className="w-full min-h-[calc(100vh-14rem)] flex justify-center">
       <BookingConfigurationForm />
     </main>
   );

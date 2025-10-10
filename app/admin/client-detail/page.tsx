@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ClientDetailPage() {
   return (
-    <main>
+    <main className="min-h-[calc(100vh-14rem)]">
       <ClientDetailForm />
     </main>
   );

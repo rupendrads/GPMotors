@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { StarIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 interface GoogleReview {
   author_name: string;
@@ -120,6 +121,8 @@ function ReviewFeedback({ feedback }: { feedback: string }) {
 }
 
 export default function ReviewWidget() {
+  const pathname = usePathname();
+  const isAdmin = pathname.startsWith("/admin");
   const [open, setOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>(fallbackTestimonials);
   const [globalRating,setGlobalRating] =  useState<string | number>('');
@@ -177,6 +180,8 @@ export default function ReviewWidget() {
       setLoading(false);
     }
   };
+
+  if (isAdmin) return null;
 
   return (
     <div className="fixed left-6 bottom-6 z-80 flex flex-col items-start space-y-2">
@@ -384,6 +389,6 @@ export default function ReviewWidget() {
           animation: fadeIn 0.2s ease;
         }
       `}</style>
-    </div>
+    </div> 
   );
 }

@@ -14,9 +14,14 @@ const ITEMS_PER_PAGE = 10;
 
 function BookingListTable() {
   const [bookings, setBookings] = useState<IBookingDB[]>([]);
+  const [filteredBookings, setFilteredBookings] = useState<IBookingDB[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [serviceTypes, setServiceTypes] = useState<IServiceType[]>([]);
+
+  // Filter states
+  const [filterDate, setFilterDate] = useState("");
+  const [filterRegNo, setFilterRegNo] = useState("");
 
   const router = useRouter();
 
@@ -31,7 +36,12 @@ function BookingListTable() {
         const response = await fetch("/api/booking");
         const bookingData = await response.json();
         console.log(bookingData);
-        setBookings(bookingData);
+
+        //Sort by ID descending
+        const sortedBookings = bookingData.sort((a, b) => b.ID - a.ID);
+
+        setBookings(sortedBookings);
+        setFilteredBookings(sortedBookings);
       } catch (error) {
         console.error("Error fetching bookings:", error);
       } finally {
@@ -67,15 +77,48 @@ function BookingListTable() {
     fetchServiceTypes();
   }, []);
 
-  const totalPages = Math.ceil(bookings.length / ITEMS_PER_PAGE);
+  const handleFilter = () => {
+    let filtered = bookings;
+
+    // Filter by Date
+    if (filterDate.trim() !== "") {
+      filtered = filtered.filter((b) =>
+        b.BookingDate
+          ? new Date(b.BookingDate).toLocaleDateString().includes(filterDate)
+          : false
+      );
+    }
+
+    // Filter by Reg. No.
+    if (filterRegNo.trim() !== "") {
+      filtered = filtered.filter(
+        (b) =>
+          b.RegistrationNo &&
+          b.RegistrationNo.toLowerCase() === filterRegNo.toLowerCase()
+      );
+    }
+
+    setFilteredBookings(filtered);
+    setCurrentPage(1);
+  };
+
+  const totalPages = Math.ceil(filteredBookings.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentItems = bookings.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentItems = filteredBookings.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   const goToFirst = () => setCurrentPage(1);
   const goToPrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
   const goToNext = () =>
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const goToLast = () => setCurrentPage(totalPages);
+
+  // Extract unique Reg. Nos. for dropdown
+  const uniqueRegNos = Array.from(
+    new Set(bookings.map((b) => b.RegistrationNo).filter(Boolean))
+  );
 
   const getServiceType = (id: number) => {
     console.log("getServiceType id: ", id);
@@ -86,7 +129,44 @@ function BookingListTable() {
 
   return (
     <div className="p-6 mb-4 max-w-full">
-      <h1 className={tableHeadingStyle}>Booking List</h1>
+      <h1 className={tableHeadingStyle}>Appointment List</h1>
+      <div className="flex w-[360px] gap-3 items-center justify-start mb-4 border border-gray-300 rounded-md p-2 bg-gray-50">
+        <div className="flex flex-col">
+          <label className="text-sm font-semibold mb-1">Date</label>
+          <input
+            type="text"
+            placeholder="Enter date"
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
+            className="border border-gray-400 rounded px-3 py-2 text-sm w-30"
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label className="text-sm font-semibold mb-1">Reg. No.</label>
+          <select
+            value={filterRegNo}
+            onChange={(e) => setFilterRegNo(e.target.value)}
+            className="border border-gray-400 rounded px-3 py-2 text-sm w-30"
+          >
+            <option value="">All</option>
+            {uniqueRegNos.map((reg, index) => (
+              <option key={index} value={reg}>
+                {reg}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <button
+            onClick={handleFilter}
+            className=" bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-2 mt-6 rounded-md transition"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -99,8 +179,7 @@ function BookingListTable() {
                   <th className={thStyle}>Date</th>
                   <th className={thStyle}>Time</th>
                   <th className={thStyle}>Title</th>
-                  <th className={thStyle}>First Name</th>
-                  <th className={thStyle}>Last Name</th>
+                  <th className={thStyle}>Name</th>
                   <th className={thStyle}>Email</th>
                   <th className={thStyle}>Postcode</th>
                   <th className={thStyle}>Phone No</th>
@@ -126,8 +205,11 @@ function BookingListTable() {
                     </td>
                     <td className={tdStyle}>{booking.BookingTime}</td>
                     <td className={tdStyle}>{booking.Title}</td>
-                    <td className={tdStyle}>{booking.FirstName}</td>
-                    <td className={tdStyle}>{booking.LastName}</td>
+                    <td className={tdStyle}>
+                      {`${booking.FirstName || ""} ${
+                        booking.LastName || ""
+                      }`.trim()}
+                    </td>
                     <td className={tdStyle}>{booking.Email}</td>
                     <td className={tdStyle}>{booking.PostCode}</td>
                     <td className={tdStyle}>{booking.PhoneNo}</td>
@@ -208,7 +290,7 @@ const tableHeadingStyle =
   "text-2xl font-bold mb-4 mt-4 text-center text-gray-700 leading-[100%] traking-[0%] ";
 const tableStyle =
   "table-auto min-w-[1000px] text-sm text-left text-gray-700 whitespace-nowrap";
-const theadStyle = "text-sm text-white uppercase bg-black sticky top-0 z-10";
+const theadStyle = "text-sm text-white pascalcase bg-black sticky top-0 z-10";
 const thStyle = "px-2 py-3";
 const tdStyle = "px-2 py-3";
 const pagingBtnStyle =

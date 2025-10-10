@@ -1,4 +1,3 @@
-
 import BookingListTable from "@/components/BookingListTable";
 import { Metadata } from "next";
 
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function BookAppointmentListPage() {
   return (
-    <main className="w-full flex justify-center relative z-60">
+    <main className="w-full min-h-[calc(100vh-14rem)] flex justify-center relative z-60">
       <BookingListTable />
     </main>
   );

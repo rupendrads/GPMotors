@@ -166,7 +166,7 @@ function Reminder() {
   return (
     <>
       {loading ? (
-        <div className="w-full h-[400px] flex flex-1 justify-center items-center">
+        <div className="w-full min-h-[calc(100vh-14rem)] flex flex-1 justify-center items-center">
           <Loading />
         </div>
       ) : (

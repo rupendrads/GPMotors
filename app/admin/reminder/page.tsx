@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 function ReminderPage() {
   return (
-    <main className="w-full min-h-screen mx-auto">
+    <main className="w-full min-h-[calc(100vh-14rem)] mx-auto">
       <Reminder />
     </main>
   );
