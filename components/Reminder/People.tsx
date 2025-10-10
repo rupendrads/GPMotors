@@ -207,9 +207,8 @@ function People({
   const sendSMSToPerson = async (person: person): Promise<string> => {
     const smsTemplate = getSMSTemplate(person);
     console.log(smsTemplate);
-    // const sendSmsStatus = await sendSmsTemplate("+447919453190", smsTemplate);
-    // return sendSmsStatus;
-    return "success";
+    const sendSmsStatus = await sendSmsTemplate("+447919453190", smsTemplate);
+    return sendSmsStatus;
   };
 
   const sendSMS = async () => {
