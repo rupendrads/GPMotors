@@ -2,15 +2,9 @@
 import Link from "next/link";
 
 function AdminMenuLinks({ closeSidebar }: { closeSidebar?: () => void }) {
+
   return (
-    <>
-      <Link
-        href="/admin/client-detail"
-        className=" hover:text-[#E33C30] px-3 py-2 transition"
-        onClick={closeSidebar ?? closeSidebar}
-      >
-        Client Detail
-      </Link>
+    <div>
       <Link
         href="/admin/booking-config"
         className=" hover:text-[#E33C30] px-3 py-2 transition"
@@ -30,7 +24,7 @@ function AdminMenuLinks({ closeSidebar }: { closeSidebar?: () => void }) {
         className=" hover:text-[#E33C30] px-3 py-2 transition"
         onClick={closeSidebar ?? closeSidebar}
       >
-        Client Detail List
+        Client Detail
       </Link>
       <Link
         href="/admin/reminder"
@@ -39,7 +33,7 @@ function AdminMenuLinks({ closeSidebar }: { closeSidebar?: () => void }) {
       >
         Appointment Reminder
       </Link>
-    </>
+    </div>
   );
 }
 

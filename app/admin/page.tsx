@@ -1,5 +1,6 @@
 function AdminHomePage() {
-  return <></>;
+  return <>
+  </>;
 }
 
 export default AdminHomePage;

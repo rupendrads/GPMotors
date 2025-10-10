@@ -106,6 +106,13 @@ function ClientDetailListTable() {
   return (
     <div className="p-6 mb-4 max-w-full relative">
       <h1 className={tableHeadingStyle}>Client Detail List</h1>
+      <button
+        onClick={() => router.push("/admin/client-detail")}
+        className="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-2 mb-2 rounded shadow-sm transition"
+      >
+        Add Client
+      </button>
+
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -240,10 +247,10 @@ export default ClientDetailListTable;
 const tableContainer =
   "w-full overflow-x-auto overflow-y-auto max-h-[500px] bg-white shadow-md rounded-sm border border-gray-200";
 const tableHeadingStyle =
-  "text-2xl font-bold mb-4 mt-4 text-center text-gray-700 leading-[100%] traking-[0%] ";
+  "text-3xl font-bold mb-4 mt-4 underline text-center text-gray-700 leading-[100%] traking-[0%] ";
 const tableStyle =
   "table-auto min-w-[1000px] text-sm text-left text-gray-700 whitespace-nowrap";
-const theadStyle = "text-sm text-white uppercase bg-black sticky top-0 z-10";
+const theadStyle = "text-sm text-white pascalcase bg-black sticky top-0 z-10";
 const thStyle = "px-2 py-3";
 const tdStyle = "px-2 py-3";
 const pagingBtnStyle =

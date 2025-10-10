@@ -161,8 +161,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="relative z-50 w-full">
-      <div className="w-full bg-[#fff] flex items-center justify-between h-16 px-4 lg:px-10 poppins-font">
+    <nav className="relative z-50 w-full border-b border-gray-300">
+      <div className="w-full bg-[#fff] flex items-center justify-between  h-16 px-4 lg:px-10 poppins-font">
         <button
           className="lg:hidden p-2"
           onClick={() => setSidebarOpen(true)}

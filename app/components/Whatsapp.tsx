@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { usePathname } from "next/navigation";
 
 type Position = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
 
@@ -19,6 +20,8 @@ const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
     return phone.replace(/[\s\-\(\)\+]/g, '').replace(/^0+/, '');
   };
 
+  const pathname = usePathname();
+  const isAdmin = pathname.startsWith("/admin");
   const encodedMessage: string = encodeURIComponent(message);
   const formattedPhone: string = formatPhoneNumber(phoneNumber);
   const whatsappUrl: string = `https://wa.me/${formattedPhone}?text=${encodedMessage}`;
@@ -29,6 +32,8 @@ const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
     'top-right': 'top-6 right-6',
     'top-left': 'top-6 left-6'
   };
+
+  if (isAdmin) return null;
 
   return (
     <a
