@@ -133,7 +133,7 @@ function ClientDetailListTable() {
                   <th className={thStyle}>CreationDate</th>
                   <th className={thStyle}>Reg. No</th>
                   <th className={thStyle}>Remarks</th>
-                  <th className={thStyle}>Actions</th>
+                  {/* <th className={thStyle}>Actions</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -173,7 +173,7 @@ function ClientDetailListTable() {
                         ? `${client.Remarks.slice(0, 15)}...`
                         : client.Remarks}
                     </td>
-                    <td className="flex items-center justify-center pt-3">
+                    {/* <td className="flex items-center justify-center pt-3">
                       <button onClick={() => onEdit(client)} title="Edit">
                         <PencilIcon className="h-5 w-5 text-blue-500 mr-3 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
                       </button>
@@ -183,7 +183,7 @@ function ClientDetailListTable() {
                       >
                         <TrashIcon className="h-5 w-5 text-red-500 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
                       </button>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>

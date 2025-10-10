@@ -189,7 +189,7 @@ const BookingClientDetails = ({
         );
         console.log(smsTemplate);
         const sendSmsStatus = await sendSmsTemplate(
-          "+447919453190",
+          bookingData.phoneNo,
           smsTemplate
         );
         console.log("send sms status", sendSmsStatus);
@@ -260,7 +260,10 @@ const BookingClientDetails = ({
         bookingId
       );
       console.log(smsTemplate);
-      const sendSmsStatus = await sendSmsTemplate("+447919453190", smsTemplate);
+      const sendSmsStatus = await sendSmsTemplate(
+        bookingData.phoneNo,
+        smsTemplate
+      );
       console.log("send sms status", sendSmsStatus);
     }
   };
