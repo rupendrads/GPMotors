@@ -8,8 +8,8 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronDoubleRightIcon,
-  TrashIcon,
-  PencilIcon,
+  // TrashIcon,
+  // PencilIcon,
 } from "@heroicons/react/24/solid";
 
 const ITEMS_PER_PAGE = 10;
@@ -40,10 +40,10 @@ function ClientDetailListTable() {
   //   }
   // };
 
-  const onEdit = (client: IClientDetailDB) => {
-    console.log("Editing Client ID:", client.Id);
-    router.push(`/admin/client-detail/form?id=${client.Id}`);
-  };
+  // const onEdit = (client: IClientDetailDB) => {
+  //   console.log("Editing Client ID:", client.Id);
+  //   router.push(`/admin/client-detail/form?id=${client.Id}`);
+  // };
 
   const fetchCDetails = async () => {
     try {
@@ -63,31 +63,31 @@ function ClientDetailListTable() {
     //loadCSV();
   }, []);
 
-  const onDelete = async (Id: number) => {
-    if (confirm("Are you sure you want to delete this record?")) {
-      try {
-        const res = await fetch(`/api/clientdetail?id=${Id}`, {
-          method: "DELETE",
-        });
+  // const onDelete = async (Id: number) => {
+  //   if (confirm("Are you sure you want to delete this record?")) {
+  //     try {
+  //       const res = await fetch(`/api/clientdetail?id=${Id}`, {
+  //         method: "DELETE",
+  //       });
 
-        if (!res.ok) {
-          const errorData = await res.text();
-          console.error("Delete failed:", errorData);
-          alert("Failed to delete");
-          return;
-        }
+  //       if (!res.ok) {
+  //         const errorData = await res.text();
+  //         console.error("Delete failed:", errorData);
+  //         alert("Failed to delete");
+  //         return;
+  //       }
 
-        const result = await res.json();
-        if (result.status === "success") {
-          fetchCDetails(); // Refresh table
-        } else {
-          alert("Failed to delete");
-        }
-      } catch (error) {
-        console.error("Delete error:", error);
-      }
-    }
-  };
+  //       const result = await res.json();
+  //       if (result.status === "success") {
+  //         fetchCDetails(); // Refresh table
+  //       } else {
+  //         alert("Failed to delete");
+  //       }
+  //     } catch (error) {
+  //       console.error("Delete error:", error);
+  //     }
+  //   }
+  // };
 
   const totalPages = Math.ceil(clientdetails.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
