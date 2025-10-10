@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const connection = await mysql.createConnection(connectionParams);
 
     const query = `SELECT *
-FROM car_repair.appointments
+FROM appointments
 WHERE ServiceType=${serviceType} AND BookingDate >= ${fromDate} AND BookingDate <= ${toDate}`;
     console.log(query);
 
