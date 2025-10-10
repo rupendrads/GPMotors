@@ -21,7 +21,7 @@ function ClientDetailListTable() {
   //const [csvData, setCsvData] = useState<IClientDetailDB[]>([]);
   const router = useRouter();
 
-   // Function to load and parse CSV
+  // Function to load and parse CSV
   // const loadCSV = async () => {
   //   try {
   //     const response = await fetch("/data/clientdata.csv");
@@ -39,7 +39,6 @@ function ClientDetailListTable() {
   //     console.error("Error loading CSV:", error);
   //   }
   // };
-
 
   const onEdit = (client: IClientDetailDB) => {
     console.log("Editing Client ID:", client.Id);
@@ -231,7 +230,6 @@ function ClientDetailListTable() {
         <pre>{JSON.stringify(csvData, null, 2)}</pre>
       </div> */}
     </div>
-    
   );
 }
 
