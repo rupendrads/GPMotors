@@ -24,6 +24,8 @@ type Props = {
 
 const titles = ["Mr", "Mrs", "Ms"];
 
+const PHONE_REGEX_VALIDATION = /^(44\d{10})$/;
+
 const BookingClientDetails = ({
   serviceType,
   bookingDateTime,
@@ -299,7 +301,6 @@ const BookingClientDetails = ({
       : "pointer-events-auto opacity-100"
   }`;
   console.log("isEdit", inputGroupStyle);
-
   return (
     <>
       <ChangeService
@@ -382,12 +383,16 @@ const BookingClientDetails = ({
               >
                 Email
               </label>
-              {errors.email && (
-                <span className={errorStyle}>(Invalid email)</span>
-              )}
+              {errors.email &&
+                (errors.email?.type === "required" ? (
+                  <span className={errorStyle}>*</span>
+                ) : (
+                  <span className={errorStyle}>(Invalid email)</span>
+                ))}
             </div>
             <input
               {...register("email", {
+                required: true,
                 maxLength: 255,
                 pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
               })}
@@ -403,13 +408,22 @@ const BookingClientDetails = ({
               >
                 Phone No
               </label>
+              {errors.phoneNo &&
+                (errors.phoneNo?.type === "required" ? (
+                  <span className={errorStyle}>*</span>
+                ) : (
+                  <span className={errorStyle}>(Invalid format)</span>
+                ))}
             </div>
             <input
               {...register("phoneNo", {
+                required: true,
                 maxLength: 255,
+                pattern: PHONE_REGEX_VALIDATION,
               })}
               defaultValue=""
               className={errors.phoneNo ? errorInputStyle : inputStyle}
+              placeholder="441234567890"
             />
           </div>
           <label className={headingStyle}>Service details</label>
@@ -435,7 +449,11 @@ const BookingClientDetails = ({
                 maxLength: 255,
               })}
               defaultValue=""
-              className={errors.registrationNo ? errorInputStyle : inputStyle}
+              className={
+                errors.registrationNo
+                  ? errorInputStyle
+                  : inputStyle + " uppercase"
+              }
             />
           </div>
 
