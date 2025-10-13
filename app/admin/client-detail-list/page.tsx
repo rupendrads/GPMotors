@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Client Detail List | Car Repair",
   description: "Display Client Details List",
   keywords: "car, repair, client list",
-  metadataBase: new URL("https://localhost:3000/client-detail-list"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/client-detail-list"),
 };
 
 export default function ClientDetailListPage() {

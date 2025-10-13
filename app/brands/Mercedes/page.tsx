@@ -1,4 +1,5 @@
 import React from 'react'
+import { Metadata } from "next";
 import Hero from '../Hero'
 import WhyUs from '../WhyUs'
 import WhyTrustUs from '../WhyTrustUs'
@@ -7,6 +8,13 @@ import BusinessProcess from '../Process'
 import FAQ from '../FAQ'
 import Data from "./content"
 import BottomBanner from '../bottomBanner'
+
+export const metadata: Metadata = {
+  title: "Mercedes-Benz Car Repair & Service | GP Motors Teddington",
+  description: "Expert Mercedes-Benz repair and servicing in Teddington. Mercedes specialists, advanced diagnostics, premium service standards. A-Class to S-Class.",
+  keywords: "Mercedes repair Teddington, Mercedes-Benz service, Mercedes mechanic, Mercedes MOT, luxury car service, German specialist, GP Motors",
+  metadataBase: new URL("https://gpmotorstedd.co.uk/brands/Mercedes"),
+};
 const page = () => {
   return (
     <div>

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Car Transmission Service | Car Repair",
   description: "Transmission Service for your car",
   keywords: "car, repair, car transmission service",
-  metadataBase: new URL("https://localhost:3000/transmission-service"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/transmission-service"),
 };
 
 function TransmissionServicePage() {

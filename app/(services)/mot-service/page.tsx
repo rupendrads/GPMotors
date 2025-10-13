@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Mot Service | Car Repair",
   description: "Mot Service for your car",
   keywords: "car, repair, mot service",
-  metadataBase: new URL("https://localhost:3000/mot-service"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/mot-service"),
 };
 
 export default function MotServicePage() {

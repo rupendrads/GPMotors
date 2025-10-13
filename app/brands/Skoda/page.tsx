@@ -1,4 +1,5 @@
 import React from 'react'
+import { Metadata } from "next";
 import Hero from '../Hero'
 import WhyUs from '../WhyUs'
 import WhyTrustUs from '../WhyTrustUs'
@@ -7,6 +8,13 @@ import BusinessProcess from '../Process'
 import FAQ from '../FAQ'
 import Data from "./content"
 import BottomBanner from '../bottomBanner'
+
+export const metadata: Metadata = {
+  title: "Skoda Car Repair & Service | GP Motors Teddington",
+  description: "Professional Skoda repair and maintenance in Teddington. Skoda specialists, Octavia, Superb, Fabia experts. Quality Czech engineering service.",
+  keywords: "Skoda repair Teddington, Skoda service, Skoda mechanic, Skoda MOT, Octavia service, Superb repair, Czech car specialist, GP Motors",
+  metadataBase: new URL("https://gpmotorstedd.co.uk/brands/Skoda"),
+};
 const page = () => {
   return (
     <div>

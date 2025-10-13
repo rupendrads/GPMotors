@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Appointment Reminder | Car Repair",
   description: "Appointment reminder for your car service",
   keywords: "car, repair, appointment remind",
-  metadataBase: new URL("https://localhost:3000/reminder"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/reminder"),
 };
 
 function ReminderPage() {

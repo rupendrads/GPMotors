@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Suspension Replacement | Car Repair",
   description: "Suspension Replacement for your car",
   keywords: "car, repair, suspension replacement",
-  metadataBase: new URL("https://localhost:3000/suspension-replacement"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/suspension-replacement"),
 };
 
 export default function SuspensionReplacementPage() {

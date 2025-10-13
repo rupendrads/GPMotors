@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "WiringRewiring | Car Repair",
   description: "Wiring Rewiring for your car",
   keywords: "car, repair, wiring rewiring",
-  metadataBase: new URL("https://localhost:3000/wiring-rewiring"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/wiring-rewiring"),
 };
 
 export default function WiringRewiringPage() {

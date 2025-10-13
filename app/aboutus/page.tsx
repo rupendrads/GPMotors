@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: "About Us | Car Repair",
   description: "Know who we are.",
   keywords: "car, repair, about us",
-  metadataBase: new URL("https://localhost:3000/aboutus"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/aboutus"),
 };
 
 export default function AboutUsPage() {

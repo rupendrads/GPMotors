@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Full Diagnostic | Car Repair",
   description: "Full Diagnostic for your car",
   keywords: "car, repair, full diagnostic",
-  metadataBase: new URL("https://localhost:3000/full-diagnostic"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/full-diagnostic"),
 };
 
 export default function FullDiagnosticPage() {

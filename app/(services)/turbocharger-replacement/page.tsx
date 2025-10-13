@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Turbocharger Replacement | Car Repair",
   description: "Turbocharger Replacement for your car",
   keywords: "car, repair, turbocharger replacement",
-  metadataBase: new URL("https://localhost:3000/turbocharger-replacement"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/turbocharger-replacement"),
 };
 
 export default function TurbochargerReplacementPage() {

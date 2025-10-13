@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Minor Service | Car Repair",
   description: "Minor Service for your car",
   keywords: "car, repair, minor service",
-  metadataBase: new URL("https://localhost:3000/minor-service"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/minor-service"),
 };
 
 export default function MinorServicePage() {
