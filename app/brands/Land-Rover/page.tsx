@@ -1,4 +1,5 @@
 import React from 'react'
+import { Metadata } from "next";
 import Hero from '../Hero'
 import WhyUs from '../WhyUs'
 import WhyTrustUs from '../WhyTrustUs'
@@ -7,6 +8,13 @@ import BusinessProcess from '../Process'
 import FAQ from '../FAQ'
 import Data from "./content"
 import BottomBanner from '../bottomBanner'
+
+export const metadata: Metadata = {
+  title: "Land Rover Car Repair & Service | GP Motors Teddington",
+  description: "Professional Land Rover repair and maintenance in Teddington. Land Rover specialists, Discovery, Range Rover, Evoque experts. 4x4 service specialists.",
+  keywords: "Land Rover repair Teddington, Land Rover service, Range Rover mechanic, Discovery service, 4x4 specialist, British car expert, GP Motors",
+  metadataBase: new URL("https://gpmotorstedd.co.uk/brands/Land-Rover"),
+};
 const page = () => {
   return (
     <div>

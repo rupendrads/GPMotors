@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Alarm System | Car Repair",
   description: "Alarm System for your car",
   keywords: "car, repair, alarm system",
-  metadataBase: new URL("https://localhost:3000/alarm-system"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/alarm-system"),
 };
 
 export default function AlarmSystemPage() {

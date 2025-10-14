@@ -12,7 +12,7 @@
           "original_language": "en",
           "profile_photo_url": "https://lh3.googleusercontent.com/a/ACg8ocKpthIgy_LJaOskmyXxMXaPLjr-FglwAJFf1j5pq8xbYvQC=s128-c0x00000000-cc-rp-mo",
           "rating": 5,
-          "relative_time_description": "a week ago",
+          "relative_time_description": "3 weeks ago",
           "text": "GP Motors are Very helpful, friendly and provide honest advice everytime I visit. They always ensure all repairs are carried out to a high standard.\nThey communicate very well and always ensure it is broken down to the lay man’s understanding about cars. I will recommend this company any day and everyday.",
           "time": 1758470947,
           "translated": false
@@ -24,7 +24,7 @@
           "original_language": "en",
           "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjVcO7g8CI6lPoqS2JqlxB0TxnOIDmtQ-n3HCZhkec_rYEvLtto=s128-c0x00000000-cc-rp-mo",
           "rating": 5,
-          "relative_time_description": "in the last week",
+          "relative_time_description": "2 weeks ago",
           "text": "I’ve used GP motors 2 or 3 times now to repair my van , they have always done an excellent job with a quick turn around. I find there prices to be competitive and I find the team to be very trustworthy and knowledgeable. Thank you",
           "time": 1758655119,
           "translated": false
@@ -36,7 +36,7 @@
           "original_language": "en",
           "profile_photo_url": "https://lh3.googleusercontent.com/a/ACg8ocL0RWWn1FfuCoaSnN-pL3zRCubdJJoexUIOKFQs5yNrzqRHgA=s128-c0x00000000-cc-rp-mo",
           "rating": 5,
-          "relative_time_description": "2 months ago",
+          "relative_time_description": "3 months ago",
           "text": "We had just arrived in the UK from the Philippines via LHR and were on our way to the Isle of Man when I noticed that the car was misfiring and lacking power. I brought it to the nearest repair shop, GP Motors, and although they were fully booked, they understood my situation and kindly squeezed me into their tight schedule. They quickly diagnosed the problem and fixed the car perfectly. I’m truly grateful for their professionalism and excellent service!",
           "time": 1752142741,
           "translated": false
@@ -69,6 +69,6 @@
     },
     "status": "OK"
   },
-  "lastFetched": "2025-09-29T11:24:16.629Z",
-  "nextFetchDate": "2025-10-05T18:30:00.000Z"
+  "lastFetched": "2025-10-13T14:32:24.918Z",
+  "nextFetchDate": "2025-10-19T18:30:00.000Z"
 }

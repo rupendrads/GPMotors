@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Warning Light | Car Repair",
   description: "Warning Light for your car",
   keywords: "car, repair, warning light",
-  metadataBase: new URL("https://localhost:3000/warning-light"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/warning-light"),
 };
 
 export default function WarningLightPage() {

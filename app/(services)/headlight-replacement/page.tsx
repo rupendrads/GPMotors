@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Headlight Replacement | Car Repair",
   description: "Headlight Replacement for your car",
   keywords: "car, repair, headlight replacement",
-  metadataBase: new URL("https://localhost:3000/headlight-replacement"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/headlight-replacement"),
 };
 
 export default function HeadlightReplacementPage() {

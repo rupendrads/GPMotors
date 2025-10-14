@@ -1,5 +1,15 @@
 
+import { Metadata } from "next";
 import ClientDetailForm from "@/components/ClientDetailForm";
+
+export const metadata: Metadata = {
+  title: "Client Detail Form | Admin Panel | GP Motors",
+  description: "Admin form for managing client details and car information",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function ClientDetailPage({
   searchParams,

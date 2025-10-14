@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Car Timing Belt Change Service | Car Repair",
   description: "Timing Belt Change Service for your car",
   keywords: "car, repair, car timing belt change service",
-  metadataBase: new URL("https://localhost:3000/timing-belt-change"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/timing-belt-change"),
 };
 
 function TimingBeltChangeServicePage() {

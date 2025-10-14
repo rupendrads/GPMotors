@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "ClutchReplacement | Car Repair",
   description: "Clutch Replacement for your car",
   keywords: "car, repair, clutch replacement",
-  metadataBase: new URL("https://localhost:3000/clutch-replacement"),
+  metadataBase: new URL("https://gpmotorstedd.co.uk/clutch-replacement"),
 };
 
 export default function ClutchReplacementPage() {
