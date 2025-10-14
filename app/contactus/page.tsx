@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import banner from "../../public/images/contactusBanner.jpg";
 import Image from "next/image";
 import ContactForm from "../components/ContactForm";
-import discord from "../../public/icons/discord.svg"
-import insta from "../../public/icons/insta.svg"
-import twitter from "../../public/icons/twitter.svg"
+import discord from "../../public/icons/discord.svg";
+import insta from "../../public/icons/insta.svg";
+import twitter from "../../public/icons/twitter.svg";
 export const metadata: Metadata = {
   title: "Contact Us | Car Repair",
   description: "Get in touch with our team",
@@ -48,7 +48,9 @@ export default function ContactUsPage() {
         <div className="bg-[#428DCA] relative text-white md:w-1/2 w-full p-8 flex flex-col justify-between min-h-[580px]">
           <div className="flex flex-col space-y-26">
             <div>
-              <h2 className="text-2xl font-semibold mb-2">Contact Information</h2>
+              <h2 className="text-2xl font-semibold mb-2">
+                Contact Information
+              </h2>
               <p className="text-base opacity-80 mb-8">
                 Say something to start a live chat!
               </p>
@@ -56,7 +58,7 @@ export default function ContactUsPage() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="material-icons text-lg">phone</span>
-                <span className="text-base">0208 943 4103</span>
+                <span className="text-base">0208 943 4103 / 0208 943 3588</span>
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="material-icons text-lg">email</span>
@@ -64,20 +66,31 @@ export default function ContactUsPage() {
               </div>
               <div className="flex items-center gap-3 mb-10">
                 <span className="material-icons text-lg">location_on</span>
-                <span className="text-base">132 Dartmouth Street teddington Ul.</span>
+                <span className="text-base">
+                  132 Dartmouth Street teddington Ul.
+                </span>
               </div>
             </div>
             <div className="flex gap-4 mt-auto relative z-10">
-  <a href="#" className="w-9 h-9 flex items-center justify-center rounded-full bg-[#F44336] hover:bg-gray-100 shadow">
-    <Image src={twitter} alt="twitter" className="w-1/2"/>
-  </a>
-  <a href="#" className="w-9 h-9 flex items-center justify-center rounded-full bg-white text-[#F44336] hover:bg-gray-100 shadow">
-      <Image src={insta} alt="Instagram" className="w-1/2"/>
-  </a>
-  <a href="#" className="w-9 h-9 flex items-center justify-center rounded-full bg-[#F44336] hover:bg-gray-100 shadow">
-      <Image src={discord} alt="Discord" className="w-1/2"/>
-  </a>
-</div>
+              <a
+                href="#"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#F44336] hover:bg-gray-100 shadow"
+              >
+                <Image src={twitter} alt="twitter" className="w-1/2" />
+              </a>
+              <a
+                href="#"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-white text-[#F44336] hover:bg-gray-100 shadow"
+              >
+                <Image src={insta} alt="Instagram" className="w-1/2" />
+              </a>
+              <a
+                href="#"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-[#F44336] hover:bg-gray-100 shadow"
+              >
+                <Image src={discord} alt="Discord" className="w-1/2" />
+              </a>
+            </div>
           </div>
         </div>
         {/* Contact Form */}

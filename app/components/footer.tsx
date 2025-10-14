@@ -1,14 +1,13 @@
 // components/Footer.js
 // import { FaFacebookF, FaInstagram, FaTwitter, FaTiktok } from "react-icons/fa";
 // import "./styles.css"
-import "../../public/styles.css"
-import twitter from "../../public/icons/twitter.svg"
-import Image from "next/image"
+import "../../public/styles.css";
+import twitter from "../../public/icons/twitter.svg";
+import Image from "next/image";
 import logo from "../../public/logo.svg";
 import { usePathname } from "next/navigation";
 
 export default function Footer() {
-
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
 
@@ -49,7 +48,7 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold mb-3">Contact</h3>
             <ul className="space-y-2">
-              <li className="footer-link">0208 943 4103</li>
+              <li className="footer-link">0208 943 4103 / 0208 943 3588</li>
               <li className="footer-link">gpmotorstedd@gmail.com</li>
             </ul>
           </div>
@@ -57,13 +56,20 @@ export default function Footer() {
           <div className="md:ms-4">
             <h3 className="font-semibold mb-3">Follow us</h3>
             <div className="flex space-x-3 mb-4">
-              <a href="#" className="bg-[#3F662B] rounded-full p-2 text-white"><Image src={twitter} alt="twitter" className="w-full"/></a>
-              <a href="#" className="bg-[#3F662B] rounded-full p-2 text-white"><Image src={twitter} alt="twitter" className="w-full"/></a>
-              <a href="#" className="bg-[#3F662B] rounded-full p-2 text-white"><Image src={twitter} alt="twitter" className="w-full"/></a>
+              <a href="#" className="bg-[#3F662B] rounded-full p-2 text-white">
+                <Image src={twitter} alt="twitter" className="w-full" />
+              </a>
+              <a href="#" className="bg-[#3F662B] rounded-full p-2 text-white">
+                <Image src={twitter} alt="twitter" className="w-full" />
+              </a>
+              <a href="#" className="bg-[#3F662B] rounded-full p-2 text-white">
+                <Image src={twitter} alt="twitter" className="w-full" />
+              </a>
               {/* <a href="#" className="bg-[#3F662B] rounded-full p-2 text-white">f</a> */}
             </div>
             <address className="not-italic foter-link">
-            GP Motors (Teddington) Ltd, 6 Alpha Rd, Teddington, England TW11 0QG, United Kingdom
+              GP Motors (Teddington) Ltd, 6 Alpha Rd, Teddington, England TW11
+              0QG, United Kingdom
             </address>
           </div>
         </div>
@@ -72,7 +78,7 @@ export default function Footer() {
       <div className="border-t py-6 px-4 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto">
         {/* Logo and company name */}
         <div className="flex items-center space-x-2 mb-4 md:mb-0">
-          <Image src={logo} alt="logo" className="w-50"/>
+          <Image src={logo} alt="logo" className="w-50" />
         </div>
         {/* Footer links */}
         <div className="flex space-x-6 text-sm text-gray-600">

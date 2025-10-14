@@ -81,7 +81,7 @@ const BookingClientDetails = ({
         Service Type: ${serviceType}, 
         Booking ID: ${bookingId}
         If you need to make changes or have any questions, 
-        feel free to contact us at 0208 943 4103. 
+        feel free to contact us at 0208 943 4103 / 0208 943 3588. 
         We look forward to providing you with exceptional service.
         Warm regards, 
         The G.P. Motors (Teddington) LTD.`;
@@ -164,7 +164,7 @@ const BookingClientDetails = ({
             serviceType: serviceType?.type as string,
             carRegistrationNo: bookingData.registrationNo,
             bookingId: bookingId,
-            companyContactNo: "0208 943 4103",
+            companyContactNo: "0208 943 4103 / 0208 943 3588",
             websiteUrl: "https://gpmotorstedd.co.uk/",
             year: new Date().getFullYear().toString(),
             logoUrl:
@@ -236,7 +236,7 @@ const BookingClientDetails = ({
           serviceType: serviceType?.type as string,
           carRegistrationNo: bookingData.registrationNo,
           bookingId: bookingId,
-          companyContactNo: "0208 943 4103",
+          companyContactNo: "0208 943 4103 / 0208 943 3588",
           websiteUrl: "https://gpmotorstedd.co.uk/",
           year: new Date().getFullYear().toString(),
           logoUrl:
