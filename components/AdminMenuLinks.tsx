@@ -33,6 +33,13 @@ function AdminMenuLinks({ closeSidebar }: { closeSidebar?: () => void }) {
         Appointment Reminder
       </Link>
       <Link
+        href="/admin/mot-reminder"
+        className=" hover:text-[#E33C30] px-3 py-2 transition"
+        onClick={closeSidebar ?? closeSidebar}
+      >
+        MOT Reminder
+      </Link>
+      <Link
         href="/"
         className="px-3 py-2 border text-white rounded-lg bg-red-500 ml-4"
       >
