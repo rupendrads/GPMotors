@@ -110,7 +110,7 @@ export const sendSmsTemplate = async (toNumber, templateId) => {
       // Handle success, e.g., show a confirmation message
       return "success";
     } else {
-      console.error("Failed to send SMS:", data);
+      console.log("Failed to send SMS:", data);
       // Handle error, e.g., display an error message
       return "failed";
     }

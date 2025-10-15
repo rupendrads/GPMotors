@@ -26,15 +26,9 @@ function MOTReminder() {
   const [filtering, setFiltering] = useState(false);
 
   useEffect(() => {
-    setLoading(false);
     setWeekOrMonthRange(29);
+    setLoading(false);
   }, []);
-
-  // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   console.log("ST", e.target.value);
-  //   setError(e.target.value === "-1" ? "*" : "");
-  //   updateServiceType(Number(e.target.value));
-  // };
 
   const setDayRange = () => {
     const today = new Date();
@@ -90,7 +84,7 @@ function MOTReminder() {
         Id: obj["ID"],
         FirstName: obj["FirstName"],
         LastName: obj["LastName"],
-        PhoneNo: obj["PhoneNo"],
+        PhoneNo: obj["ContactNo"],
         Address1: obj["Address1"],
         Address2: obj["Address2"],
         PostCode: obj["PostCode"],
@@ -98,6 +92,8 @@ function MOTReminder() {
         SmsStatus: "",
         WhatsAppStatus: "",
         serviceDate: obj["ServiceDate"],
+        CreationDate: obj["CreationDate"],
+        serviceType: obj["ServiceType"],
         carRegistrationNo: obj["RegistrationNo"],
       });
     });
@@ -108,7 +104,6 @@ function MOTReminder() {
   const filterClients = () => {
     setFiltering(true);
     const filter: reminderFilterType = {
-      serviceType: 1,
       fromDate: formatDate(fromDate),
       toDate: formatDate(toDate),
     };

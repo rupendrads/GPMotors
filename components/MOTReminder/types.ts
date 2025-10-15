@@ -1,5 +1,5 @@
 export type reminderFilterType = {
-  serviceType: number | undefined;
+  //serviceType: number | undefined;
   fromDate: string | undefined;
   toDate: string | undefined;
 };
@@ -8,7 +8,7 @@ export type person = {
   Id: number;
   FirstName: string;
   LastName: string;
-  PhoneNo: number;
+  PhoneNo: string;
   Address1: string;
   Address2: string;
   PostCode: string;
@@ -16,8 +16,11 @@ export type person = {
   SmsStatus: string;
   WhatsAppStatus: string;
   serviceDate: string;
+  CreationDate: string;
+  serviceType: string;
   carRegistrationNo: string;
 };
+
 //-----------
 
   // Id: number;
