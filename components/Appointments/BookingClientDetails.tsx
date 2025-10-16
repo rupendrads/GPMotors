@@ -9,6 +9,7 @@ import ChangeService from "./ChangeService";
 import { useRouter } from "next/navigation";
 //import { initEmailJS, sendAutoReplyEmail } from "@/app/lib/emailService";
 import getEmailTemplate, { emailParams } from "./emailTemplate";
+import getAdminEmailTemplate, { adminEmailParams } from "./adminEmailTemplate";
 import { sendSmsTemplate } from "@/utils/webex";
 import sendEmail from "@/utils/email";
 
@@ -157,7 +158,29 @@ const BookingClientDetails = ({
         console.log("insert appointment id", bookingId);
         resetForm();
 
-        // sending email
+        // sending email to admin
+        const adminEmailParams: adminEmailParams = {
+          companyName: "GP Motors",
+          clientName: bookingData.firstName + " " + bookingData.lastName,
+          serviceDate: formatDate(bookingDateTime.date),
+          timeSlot: bookingDateTime.time,
+          serviceType: serviceType?.type as string,
+          carRegistrationNo: bookingData.registrationNo,
+          bookingId: bookingId,
+          companyContactNo: "0208 943 4103 / 0208 943 3588",
+          websiteUrl: "https://gpmotorstedd.co.uk/",
+          year: new Date().getFullYear().toString(),
+          logoUrl:
+            "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+        };
+        sendEmail({
+          to_name: "Admin",
+          to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+          reply_subject: "booking appointment confirmation",
+          reply_message_html: getAdminEmailTemplate(adminEmailParams),
+        });
+
+        // sending email to client
         const emailParams: emailParams = {
           companyName: "GP Motors",
           clientName: bookingData.firstName + " " + bookingData.lastName,
@@ -172,19 +195,9 @@ const BookingClientDetails = ({
           logoUrl:
             "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
         };
-
-        // sending email to admin
         sendEmail({
-          to_name: "Admin",
-          to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-          reply_subject: "booking appointment confirmation",
-          reply_message_html: getEmailTemplate(emailParams),
-        });
-
-        // sending email to client
-        sendEmail({
-          to_name: bookingData.email,
-          to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+          to_name: bookingData.firstName + " " + bookingData.lastName,
+          to_email: bookingData.email,
           reply_subject: "booking appointment confirmation",
           reply_message_html: getEmailTemplate(emailParams),
         });
@@ -236,7 +249,29 @@ const BookingClientDetails = ({
       console.log("update appointment id", bookingId);
       resetForm();
 
-      // sending email
+      // sending email to admin
+      const adminEmailParams: adminEmailParams = {
+        companyName: "GP Motors",
+        clientName: bookingData.firstName + " " + bookingData.lastName,
+        serviceDate: formatDate(bookingDateTime.date),
+        timeSlot: bookingDateTime.time,
+        serviceType: serviceType?.type as string,
+        carRegistrationNo: bookingData.registrationNo,
+        bookingId: bookingId,
+        companyContactNo: "0208 943 4103 / 0208 943 3588",
+        websiteUrl: "https://gpmotorstedd.co.uk/",
+        year: new Date().getFullYear().toString(),
+        logoUrl:
+          "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+      };
+      sendEmail({
+        to_name: "Admin",
+        to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+        reply_subject: "booking appointment confirmation",
+        reply_message_html: getAdminEmailTemplate(adminEmailParams),
+      });
+
+      // sending email to client
       const emailParams: emailParams = {
         companyName: "GP Motors",
         clientName: bookingData.firstName + " " + bookingData.lastName,
@@ -251,19 +286,9 @@ const BookingClientDetails = ({
         logoUrl:
           "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
       };
-
-      // sending email to admin
       sendEmail({
-        to_name: "Admin",
-        to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-        reply_subject: "booking appointment confirmation",
-        reply_message_html: getEmailTemplate(emailParams),
-      });
-
-      // sending email to client
-      sendEmail({
-        to_name: bookingData.email,
-        to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+        to_name: bookingData.firstName + " " + bookingData.lastName,
+        to_email: bookingData.email,
         reply_subject: "booking appointment confirmation",
         reply_message_html: getEmailTemplate(emailParams),
       });
