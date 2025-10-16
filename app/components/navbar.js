@@ -578,7 +578,7 @@ export default function Navbar() {
         </nav>
       ) : (
         <nav className="relative z-50 w-full border-b border-gray-300">
-          <div className="w-full bg-[#fff] flex justify-between px-4 lg:px-10 poppins-font">
+          <div className="w-full bg-[#fff] flex justify-between px-4 lg:px-10 poppins-font ">
             <button
               className="lg:hidden p-2"
               onClick={() => setSidebarOpen(true)}
@@ -635,7 +635,7 @@ export default function Navbar() {
                     <div
                       onMouseEnter={handleReminderEnter}
                       onMouseLeave={handleReminderLeave}
-                      className="flex flex-col"
+                      className="flex flex-col absolute left-0 top-full z-1000"
                     >
                       <Link
                         href="/admin/reminder"
@@ -727,7 +727,7 @@ export default function Navbar() {
                     <div
                       onMouseEnter={handleReminderEnter}
                       onMouseLeave={handleReminderLeave}
-                      className="flex flex-col"
+                      className="flex flex-col absolute left-0 top-full z-1000"
                     >
                       <Link
                         href="/admin/reminder"
