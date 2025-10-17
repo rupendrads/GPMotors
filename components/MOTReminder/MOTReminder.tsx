@@ -7,19 +7,18 @@ import {
   inputLabelBoxStyle,
   inputLabelStyle,
   inputStyle,
-  errorStyle,
-  errorInputStyle,
+  // errorStyle,
+  // errorInputStyle,
 } from "@/components/styles";
 import { formatDate } from "@/utils/formatter";
 import People from "./People";
 import Loading from "../Loading";
 
 function MOTReminder() {
-
   const [dateRange, setDateRange] = useState<string>("month");
   const [fromDate, setFromDate] = useState<Date>();
   const [toDate, setToDate] = useState<Date>();
-  const [error, setError] = useState("");
+  //const [error, setError] = useState("");
   const [people, setPeople] = useState<person[]>([]);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);

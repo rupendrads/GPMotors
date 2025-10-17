@@ -130,6 +130,7 @@ function BookAppointment() {
     } catch (error) {
       console.log("fetch error:", error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const changeStepIndex = (index: number) => {

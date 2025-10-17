@@ -53,113 +53,113 @@ function People({
   //   processingStart();
   //   setTitle("Email");
   //   progressRef.current?.resetValue();
-    //   const person = personList[i];
-    //   try {
-    //     const emailParams: emailParams = {
-    //       companyName: "GP Motors",
-    //       clientName: person.FirstName + " " + person.LastName,
-    //       serviceDate: person.serviceDate,
-    //       timeSlot: person.timeSlot,
-    //       serviceType: person.serviceType,
-    //       carRegistrationNo: person.carRegistrationNo,
-    //       bookingId: person.bookingId,
-    //       companyContactNo: "0208 943 4103",
-    //       websiteUrl: "https://gpmotorstedd.co.uk/",
-    //       year: new Date().getFullYear().toString(),
-    //       logoUrl:
-    //         "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
-    //     };
-    //     const emailTemplate = getEmailTemplate(emailParams);
-    //     console.log("emailParams", emailParams);
-    //     // initEmailJS();
-    //     // sendAutoReplyEmail({
-    //     //   to_name: "Admin",
-    //     //   to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-    //     //   reply_subject: "appointment reminder",
-    //     //   reply_message_html: emailTemplate,
-    //     // });
+  //   const person = personList[i];
+  //   try {
+  //     const emailParams: emailParams = {
+  //       companyName: "GP Motors",
+  //       clientName: person.FirstName + " " + person.LastName,
+  //       serviceDate: person.serviceDate,
+  //       timeSlot: person.timeSlot,
+  //       serviceType: person.serviceType,
+  //       carRegistrationNo: person.carRegistrationNo,
+  //       bookingId: person.bookingId,
+  //       companyContactNo: "0208 943 4103",
+  //       websiteUrl: "https://gpmotorstedd.co.uk/",
+  //       year: new Date().getFullYear().toString(),
+  //       logoUrl:
+  //         "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+  //     };
+  //     const emailTemplate = getEmailTemplate(emailParams);
+  //     console.log("emailParams", emailParams);
+  //     // initEmailJS();
+  //     // sendAutoReplyEmail({
+  //     //   to_name: "Admin",
+  //     //   to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+  //     //   reply_subject: "appointment reminder",
+  //     //   reply_message_html: emailTemplate,
+  //     // });
 
-    //     // setPersonList((prevList) => {
-    //     //   const newList = [...prevList];
-    //     //   console.log("i value", i);
-    //     //   newList[i].EmailStatus = "success";
-    //     //   return [...newList];
-    //     // });
-    //     progressRef.current?.incrementValue();
-    //   } catch (error) {
-    //     console.log("email error", error);
+  //     // setPersonList((prevList) => {
+  //     //   const newList = [...prevList];
+  //     //   console.log("i value", i);
+  //     //   newList[i].EmailStatus = "success";
+  //     //   return [...newList];
+  //     // });
+  //     progressRef.current?.incrementValue();
+  //   } catch (error) {
+  //     console.log("email error", error);
 
-    //     setPersonList((prevList) => {
-    //       const newList = [...prevList];
-    //       console.log("i value", i);
-    //       newList[i].EmailStatus = "failed";
-    //       return [...newList];
-    //     });
-    //     progressRef.current?.incrementValue();
-    //   }
-    // }
-    // progressRef.current?.incrementValue();
+  //     setPersonList((prevList) => {
+  //       const newList = [...prevList];
+  //       console.log("i value", i);
+  //       newList[i].EmailStatus = "failed";
+  //       return [...newList];
+  //     });
+  //     progressRef.current?.incrementValue();
+  //   }
+  // }
+  // progressRef.current?.incrementValue();
 
-    // let i = -1;
-    // const intervalId = setInterval(() => {
-    //   i++;
-    //   if (i < personList.length) {
-    //     console.log("processing id", personList[i].Id);
-    //     // call send email function start...
-    //     try {
-    //       const person = personList[i];
-    //       const emailParams: emailParams = {
-    //         companyName: "GP Motors",
-    //         clientName: person.FirstName + " " + person.LastName,
-    //         serviceDate: formatDate(new Date(person.serviceDate)),
-    //         timeSlot: person.timeSlot,
-    //         serviceType: person.serviceType,
-    //         carRegistrationNo: person.carRegistrationNo,
-    //         bookingId: person.bookingId,
-    //         companyContactNo: "0208 943 4103",
-    //         websiteUrl: "https://gpmotorstedd.co.uk/",
-    //         year: new Date().getFullYear().toString(),
-    //         logoUrl:
-    //           "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
-    //       };
-    //       const emailTemplate = getEmailTemplate(emailParams);
-    //       console.log("emailParams", emailParams);
-    //       initEmailJS();
-    //       sendAutoReplyEmail({
-    //         to_name: emailParams.clientName,
-    //         to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-    //         reply_subject: "appointment reminder",
-    //         reply_message_html: emailTemplate,
-    //       });
-    //       // call send email function end...
-    //       setPersonList((prevList) => {
-    //         const newList = [...prevList];
-    //         console.log("i value", i);
-    //         newList[i].EmailStatus = "success";
-    //         return [...newList];
-    //       });
-    //     } catch (error) {
-    //       console.log("email error", error);
-    //       setPersonList((prevList) => {
-    //         const newList = [...prevList];
-    //         console.log("i value", i);
-    //         newList[i].EmailStatus = "failed";
-    //         return [...newList];
-    //       });
-    //     } finally {
-    //       progressRef.current?.incrementValue();
-    //     }
-        //   const newList = [...prevList];
-        //   console.log("i value", i);
-        //   newList[i].EmailStatus = "success";
-        //   // if (i % 2 === 0) {
-        //   //   newList[i].EmailStatus = "success";
-        //   // } else {
-        //   //   newList[i].EmailStatus = "failed";
-        //   // }
-        //   return [...newList];
-        // });
-        // progressRef.current?.incrementValue();
+  // let i = -1;
+  // const intervalId = setInterval(() => {
+  //   i++;
+  //   if (i < personList.length) {
+  //     console.log("processing id", personList[i].Id);
+  //     // call send email function start...
+  //     try {
+  //       const person = personList[i];
+  //       const emailParams: emailParams = {
+  //         companyName: "GP Motors",
+  //         clientName: person.FirstName + " " + person.LastName,
+  //         serviceDate: formatDate(new Date(person.serviceDate)),
+  //         timeSlot: person.timeSlot,
+  //         serviceType: person.serviceType,
+  //         carRegistrationNo: person.carRegistrationNo,
+  //         bookingId: person.bookingId,
+  //         companyContactNo: "0208 943 4103",
+  //         websiteUrl: "https://gpmotorstedd.co.uk/",
+  //         year: new Date().getFullYear().toString(),
+  //         logoUrl:
+  //           "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+  //       };
+  //       const emailTemplate = getEmailTemplate(emailParams);
+  //       console.log("emailParams", emailParams);
+  //       initEmailJS();
+  //       sendAutoReplyEmail({
+  //         to_name: emailParams.clientName,
+  //         to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+  //         reply_subject: "appointment reminder",
+  //         reply_message_html: emailTemplate,
+  //       });
+  //       // call send email function end...
+  //       setPersonList((prevList) => {
+  //         const newList = [...prevList];
+  //         console.log("i value", i);
+  //         newList[i].EmailStatus = "success";
+  //         return [...newList];
+  //       });
+  //     } catch (error) {
+  //       console.log("email error", error);
+  //       setPersonList((prevList) => {
+  //         const newList = [...prevList];
+  //         console.log("i value", i);
+  //         newList[i].EmailStatus = "failed";
+  //         return [...newList];
+  //       });
+  //     } finally {
+  //       progressRef.current?.incrementValue();
+  //     }
+  //   const newList = [...prevList];
+  //   console.log("i value", i);
+  //   newList[i].EmailStatus = "success";
+  //   // if (i % 2 === 0) {
+  //   //   newList[i].EmailStatus = "success";
+  //   // } else {
+  //   //   newList[i].EmailStatus = "failed";
+  //   // }
+  //   return [...newList];
+  // });
+  // progressRef.current?.incrementValue();
   //     } else {
   //       progressRef.current?.incrementValue();
   //       clearInterval(intervalId);
@@ -186,16 +186,19 @@ function People({
   // };
 
   const getSMSTemplate = (person: person) => {
-    const sms = `Dear ${person.FirstName} ${person.LastName} 
-      Thank you for choosing G.P. Motors. 
-      We're pleased to remind your upcoming car Mot service appointment.
-      Date: ${formatDate(new Date(person.serviceDate))}, 
-      Service Type: ${person.serviceType},
-      If you need to make changes or have any questions, 
-      feel free to contact us at 0208 943 4103. 
-      We look forward to providing you with exceptional service.
-      Warm regards, 
-      The G.P. Motors (Teddington) LTD.`;
+    const sms = `Hi ${person.FirstName} ${person.LastName}, 
+    your vehicles MOT is due to expire on ${formatDate(
+      new Date(person.serviceDate)
+    )}. 
+    We will be closed from 25th December to January 3rd. 
+    Opening in the new year Tuesday January 4th 2022.
+    Call us today to book your Annual MOT & Service 0208 943 4103. 
+    Thanks.
+    Remember you can get your car MOT'd up to a month before your MOT renewal date 
+    and still keep your original MOT date. You lose nothing.
+    Please make sure your wheel locking nut key is in the car. 
+    Thank you.
+    G.P. Motors (Teddington) LTD T:0208 943 4103`;
     return sms;
   };
 
@@ -254,7 +257,9 @@ function People({
                           <div className={nameCellHeaderStyle}>Name</div>
                           <div className={phoneNoCellHeaderStyle}>Phone No</div>
                           <div className={smsCellHeaderStyle}>SMS Status</div>
-                          <div className={smsCellHeaderStyle}>WhatsApp Status</div>
+                          <div className={smsCellHeaderStyle}>
+                            WhatsApp Status
+                          </div>
                         </div>
                         <hr className="text-gray-400" />
                       </>
@@ -281,7 +286,7 @@ function People({
                         {person.FirstName.concat(" ").concat(person.LastName)}
                       </div>
                       <div className={phoneNoCellStyle}>{person.PhoneNo}</div>
-                      
+
                       <div
                         className={smsCellStyle}
                         style={{
@@ -296,7 +301,7 @@ function People({
                       >
                         {person.SmsStatus}
                       </div>
-                      
+
                       <div className={phoneNoCellStyle}>
                         {person.WhatsAppStatus}
                       </div>
@@ -331,7 +336,7 @@ function People({
                     SMS
                   </button>
                 </div>
-                
+
                 <div>
                   <button
                     type="button"
