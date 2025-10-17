@@ -93,8 +93,7 @@ function BookingListTable() {
     if (filterRegNo.trim() !== "") {
       filtered = filtered.filter(
         (b) =>
-          b.RegistrationNo &&
-          b.RegistrationNo.toLowerCase() === filterRegNo.toLowerCase()
+          b.RegistrationNo?.toLowerCase().includes(filterRegNo.toLowerCase())
       );
     }
 
@@ -116,9 +115,9 @@ function BookingListTable() {
   const goToLast = () => setCurrentPage(totalPages);
 
   // Extract unique Reg. Nos. for dropdown
-  const uniqueRegNos = Array.from(
-    new Set(bookings.map((b) => b.RegistrationNo).filter(Boolean))
-  );
+  // const uniqueRegNos = Array.from(
+  //   new Set(bookings.map((b) => b.RegistrationNo).filter(Boolean))
+  // );
 
   const getServiceType = (id: number) => {
     console.log("getServiceType id: ", id);
@@ -144,18 +143,13 @@ function BookingListTable() {
 
         <div className="flex flex-col">
           <label className="text-sm font-semibold mb-1">Reg. No.</label>
-          <select
+          <input
+            type="text"
+            placeholder="Enter reg no"
             value={filterRegNo}
             onChange={(e) => setFilterRegNo(e.target.value)}
             className="border border-gray-400 rounded px-3 py-2 text-sm w-30"
-          >
-            <option value="">All</option>
-            {uniqueRegNos.map((reg, index) => (
-              <option key={index} value={reg}>
-                {reg}
-              </option>
-            ))}
-          </select>
+          />
         </div>
         <div>
           <button
