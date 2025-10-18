@@ -16,9 +16,15 @@ const ITEMS_PER_PAGE = 10;
 
 function ClientDetailListTable() {
   const [clientdetails, setClientDetails] = useState<IClientDetailDB[]>([]);
+  const [filteredClientdetails, setFilteredClientDetails] = useState<IClientDetailDB[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   //const [csvData, setCsvData] = useState<IClientDetailDB[]>([]);
+
+  // Filter states
+  const [filterFirstName, setFilterFirstName] = useState("");
+  const [filterRegNo, setFilterRegNo] = useState("");
+  const [filterServiceType, setFilterServiceType] = useState("");
   const router = useRouter();
 
   // Function to load and parse CSV
@@ -44,13 +50,22 @@ function ClientDetailListTable() {
   //   console.log("Editing Client ID:", client.Id);
   //   router.push(`/admin/client-detail/form?id=${client.Id}`);
   // };
+  // FirstName
+  // RegNo
+  // ServiceType
 
   const fetchCDetails = async () => {
     try {
       const response = await fetch("/api/clientdetail");
       const clientData = await response.json();
       console.log("fetch clients:", clientData);
-      setClientDetails(clientData);
+
+      //Sort by ID descending
+      const sortedCDetails = clientData.sort((a, b) => b.ID - a.ID);
+
+
+      setClientDetails(sortedCDetails);
+      setFilteredClientDetails(sortedCDetails)
     } catch (error) {
       console.error("Error fetching client details:", error);
     } finally {
@@ -89,9 +104,40 @@ function ClientDetailListTable() {
   //   }
   // };
 
-  const totalPages = Math.ceil(clientdetails.length / ITEMS_PER_PAGE);
+  const handleFilter = () => {
+    let filtered = clientdetails;
+
+    // Filter by FirstName
+    if (filterFirstName.trim() !== "") {
+      filtered = filtered.filter(
+        (b) =>
+          b.FirstName?.toLowerCase().includes(filterFirstName.toLowerCase())
+      );
+    }
+
+    // Filter by Reg. No.
+    if (filterRegNo.trim() !== "") {
+      filtered = filtered.filter(
+        (b) =>
+          b.RegistrationNo?.toLowerCase().includes(filterRegNo.toLowerCase())
+      );
+    }
+
+    // Filter by ServiceType
+    if (filterServiceType.trim() !== "") {
+      filtered = filtered.filter(
+        (b) =>
+          b.ServiceType?.toLowerCase().includes(filterServiceType.toLowerCase())
+      );
+    }
+
+    setFilteredClientDetails(filtered);
+    setCurrentPage(1);
+  };
+
+  const totalPages = Math.ceil(filteredClientdetails.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentItems = clientdetails.slice(
+  const currentItems = filteredClientdetails.slice(
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
@@ -105,12 +151,55 @@ function ClientDetailListTable() {
   return (
     <div className="p-6 mb-4 max-w-full relative">
       <h1 className={tableHeadingStyle}>Client Detail List</h1>
-      <button
-        onClick={() => router.push("/admin/client-detail")}
-        className="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-2 mb-2 rounded shadow-sm transition"
-      >
-        Add Client
-      </button>
+      <div className="flex justify-between items-center">
+        <button
+          onClick={() => router.push("/admin/client-detail")}
+          className="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-2 mb-[-45px] ml-2 rounded shadow-sm transition"
+          >
+          Add Client
+        </button>
+        <div className="flex w-[550px] gap-3 items-center justify-start mb-4 mt-6 border border-gray-300 rounded-md p-2 bg-gray-50">
+          <div className="flex flex-col">
+            <label className="text-sm font-semibold mb-1">FirstName</label>
+            <input
+              type="text"
+              placeholder="Enter firstname" 
+              value={filterFirstName}
+              onChange={(e) => setFilterFirstName(e.target.value)}
+              className="border border-gray-400 rounded px-2 py-2 text-sm w-35"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-sm font-semibold mb-1">Reg. No.</label>
+            <input
+              type="text"
+              placeholder="Enter reg no"
+              value={filterRegNo}
+              onChange={(e) => setFilterRegNo(e.target.value)}
+              className="border border-gray-400 rounded px-2 py-2 text-sm w-35"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-sm font-semibold mb-1">Service Type</label>
+            <input
+              type="text"
+              placeholder="Enter servicetype"
+              value={filterServiceType}
+              onChange={(e) => setFilterServiceType(e.target.value)}
+              className="border border-gray-400 rounded px-2 py-2 text-sm w-35"
+            />
+          </div>
+          <div>
+            <button
+              onClick={handleFilter}
+              className=" bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-2 mt-6 rounded-md transition"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+
+      </div>
 
       {loading ? (
         <p>Loading...</p>
@@ -245,7 +334,7 @@ export default ClientDetailListTable;
 const tableContainer =
   "w-full overflow-x-auto overflow-y-auto max-h-[500px] bg-white shadow-md rounded-sm border border-gray-200";
 const tableHeadingStyle =
-  "text-3xl font-bold mb-4 mt-4 underline text-center text-gray-700 leading-[100%] traking-[0%] ";
+  "text-2xl font-bold mb-4 mt-4 text-center text-gray-700 leading-[100%] traking-[0%] ";
 const tableStyle =
   "table-auto min-w-[1000px] text-sm text-left text-gray-700 whitespace-nowrap";
 const theadStyle = "text-sm text-white pascalcase bg-black sticky top-0 z-10";
