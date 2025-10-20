@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Alert from "@/components/Alert";
 import { formatDate } from "@/utils/formatter";
 import { inputLabelStyle } from "./styles";
-import { IDateTime, IFormInput, IServiceType } from "./types";
+import { IClientFormInput, IDateTime, IFormInput, IServiceType } from "./types";
 import React, { useState } from "react";
 import ChangeBookingDateTime from "./ChangeBookingDateTime";
 import ChangeService from "./ChangeService";
@@ -143,7 +143,7 @@ const BookingClientDetails = ({
           LastName: bookingData.lastName,
           Email: bookingData.email,
           PostCode: bookingData.postCode,
-          RegistrationNo: bookingData.registrationNo,
+          RegistrationNo: bookingData.registrationNo.toUpperCase(),
           ServiceType: serviceType?.id,
           Comments: bookingData.comments,
           PhoneNo: bookingData.phoneNo,
@@ -152,70 +152,146 @@ const BookingClientDetails = ({
 
       const result = await response.json();
       console.log("insert appointment result", result);
-      handleShowAlert(result["status"], result["message"]);
+
       if (result["status"] === "success") {
         const bookingId = result["results"]["insertId"];
         console.log("insert appointment id", bookingId);
+
+        // client detail update.....
+        // check if contact no is already exist
+        const checkResponse = await fetch(
+          `/api/clientdetail/iscontactexist?contactno='${bookingData.phoneNo}'`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const checkResult = await checkResponse.json();
+        console.log("check result", checkResult);
+
+        // console.log("checkResult", checkResult);
+        try {
+          const clientId =
+            checkResult.length === 0 ? undefined : checkResult[0].ID;
+
+          let clientDetail: IClientFormInput | undefined;
+          if (clientId) {
+            clientDetail = {
+              title: bookingData.title,
+              firstName: bookingData.firstName,
+              lastName: bookingData.lastName,
+              address1: checkResult[0].Address1,
+              address2: checkResult[0].Address2,
+              postCode: checkResult[0].PostCode,
+              contactNo: bookingData.phoneNo,
+              serviceType: serviceType?.type as string,
+              serviceDate: bookingDateTime.date,
+              creationDate: checkResult[0].CreationDate,
+              registrationNo: bookingData.registrationNo.toUpperCase(),
+              remarks: checkResult[0].Remarks,
+              ...checkResult[0],
+              Id: clientId,
+            };
+          } else {
+            clientDetail = {
+              title: bookingData.title,
+              firstName: bookingData.firstName,
+              lastName: bookingData.lastName,
+              address1: "",
+              address2: "",
+              postCode: bookingData.postCode,
+              contactNo: bookingData.phoneNo,
+              serviceType: serviceType?.type as string,
+              serviceDate: bookingDateTime.date,
+              creationDate: undefined,
+              registrationNo: bookingData.registrationNo.toUpperCase(),
+              remarks: "",
+            };
+          }
+
+          const url = clientId
+            ? `/api/clientdetail/${clientId}`
+            : "/api/clientdetail";
+          const method = clientId ? "PUT" : "POST";
+
+          const response = await fetch(url, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(clientDetail),
+          });
+          const result = await response.json();
+          console.log("client detail result", result);
+        } catch (error) {
+          console.log("client data insert update error", error);
+        }
+        // client detail update.....
+
+        handleShowAlert(result["status"], result["message"]);
         resetForm();
 
-        // sending email to admin
-        const adminEmailParams: adminEmailParams = {
-          companyName: "GP Motors",
-          clientName: bookingData.firstName + " " + bookingData.lastName,
-          serviceDate: formatDate(bookingDateTime.date),
-          timeSlot: bookingDateTime.time,
-          serviceType: serviceType?.type as string,
-          carRegistrationNo: bookingData.registrationNo,
-          bookingId: bookingId,
-          companyContactNo: "0208 943 4103 / 0208 943 3588",
-          websiteUrl: "https://gpmotorstedd.co.uk/",
-          year: new Date().getFullYear().toString(),
-          logoUrl:
-            "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
-        };
-        sendEmail({
-          to_name: "Admin",
-          to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-          reply_subject: "booking appointment confirmation",
-          reply_message_html: getAdminEmailTemplate(adminEmailParams),
-        });
+        // // sending email to admin
+        // const adminEmailParams: adminEmailParams = {
+        //   companyName: "GP Motors",
+        //   clientName: bookingData.firstName + " " + bookingData.lastName,
+        //   serviceDate: formatDate(bookingDateTime.date),
+        //   timeSlot: bookingDateTime.time,
+        //   serviceType: serviceType?.type as string,
+        //   carRegistrationNo: bookingData.registrationNo,
+        //   bookingId: bookingId,
+        //   companyContactNo: "0208 943 4103 / 0208 943 3588",
+        //   websiteUrl: "https://gpmotorstedd.co.uk/",
+        //   year: new Date().getFullYear().toString(),
+        //   logoUrl:
+        //     "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+        // };
+        // sendEmail({
+        //   to_name: "Admin",
+        //   to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+        //   reply_subject: "booking appointment confirmation",
+        //   reply_message_html: getAdminEmailTemplate(adminEmailParams),
+        // });
 
-        // sending email to client
-        const emailParams: emailParams = {
-          companyName: "GP Motors",
-          clientName: bookingData.firstName + " " + bookingData.lastName,
-          serviceDate: formatDate(bookingDateTime.date),
-          timeSlot: bookingDateTime.time,
-          serviceType: serviceType?.type as string,
-          carRegistrationNo: bookingData.registrationNo,
-          bookingId: bookingId,
-          companyContactNo: "0208 943 4103 / 0208 943 3588",
-          websiteUrl: "https://gpmotorstedd.co.uk/",
-          year: new Date().getFullYear().toString(),
-          logoUrl:
-            "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
-        };
-        sendEmail({
-          to_name: bookingData.firstName + " " + bookingData.lastName,
-          to_email: bookingData.email,
-          reply_subject: "booking appointment confirmation",
-          reply_message_html: getEmailTemplate(emailParams),
-        });
+        // // sending email to client
+        // const emailParams: emailParams = {
+        //   companyName: "GP Motors",
+        //   clientName: bookingData.firstName + " " + bookingData.lastName,
+        //   serviceDate: formatDate(bookingDateTime.date),
+        //   timeSlot: bookingDateTime.time,
+        //   serviceType: serviceType?.type as string,
+        //   carRegistrationNo: bookingData.registrationNo,
+        //   bookingId: bookingId,
+        //   companyContactNo: "0208 943 4103 / 0208 943 3588",
+        //   websiteUrl: "https://gpmotorstedd.co.uk/",
+        //   year: new Date().getFullYear().toString(),
+        //   logoUrl:
+        //     "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+        // };
+        // sendEmail({
+        //   to_name: bookingData.firstName + " " + bookingData.lastName,
+        //   to_email: bookingData.email,
+        //   reply_subject: "booking appointment confirmation",
+        //   reply_message_html: getEmailTemplate(emailParams),
+        // });
 
-        // sending sms to client
-        const smsTemplate = getSMSTemplate(
-          bookingData.firstName + " " + bookingData.lastName,
-          formatDate(bookingDateTime.date),
-          bookingDateTime.time,
-          serviceType?.type as string,
-          bookingId
-        );
-        console.log(smsTemplate);
-        const sendSmsStatus = await sendSmsTemplate(
-          bookingData.phoneNo,
-          smsTemplate
-        );
-        console.log("send sms status", sendSmsStatus);
+        // // sending sms to client
+        // const smsTemplate = getSMSTemplate(
+        //   bookingData.firstName + " " + bookingData.lastName,
+        //   formatDate(bookingDateTime.date),
+        //   bookingDateTime.time,
+        //   serviceType?.type as string,
+        //   bookingId
+        // );
+        // console.log(smsTemplate);
+        // const sendSmsStatus = await sendSmsTemplate(
+        //   bookingData.phoneNo,
+        //   smsTemplate
+        // );
+        // console.log("send sms status", sendSmsStatus);
+      } else {
+        handleShowAlert(result["status"], result["message"]);
       }
     }
   };
