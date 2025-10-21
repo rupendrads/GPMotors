@@ -50,6 +50,7 @@ export async function PUT(request: Request) {
     const query = `
       UPDATE bookingconfig
       SET OfficeStartTime = ?, OfficeEndTime = ?, NoOfEmployees = ?, SlotGap = ?, LimitPerSlot = ?
+      LIMIT 1
     `;
 
     const values = [
