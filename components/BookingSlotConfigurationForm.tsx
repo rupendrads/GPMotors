@@ -59,11 +59,24 @@ function BookingConfigurationForm() {
       .finally(() => setLoading(false));
   }, [reset]);
 
+  const formatTime = (date: string | Date): string => {
+    const d = new Date(date);
+    const hours = String(d.getHours()).padStart(2, "0");
+    const mins = String(d.getMinutes()).padStart(2, "0");
+    const secs = String(d.getSeconds()).padStart(2, "0");
+    return `${hours}:${mins}:${secs}`;
+  };
+
   const onSave: SubmitHandler<IBookingConfig> = async (
     data: IBookingConfig
   ) => {
     //console.log(data);
-    const bookingSlotData = { ...data };
+    const bookingSlotData = {
+      ...data,
+      officeStartTime: formatTime(data.officeStartTime),
+      officeEndTime: formatTime(data.officeEndTime),
+    };
+
     console.log("Booking configuration", bookingSlotData);
     try {
       const response = await fetch("/api/bookingconfig", {
@@ -71,7 +84,7 @@ function BookingConfigurationForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(bookingSlotData),
       });
 
       if (!response.ok) {
@@ -82,7 +95,7 @@ function BookingConfigurationForm() {
       console.log(result);
 
       handleShowAlert(result["status"], result["message"]);
-      if(result["status"] === "success") {
+      if (result["status"] === "success") {
         setTimeout(() => {
           reset();
         }, 1000);

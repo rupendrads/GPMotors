@@ -36,14 +36,6 @@ export async function GET(request: Request) {
 export async function PUT(request: Request) {
   const data = await request.json();
 
-  function formatTime(date: string | Date): string {
-    const d = new Date(date);
-    const hours = String(d.getHours()).padStart(2, "0");
-    const mins = String(d.getMinutes()).padStart(2, "0");
-    const secs = String(d.getSeconds()).padStart(2, "0");
-    return `${hours}:${mins}:${secs}`;
-  }
-
   try {
     const connection = await mysql.createConnection(connectionParams);
 
@@ -54,8 +46,8 @@ export async function PUT(request: Request) {
     `;
 
     const values = [
-      formatTime(data.officeStartTime),
-      formatTime(data.officeEndTime),
+      data.officeStartTime,
+      data.officeEndTime,
       data.noOfEmployees,
       data.slotGap,
       data.maxMOT, // map to LimitPerSlot
