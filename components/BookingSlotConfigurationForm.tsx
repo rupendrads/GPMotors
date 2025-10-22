@@ -80,7 +80,7 @@ function BookingConfigurationForm() {
     console.log("Booking configuration", bookingSlotData);
     try {
       const response = await fetch("/api/bookingconfig", {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
