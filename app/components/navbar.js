@@ -14,7 +14,7 @@ import key from "../../public/icons/key.svg";
 import React from "react";
 import { usePathname } from "next/navigation";
 //import AdminMenuDetail from "@/components/AdminMenu";
-import AdminMenuLinks from "@/components/AdminMenuLinks";
+//import AdminMenuLinks from "@/components/AdminMenuLinks";
 
 const serviceColumns = [
   {
