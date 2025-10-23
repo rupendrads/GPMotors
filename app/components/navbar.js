@@ -147,7 +147,9 @@ export default function Navbar() {
   const handleBrandsLeave = () => setShowBrandsMegaMenu(false);
 
   const handleReminderEnter = () => setShowReminderMenu(true);
-  const handleReminderLeave = () => setShowReminderMenu(false);
+  const handleReminderLeave = () => {
+    setShowReminderMenu(false);
+  };
 
   const toggleAccordion = (key) => {
     setSidebarAccordions((prev) => ({
@@ -410,7 +412,8 @@ export default function Navbar() {
                   </Link>
                 </>
               ) : (
-                <AdminMenuLinks closeSidebar={closeSidebar} />
+                // <AdminMenuLinks closeSidebar={closeSidebar} />
+                <></>
               )}
             </nav>
           </div>
@@ -625,18 +628,14 @@ export default function Navbar() {
                   onMouseLeave={handleReminderLeave}
                 >
                   <button
-                    className={`flex px-3 py-2 items-center  hover:text-[#E33C30] transition ${
+                    className={`flex px-3 py-2 items-center cursor-pointer transition ${
                       showReminderMenu ? "text-[#E33C30]" : ""
                     }`}
                   >
                     Reminder <ChevronDownIcon className="w-4 h-4 ml-1" />
                   </button>
                   {showReminderMenu && (
-                    <div
-                      onMouseEnter={handleReminderEnter}
-                      onMouseLeave={handleReminderLeave}
-                      className="flex flex-col absolute left-0 top-full z-1000"
-                    >
+                    <div className="flex flex-col absolute left-0 top-full z-1000">
                       <Link
                         href="/admin/reminder"
                         className=" hover:text-[#E33C30] px-3 py-2 transition"
@@ -712,23 +711,19 @@ export default function Navbar() {
                   Client Detail
                 </Link>
                 <div
-                  className="relative w-[140px]"
+                  className="relative w-[140px] border border-red-500"
                   onMouseEnter={handleReminderEnter}
                   onMouseLeave={handleReminderLeave}
                 >
                   <button
-                    className={`flex px-3 py-2 items-center  hover:text-[#E33C30] transition ${
+                    className={`flex px-3 py-2 items-center  hover:text-[#E33C30] cursor-pointer transition ${
                       showReminderMenu ? "text-[#E33C30]" : ""
                     }`}
                   >
                     Reminder <ChevronDownIcon className="w-4 h-4 ml-1" />
                   </button>
                   {showReminderMenu && (
-                    <div
-                      onMouseEnter={handleReminderEnter}
-                      onMouseLeave={handleReminderLeave}
-                      className="flex flex-col absolute left-0 top-full z-1000"
-                    >
+                    <div className="flex flex-col absolute left-0 top-full z-1000 px-2 py-2">
                       <Link
                         href="/admin/reminder"
                         className=" hover:text-[#E33C30] px-3 py-2 transition"

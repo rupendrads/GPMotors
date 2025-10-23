@@ -29,8 +29,14 @@ export default function Gallery() {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+  const scrollPrev = useCallback(
+    () => emblaApi && emblaApi.scrollPrev(),
+    [emblaApi]
+  );
+  const scrollNext = useCallback(
+    () => emblaApi && emblaApi.scrollNext(),
+    [emblaApi]
+  );
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -45,8 +51,18 @@ export default function Gallery() {
   }, [emblaApi, onSelect]);
 
   const images = [
-    image_1, image_2, image_3, image_4, image_5, image_6,
-    image_7, image_8, image_9, image_10, image_11, image_12,
+    image_1,
+    image_2,
+    image_3,
+    image_4,
+    image_5,
+    image_6,
+    image_7,
+    image_8,
+    image_9,
+    image_10,
+    image_11,
+    image_12,
   ];
 
   return (
@@ -55,10 +71,17 @@ export default function Gallery() {
         <div className="embla__container">
           {images.map((src, i) => (
             <div
-              className={`embla__slide ${i === selectedIndex ? "embla__slide--active" : ""}`}
+              className={`embla__slide ${
+                i === selectedIndex ? "embla__slide--active" : ""
+              }`}
               key={i}
             >
-              <Image src={src} alt={`Gallery Image ${i + 1}`} fill className="object-cover" />
+              <Image
+                src={src}
+                alt={`Gallery Image ${i + 1}`}
+                fill
+                className="object-cover"
+              />
               <div className="embla__slide__overlay">
                 <h2>Car Service</h2>
                 <p>2025 Project</p>
@@ -70,10 +93,18 @@ export default function Gallery() {
       </div>
 
       {/* Arrow Buttons */}
-      <button className="embla__button embla__button--prev" onClick={scrollPrev} type="button">
+      <button
+        className="embla__button embla__button--prev"
+        onClick={scrollPrev}
+        type="button"
+      >
         <ChevronLeft />
       </button>
-      <button className="embla__button embla__button--next" onClick={scrollNext} type="button">
+      <button
+        className="embla__button embla__button--next"
+        onClick={scrollNext}
+        type="button"
+      >
         <ChevronRight />
       </button>
 
@@ -83,13 +114,15 @@ export default function Gallery() {
           <div className="expert-advice-text">
             <h3>Need Expert Advice on Your Car Service?</h3>
             <p>
-              Our friendly service team is here to help. Call us for free consultation and expert
-              recommendations.
+              Our friendly service team is here to help. Call us for free
+              consultation and expert recommendations.
             </p>
           </div>
           <div className="expert-advice-actions">
-            <a href="tel:02089434103" className="expert-advice-btn">Request a Call</a>
-            <span className="expert-advice-phone">020 8943 4103</span>
+            <a className="expert-advice-btn">Request a Call</a>
+            <span className="expert-advice-phone">
+              020 8943 4103 / 020 8943 3588
+            </span>
           </div>
         </div>
       </div>

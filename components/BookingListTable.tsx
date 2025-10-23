@@ -91,9 +91,8 @@ function BookingListTable() {
 
     // Filter by Reg. No.
     if (filterRegNo.trim() !== "") {
-      filtered = filtered.filter(
-        (b) =>
-          b.RegistrationNo?.toLowerCase().includes(filterRegNo.toLowerCase())
+      filtered = filtered.filter((b) =>
+        b.RegistrationNo?.toLowerCase().includes(filterRegNo.toLowerCase())
       );
     }
 
