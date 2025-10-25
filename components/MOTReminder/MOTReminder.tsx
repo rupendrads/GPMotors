@@ -153,9 +153,6 @@ function MOTReminder() {
                 <option key="month" value="month">
                   Month
                 </option>
-                <option key="week" value="week">
-                  Week
-                </option>
                 <option key="day" value="day">
                   Day
                 </option>
