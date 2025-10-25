@@ -42,7 +42,7 @@ export default function Homepage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 items-start">
-              <Link href="">
+              <Link href="/book-appointment">
                 <button className="bg-red-600 cursor-pointer hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-md transition-colors duration-200">
                   Book Now
                 </button>
@@ -63,7 +63,14 @@ export default function Homepage() {
                     href="tel:02089434103"
                     className="text-white font-semibold text-lg hover:text-yellow-400 transition-colors"
                   >
-                   020 8943 4103
+                    020 8943 4103
+                  </a>
+                  /
+                  <a
+                    href="tel:02089434103"
+                    className="text-white font-semibold text-lg hover:text-yellow-400 transition-colors"
+                  >
+                    020 8943 3588
                   </a>
                 </div>
               </div>

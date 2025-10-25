@@ -192,13 +192,13 @@ function People({
     )}. 
     We will be closed from 25th December to January 3rd. 
     Opening in the new year Tuesday January 4th 2022.
-    Call us today to book your Annual MOT & Service 0208 943 4103. 
+    Call us today to book your Annual MOT & Service 0208 943 4103 / 0208 943 3588. 
     Thanks.
     Remember you can get your car MOT'd up to a month before your MOT renewal date 
     and still keep your original MOT date. You lose nothing.
     Please make sure your wheel locking nut key is in the car. 
     Thank you.
-    G.P. Motors (Teddington) LTD T:0208 943 4103`;
+    G.P. Motors (Teddington) LTD T:0208 943 4103 / 0208 943 3588`;
     return sms;
   };
 
