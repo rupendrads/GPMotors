@@ -119,6 +119,18 @@ const brandColumns = [
       { name: "Volvo", link: "/brands/Volvo" },
     ],
   },
+  {
+    items: [
+      { name: "Citroen", link: "/brands/Citroen" },
+      { name: "Tesla", link: "/brands/Tesla" },
+    ],
+  },
+  {
+    items: [
+      { name: "Polestar", link: "/brands/Polestar" },
+      { name: "Peugeot", link: "/brands/Peugeot" },
+    ],
+  },
 ];
 
 const getItemClass = (item, highlight) =>
