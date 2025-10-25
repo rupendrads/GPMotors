@@ -97,7 +97,8 @@ export default function HomeFooter() {
         </div>
         {/* Copyright */}
         <div className="text-sm text-gray-500 mt-4 md:mt-0">
-          © Gp motors 2023
+          © Gp motors 2023 <br />
+          Developed by Technophile consultancy lt (07919453190)
         </div>
       </div>
     </footer>
