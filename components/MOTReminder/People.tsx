@@ -249,7 +249,7 @@ function People({
             <div className="border border-gray-400 rounded">
               {personList.map((person, index) => {
                 return (
-                  <div key={person.PhoneNo}>
+                  <div key={person.Id}>
                     {index === 0 && (
                       <>
                         <div className="flex bg-gray-800 text-white">

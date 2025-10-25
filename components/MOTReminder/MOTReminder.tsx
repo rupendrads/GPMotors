@@ -33,6 +33,7 @@ function MOTReminder() {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
+    tomorrow.setFullYear(today.getFullYear() - 1);
     console.log("from date", tomorrow);
     console.log("to date", tomorrow);
     setFromDate(tomorrow);
@@ -45,6 +46,9 @@ function MOTReminder() {
     tomorrow.setDate(today.getDate() + 1);
     const toDate = new Date();
     toDate.setDate(tomorrow.getDate() + days);
+
+    tomorrow.setFullYear(today.getFullYear() - 1);
+    toDate.setFullYear(today.getFullYear() - 1);
     console.log("from date", tomorrow);
     console.log("to date", toDate);
     setFromDate(tomorrow);
@@ -153,6 +157,9 @@ function MOTReminder() {
                 <option key="month" value="month">
                   Month
                 </option>
+                {/* <option key="week" value="week">
+                  Week
+                </option> */}
                 <option key="day" value="day">
                   Day
                 </option>
