@@ -13,6 +13,7 @@ import {
 import { formatDate } from "@/utils/formatter";
 import People from "./People";
 import Loading from "../Loading";
+import { getPendingDaysInMonth } from "@/utils/calender";
 
 function MOTReminder() {
   const [dateRange, setDateRange] = useState<string>("month");
@@ -25,7 +26,7 @@ function MOTReminder() {
   const [filtering, setFiltering] = useState(false);
 
   useEffect(() => {
-    setWeekOrMonthRange(29);
+    setWeekOrMonthRange(getPendingDaysInMonth());
     setLoading(false);
   }, []);
 
@@ -46,7 +47,6 @@ function MOTReminder() {
     tomorrow.setDate(today.getDate() + 1);
     const toDate = new Date();
     toDate.setDate(tomorrow.getDate() + days);
-
     tomorrow.setFullYear(today.getFullYear() - 1);
     toDate.setFullYear(today.getFullYear() - 1);
     console.log("from date", tomorrow);
@@ -62,7 +62,8 @@ function MOTReminder() {
     } else if (value === "week") {
       setWeekOrMonthRange(6);
     } else {
-      setWeekOrMonthRange(29);
+      const pendingDaysInMonth = getPendingDaysInMonth();
+      setWeekOrMonthRange(pendingDaysInMonth);
     }
   };
 

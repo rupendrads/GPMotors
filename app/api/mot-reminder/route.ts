@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     const toDate = searchParams.get("toDate");
     const connection = await mysql.createConnection(connectionParams);
 
-    const query = `SELECT * FROM clientdetail WHERE ServiceDate >= ${fromDate} AND ServiceDate <= ${toDate}`;
+    const query = `SELECT * FROM clientdetail WHERE ServiceDate >= ${fromDate} AND ServiceDate <= ${toDate} ORDER BY ServiceDate`;
     console.log(query);
 
     const values: string[] = [];

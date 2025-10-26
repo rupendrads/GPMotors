@@ -219,15 +219,17 @@ function People({
     const intervalId = setInterval(async () => {
       i++;
       if (i < personList.length) {
-        console.log("processing id", personList[i].Id);
-        const sendSmsStatus = await sendSMSToPerson(personList[i]);
-        setPersonList((prevList) => {
-          const newList = [...prevList];
-          console.log("i value", i);
-          newList[i].SmsStatus = sendSmsStatus;
-          return [...newList];
-        });
-        progressRef.current?.incrementValue();
+        if (personList[i].IsChecked === true) {
+          console.log("processing id", personList[i].Id);
+          const sendSmsStatus = await sendSMSToPerson(personList[i]);
+          setPersonList((prevList) => {
+            const newList = [...prevList];
+            console.log("i value", i);
+            newList[i].SmsStatus = sendSmsStatus;
+            return [...newList];
+          });
+          progressRef.current?.incrementValue();
+        }
       } else {
         progressRef.current?.incrementValue();
         clearInterval(intervalId);
@@ -236,6 +238,12 @@ function People({
   };
 
   const sendWhatsApp = () => {};
+
+  const getServiceDate = (serviceDate: string): Date => {
+    const carServiceDate = new Date(serviceDate);
+    carServiceDate.setFullYear(carServiceDate.getFullYear() + 1);
+    return carServiceDate;
+  };
 
   return (
     <>
@@ -255,6 +263,9 @@ function People({
                         <div className="flex bg-gray-800 text-white">
                           <div className={checkCellHeaderStyle}></div>
                           <div className={nameCellHeaderStyle}>Name</div>
+                          <div className={serviceDateCellHeaderStyle}>
+                            Service date
+                          </div>
                           <div className={phoneNoCellHeaderStyle}>Phone No</div>
                           <div className={smsCellHeaderStyle}>SMS Status</div>
                           <div className={smsCellHeaderStyle}>
@@ -284,6 +295,9 @@ function People({
                       </div>
                       <div className={nameCellStyle}>
                         {person.FirstName.concat(" ").concat(person.LastName)}
+                      </div>
+                      <div className={serviceDateCellStyle}>
+                        {formatDate(getServiceDate(person.serviceDate))}
                       </div>
                       <div className={phoneNoCellStyle}>{person.PhoneNo}</div>
 
@@ -315,7 +329,10 @@ function People({
               <div className="flex justify-end">
                 <Progress
                   title={title}
-                  maxValue={personList.length}
+                  maxValue={
+                    personList.filter((person) => person.IsChecked === true)
+                      .length
+                  }
                   progressCompleted={processingCompleted}
                   ref={progressRef}
                 />
@@ -361,6 +378,9 @@ const checkCellStyle =
 
 const nameCellHeaderStyle = "p-2 w-[220px]";
 const nameCellStyle = "p-2 w-[220px]";
+
+const serviceDateCellHeaderStyle = "p-2 w-[140px] text-right";
+const serviceDateCellStyle = "p-2 w-[140px] text-right";
 
 const phoneNoCellHeaderStyle = "p-2 w-[140px]";
 const phoneNoCellStyle = "p-2 w-[140px] text-right";
