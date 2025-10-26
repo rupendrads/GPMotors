@@ -246,6 +246,8 @@ const BookingClientDetails = ({
           year: new Date().getFullYear().toString(),
           logoUrl:
             "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+          clientContactNo: bookingData.phoneNo,
+          clientEmail: bookingData.email,
         };
         sendEmail({
           to_name: "Admin",
@@ -339,6 +341,8 @@ const BookingClientDetails = ({
         year: new Date().getFullYear().toString(),
         logoUrl:
           "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+        clientContactNo: bookingData.phoneNo,
+        clientEmail: bookingData.email,
       };
       sendEmail({
         to_name: "Admin",

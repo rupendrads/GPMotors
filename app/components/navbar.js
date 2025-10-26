@@ -191,12 +191,14 @@ export default function Navbar() {
               <Bars3Icon className="w-7 h-7" />
             </button>
             <div className="flex items-center">
-              <Image
-                src={logo}
-                alt="Red Car"
-                className="w-32 h-auto object-cover rounded-b-lg"
-                style={{ objectPosition: "center bottom" }}
-              />
+              <Link href="/">
+                <Image
+                  src={logo}
+                  alt="Red Car"
+                  className="w-32 h-auto object-cover rounded-b-lg"
+                  style={{ objectPosition: "center bottom" }}
+                />
+              </Link>
             </div>
             <>
               <div className="hidden lg:flex flex-1 justify-center items-center space-x-8">
@@ -603,12 +605,14 @@ export default function Navbar() {
             </button>
             <div className="mt-3">
               <div className="flex items-center">
-                <Image
-                  src={logo}
-                  alt="Red Car"
-                  className="w-32 h-auto object-cover rounded-b-lg"
-                  style={{ objectPosition: "center bottom" }}
-                />
+                <Link href="/">
+                  <Image
+                    src={logo}
+                    alt="Red Car"
+                    className="w-32 h-auto object-cover rounded-b-lg"
+                    style={{ objectPosition: "center bottom" }}
+                  />
+                </Link>
               </div>
             </div>
             <>
