@@ -1,11 +1,11 @@
 const Data = {
     Hero : {
-        image: "/images/BMWbanner.jpg",
+        image: "/images/Peugeotbanner.png",
         title: "Comprehensive Peugeot Care",
         paragraph : "At GP Motors Tedd, We Provide Full Peugeot Maintenance, MOT, And Repair Services. From Small City Models To SUVs, Our Trained Technicians Ensure Your Peugeot Runs Smoothly With Genuine Replacements And Reliable Care."
     },
     WhyUs : {
-        image: "/images/BMWlogo.png",
+        image: "/images/Peugeotlogo.png",
         title: "Why Choose GP Motors",
         subtitle: "Tedd For Your Peugeot?",
         paragraph : "We Offer Peugeot-Service Plans That Balance Affordability With Precision. Every Plan Ensures Transparent Costs And Expert Workmanship."
@@ -38,7 +38,7 @@ const Data = {
         answer: ""
     }
 ],Banner:{
-  image : "/images/BottomBannerBMW.png",
+  image : "/images/BottomBannerPeugeot.png",
   mobileImage: "/images/BottomBannerBMWMobile.png"
 }
 }
