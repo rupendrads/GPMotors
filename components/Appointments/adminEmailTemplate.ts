@@ -1,6 +1,7 @@
 export interface adminEmailParams {
   companyName: string;
   clientName: string;
+  clientId: string;
   serviceDate: string;
   timeSlot: string;
   serviceType: string;
@@ -18,6 +19,7 @@ const getAdminEmailTemplate = (adminEmailParams: adminEmailParams) => {
   const {
     companyName,
     clientName,
+    clientId,
     serviceDate,
     timeSlot,
     serviceType,
@@ -148,7 +150,8 @@ const getAdminEmailTemplate = (adminEmailParams: adminEmailParams) => {
     <!-- Footer -->
     <div class="footer">
       &copy; ${year} ${companyName} &nbsp;|&nbsp;
-      <a href="${websiteUrl}">Visit Our Website</a>
+      <a href="${websiteUrl}">Visit Our Website</a><br/>
+      <a href="${websiteUrl}opt-out?id=${clientId}">Unsubscribe</a>
     </div>
   </div>
 </body>
