@@ -2,16 +2,16 @@ const Data = {
     Hero : {
         image: "/images/Polestarbanner.png",
         title: "Comprehensive Polestar Care",
-        paragraph : "At GP Motors Tedd, We Offer Full Polestar Services Including MOT, Diagnostics, Battery Health Checks, And Maintenance. From The Polestar 2 To The Latest EV Models, Our Certified Technicians Keep Your Car's Software And Performance At Its Best."
+        paragraph : "At Parts Change, We Offer Full Polestar Services Including MOT, Diagnostics, Battery Health Checks, And Maintenance. From The Polestar 2 To The Latest EV Models, Our Certified Technicians Keep Your Car's Software And Performance At Its Best."
     },
     WhyUs : {
         image: "/images/Polestarlogo.png",
-        title: "Why Choose GP Motors",
-        subtitle: "Tedd For Your Polestar?",
+        title: "Why Choose Parts Change",
+        subtitle: "For Your Polestar?",
         paragraph : "We Provide Custom Polestar Service Plans Focused On Sustainability And Precision. Every Plan Ensures Genuine Parts, Transparent Pricing, And Long-Term EV Reliability."
     },
     WhyTrustUs :{
-        paragraph:"As Polestar specialists in Teddington, we use genuine, OEM-approved Polestar components, all backed by a 2-year warranty."
+        paragraph:"As Polestar experts in Teddington, we use genuine, OEM-approved Polestar components, all backed by a 2-year warranty."
     },
     WhyUsBanner:{
       brand:"Polestar"

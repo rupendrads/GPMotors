@@ -2,12 +2,12 @@ const Data = {
     Hero : {
         image: "/images/Peugeotbanner.png",
         title: "Comprehensive Peugeot Care",
-        paragraph : "At GP Motors Tedd, We Provide Full Peugeot Maintenance, MOT, And Repair Services. From Small City Models To SUVs, Our Trained Technicians Ensure Your Peugeot Runs Smoothly With Genuine Replacements And Reliable Care."
+        paragraph : "At Parts Change, We Provide Full Peugeot Maintenance, MOT, And Repair Services. From Small City Models To SUVs, Our Trained Technicians Ensure Your Peugeot Runs Smoothly With Genuine Replacements And Reliable Care."
     },
     WhyUs : {
         image: "/images/Peugeotlogo.png",
-        title: "Why Choose GP Motors",
-        subtitle: "Tedd For Your Peugeot?",
+        title: "Why Choose Parts Change",
+        subtitle: "For Your Peugeot?",
         paragraph : "We Offer Peugeot-Service Plans That Balance Affordability With Precision. Every Plan Ensures Transparent Costs And Expert Workmanship."
     },
     WhyTrustUs :{
