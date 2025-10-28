@@ -173,10 +173,8 @@ const BookingClientDetails = ({
         console.log("check result", checkResult);
 
         // console.log("checkResult", checkResult);
+        let clientId = checkResult.length === 0 ? undefined : checkResult[0].ID;
         try {
-          const clientId =
-            checkResult.length === 0 ? undefined : checkResult[0].ID;
-
           let clientDetail: IClientFormInput | undefined;
           if (clientId) {
             clientDetail = {
@@ -224,6 +222,9 @@ const BookingClientDetails = ({
           });
           const result = await response.json();
           console.log("client detail result", result);
+          if (method === "POST") {
+            clientId = result["results"]["insertId"];
+          }
         } catch (error) {
           console.log("client data insert update error", error);
         }
@@ -260,6 +261,7 @@ const BookingClientDetails = ({
         const emailParams: emailParams = {
           companyName: "GP Motors",
           clientName: bookingData.firstName + " " + bookingData.lastName,
+          clientId: clientId,
           serviceDate: formatDate(bookingDateTime.date),
           timeSlot: bookingDateTime.time,
           serviceType: serviceType?.type as string,
@@ -355,6 +357,7 @@ const BookingClientDetails = ({
       const emailParams: emailParams = {
         companyName: "GP Motors",
         clientName: bookingData.firstName + " " + bookingData.lastName,
+        clientId: "",
         serviceDate: formatDate(bookingDateTime.date),
         timeSlot: bookingDateTime.time,
         serviceType: serviceType?.type as string,

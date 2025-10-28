@@ -241,7 +241,7 @@ function People({
 
   const getServiceDate = (serviceDate: string): Date => {
     const carServiceDate = new Date(serviceDate);
-    carServiceDate.setFullYear(carServiceDate.getFullYear() + 1);
+    carServiceDate.setFullYear(new Date().getFullYear());
     return carServiceDate;
   };
 

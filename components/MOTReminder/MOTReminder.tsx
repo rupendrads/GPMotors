@@ -7,26 +7,22 @@ import {
   inputLabelBoxStyle,
   inputLabelStyle,
   inputStyle,
-  // errorStyle,
-  // errorInputStyle,
 } from "@/components/styles";
 import { formatDate } from "@/utils/formatter";
 import People from "./People";
 import Loading from "../Loading";
-import { getPendingDaysInMonth } from "@/utils/calender";
 
 function MOTReminder() {
   const [dateRange, setDateRange] = useState<string>("month");
   const [fromDate, setFromDate] = useState<Date>();
   const [toDate, setToDate] = useState<Date>();
-  //const [error, setError] = useState("");
   const [people, setPeople] = useState<person[]>([]);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [filtering, setFiltering] = useState(false);
 
   useEffect(() => {
-    setWeekOrMonthRange(getPendingDaysInMonth());
+    setWeekOrMonthRange(29);
     setLoading(false);
   }, []);
 
@@ -34,7 +30,6 @@ function MOTReminder() {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
-    tomorrow.setFullYear(today.getFullYear() - 1);
     console.log("from date", tomorrow);
     console.log("to date", tomorrow);
     setFromDate(tomorrow);
@@ -47,8 +42,6 @@ function MOTReminder() {
     tomorrow.setDate(today.getDate() + 1);
     const toDate = new Date();
     toDate.setDate(tomorrow.getDate() + days);
-    tomorrow.setFullYear(today.getFullYear() - 1);
-    toDate.setFullYear(today.getFullYear() - 1);
     console.log("from date", tomorrow);
     console.log("to date", toDate);
     setFromDate(tomorrow);
@@ -62,8 +55,7 @@ function MOTReminder() {
     } else if (value === "week") {
       setWeekOrMonthRange(6);
     } else {
-      const pendingDaysInMonth = getPendingDaysInMonth();
-      setWeekOrMonthRange(pendingDaysInMonth);
+      setWeekOrMonthRange(29);
     }
   };
 
