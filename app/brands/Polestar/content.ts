@@ -1,11 +1,11 @@
 const Data = {
     Hero : {
-        image: "/images/Polestarbanner.png",
+        image: "/images/PolestarBanner.png",
         title: "Comprehensive Polestar Care",
         paragraph : "At Parts Change, We Offer Full Polestar Services Including MOT, Diagnostics, Battery Health Checks, And Maintenance. From The Polestar 2 To The Latest EV Models, Our Certified Technicians Keep Your Car's Software And Performance At Its Best."
     },
     WhyUs : {
-        image: "/images/Polestarlogo.png",
+        image: "/images/PolestarLogo.png",
         title: "Why Choose Parts Change",
         subtitle: "For Your Polestar?",
         paragraph : "We Provide Custom Polestar Service Plans Focused On Sustainability And Precision. Every Plan Ensures Genuine Parts, Transparent Pricing, And Long-Term EV Reliability."
@@ -39,7 +39,7 @@ const Data = {
     }
 ],Banner:{
   image : "/images/BottomBannerPolestar.png",
-  mobileImage: "/images/BottomBannerBMWMobile.png"
+  mobileImage: "/images/BottomBannerPolestarMobile.png"
 }
 }
 

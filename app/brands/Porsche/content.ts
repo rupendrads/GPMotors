@@ -1,11 +1,11 @@
 const Data = {
     Hero : {
-        image: "/images/Porschebanner.png",
+        image: "/images/PorscheBanner.png",
         title: "Comprehensive Porsche Care",
         paragraph : "At Parts Change, We Provide Professional Porsche Maintenance, Diagnostics, and Repairs. From the 911 to Cayenne, Our Specialists Ensure Your Porsche Delivers Peak Performance and Luxury Precision."
     },
     WhyUs : {
-        image: "/images/Porschelogo.png",
+        image: "/images/PorscheLogo.png",
         title: "Why Choose Parts Change",
         subtitle: "For Your Porsche?",
         paragraph : "We Offer Bespoke Porsche Service Plans That Protect Performance and Value. Transparent Pricing and Expert Care Are Standard With Every Visit."
@@ -39,7 +39,7 @@ const Data = {
     }
 ],Banner:{
   image : "/images/BottomBannerPorsche.png",
-  mobileImage: "/images/BottomBannerBMWMobile.png"
+  mobileImage: "/images/BottomBannerPorscheMobile.png"
 }
 }
 

@@ -1,11 +1,11 @@
 const Data = {
     Hero : {
-        image: "/images/RollsRoycebanner.png",
+        image: "/images/RollsRoyceBanner.png",
         title: "Premium Rolls-Royce Care",
         paragraph : "At Parts Change, We Provide Elite-Level Rolls-Royce Maintenance, MOT, and Diagnostics. Our Certified Team Ensures Seamless Performance and Comfort for Models Like Ghost, Phantom, and Cullinan."
     },
     WhyUs : {
-        image: "/images/RollsRoycelogo.png",
+        image: "/images/RollsRoyceLogo.png",
         title: "Why Choose Parts Change",
         subtitle: "For Your Rolls-Royce?",
         paragraph : "We Offer Ultra-Precise Service Plans Tailored to Rolls-Royce Standards—Discreet, Professional, and Premium Quality."
@@ -39,7 +39,7 @@ const Data = {
     }
 ],Banner:{
   image : "/images/BottomBannerRollsRoyce.png",
-  mobileImage: "/images/BottomBannerBMWMobile.png"
+  mobileImage: "/images/BottomBannerRollsRoyceMobile.png"
 }
 }
 

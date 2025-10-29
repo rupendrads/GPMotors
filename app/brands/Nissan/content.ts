@@ -1,11 +1,11 @@
 const Data = {
     Hero : {
-        image: "/images/Nissanbanner.png",
+        image: "/images/NissanBanner.png",
         title: "Comprehensive Nissan Care",
         paragraph : "At Parts Change, We Provide Complete Nissan Servicing, MOTs, Diagnostics, And Mechanical Repairs. Whether You Drive A Micra, Qashqai, Or X-Trail, Our Certified Experts Keep Your Nissan Reliable, Efficient, And Ready For Every Drive."
     },
     WhyUs : {
-        image: "/images/Nissanlogo.png",
+        image: "/images/NissanLogo.png",
         title: "Why Choose Parts Change",
         subtitle: "For Your Nissan?",
         paragraph : "We Create Affordable, Model-Specific Nissan Service Plans Focused On Quality and Value. Expect Transparent Quotes, Skilled Technicians, and Fast Turnaround Every Time."
@@ -39,7 +39,7 @@ const Data = {
     }
 ],Banner:{
   image : "/images/BottomBannerNissan.png",
-  mobileImage: "/images/BottomBannerBMWMobile.png"
+  mobileImage: "/images/BottomBannerNissanMobile.png"
 }
 }
 

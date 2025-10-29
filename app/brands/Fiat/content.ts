@@ -1,11 +1,11 @@
 const Data = {
     Hero : {
-        image: "/images/Fiatbanner.png",
+        image: "/images/FiatBanner.png",
         title: "Comprehensive Fiat Care",
         paragraph : "At Parts Change, We Provide Complete Fiat Servicing, MOTs, Diagnostics, and Mechanical Repairs. Whether You Drive a 500, Punto, or Panda, Our Certified Experts Ensure Your Fiat Stays Reliable, Efficient, and Road-Ready Every Day."
     },
     WhyUs : {
-        image: "/images/Fiatlogo.png",
+        image: "/images/FiatLogo.png",
         title: "Why Choose Parts Change",
         subtitle: "For Your Fiat?",
         paragraph : "We Design Affordable Fiat Service Plans Tailored For Every Model. Expect Transparent Quotes, Skilled Technicians, and Manufacturer-Level Precision Every Time."
@@ -39,7 +39,7 @@ const Data = {
     }
 ],Banner:{
   image : "/images/BottomBannerFiat.png",
-  mobileImage: "/images/BottomBannerBMWMobile.png"
+  mobileImage: "/images/BottomBannerFiatMobile.png"
 }
 }
 

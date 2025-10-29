@@ -1,11 +1,11 @@
 const Data = {
     Hero : {
-        image: "/images/Bentleybanner.png",
+        image: "/images/BentleyBanner.png",
         title: "Comprehensive Bentley Care",
         paragraph : "At Parts Change, We Provide Expert Bentley Care, Including MOT, Diagnostics, Detailing, and Precision Repairs. From Continental to Bentayga, Our Technicians Ensure Flawless Performance and Unmatched Comfort."
     },
     WhyUs : {
-        image: "/images/Bentleylogo.png",
+        image: "/images/BentleyLogo.png",
         title: "Why Choose Parts Change",
         subtitle: "For Your Bentley?",
         paragraph : "Our Bentley Service Plans Are Designed For Excellence—Covering Performance, Comfort, and Reliability With Transparent Pricing and Trusted Care."
@@ -39,7 +39,7 @@ const Data = {
     }
 ],Banner:{
   image : "/images/BottomBannerBentley.png",
-  mobileImage: "/images/BottomBannerBMWMobile.png"
+  mobileImage: "/images/BottomBannerBentleyMobile.png"
 }
 }
 
