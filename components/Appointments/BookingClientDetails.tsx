@@ -262,45 +262,43 @@ const BookingClientDetails = ({
           reply_message_html: getAdminEmailTemplate(adminEmailParams),
         });
 
-        if (bookingData.contactStatus.toString() === "true") {
-          // sending email to client
-          const emailParams: emailParams = {
-            companyName: "GP Motors",
-            clientName: bookingData.firstName + " " + bookingData.lastName,
-            clientId: clientId ? clientId : "",
-            serviceDate: formatDate(bookingDateTime.date),
-            timeSlot: bookingDateTime.time,
-            serviceType: serviceType?.type as string,
-            carRegistrationNo: bookingData.registrationNo,
-            bookingId: bookingId,
-            companyContactNo: "0208 943 4103 / 0208 943 3588",
-            websiteUrl: "https://gpmotorstedd.co.uk/",
-            year: new Date().getFullYear().toString(),
-            logoUrl:
-              "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
-          };
-          sendEmail({
-            to_name: bookingData.firstName + " " + bookingData.lastName,
-            to_email: bookingData.email,
-            reply_subject: "booking appointment confirmation",
-            reply_message_html: getEmailTemplate(emailParams),
-          });
+        // sending email to client
+        const emailParams: emailParams = {
+          companyName: "GP Motors",
+          clientName: bookingData.firstName + " " + bookingData.lastName,
+          clientId: clientId ? clientId : "",
+          serviceDate: formatDate(bookingDateTime.date),
+          timeSlot: bookingDateTime.time,
+          serviceType: serviceType?.type as string,
+          carRegistrationNo: bookingData.registrationNo,
+          bookingId: bookingId,
+          companyContactNo: "0208 943 4103 / 0208 943 3588",
+          websiteUrl: "https://gpmotorstedd.co.uk/",
+          year: new Date().getFullYear().toString(),
+          logoUrl:
+            "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+        };
+        sendEmail({
+          to_name: bookingData.firstName + " " + bookingData.lastName,
+          to_email: bookingData.email,
+          reply_subject: "booking appointment confirmation",
+          reply_message_html: getEmailTemplate(emailParams),
+        });
 
-          // sending sms to client
-          const smsTemplate = getSMSTemplate(
-            bookingData.firstName + " " + bookingData.lastName,
-            formatDate(bookingDateTime.date),
-            bookingDateTime.time,
-            serviceType?.type as string,
-            bookingId
-          );
-          console.log(smsTemplate);
-          const sendSmsStatus = await sendSmsTemplate(
-            bookingData.phoneNo,
-            smsTemplate
-          );
-          console.log("send sms status", sendSmsStatus);
-        }
+        // sending sms to client
+        const smsTemplate = getSMSTemplate(
+          bookingData.firstName + " " + bookingData.lastName,
+          formatDate(bookingDateTime.date),
+          bookingDateTime.time,
+          serviceType?.type as string,
+          bookingId
+        );
+        console.log(smsTemplate);
+        const sendSmsStatus = await sendSmsTemplate(
+          bookingData.phoneNo,
+          smsTemplate
+        );
+        console.log("send sms status", sendSmsStatus);
       } else {
         handleShowAlert(result["status"], result["message"]);
       }
@@ -364,72 +362,70 @@ const BookingClientDetails = ({
         reply_message_html: getAdminEmailTemplate(adminEmailParams),
       });
 
-      if (bookingData.contactStatus === 1) {
-        // sending email to client
-        const emailParams: emailParams = {
-          companyName: "GP Motors",
-          clientName: bookingData.firstName + " " + bookingData.lastName,
-          clientId: "",
-          serviceDate: formatDate(bookingDateTime.date),
-          timeSlot: bookingDateTime.time,
-          serviceType: serviceType?.type as string,
-          carRegistrationNo: bookingData.registrationNo,
-          bookingId: bookingId,
-          companyContactNo: "0208 943 4103 / 0208 943 3588",
-          websiteUrl: "https://gpmotorstedd.co.uk/",
-          year: new Date().getFullYear().toString(),
-          logoUrl:
-            "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
-        };
-        sendEmail({
-          to_name: bookingData.firstName + " " + bookingData.lastName,
-          to_email: bookingData.email,
-          reply_subject: "booking appointment confirmation",
-          reply_message_html: getEmailTemplate(emailParams),
-        });
+      // sending email to client
+      const emailParams: emailParams = {
+        companyName: "GP Motors",
+        clientName: bookingData.firstName + " " + bookingData.lastName,
+        clientId: "",
+        serviceDate: formatDate(bookingDateTime.date),
+        timeSlot: bookingDateTime.time,
+        serviceType: serviceType?.type as string,
+        carRegistrationNo: bookingData.registrationNo,
+        bookingId: bookingId,
+        companyContactNo: "0208 943 4103 / 0208 943 3588",
+        websiteUrl: "https://gpmotorstedd.co.uk/",
+        year: new Date().getFullYear().toString(),
+        logoUrl:
+          "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+      };
+      sendEmail({
+        to_name: bookingData.firstName + " " + bookingData.lastName,
+        to_email: bookingData.email,
+        reply_subject: "booking appointment confirmation",
+        reply_message_html: getEmailTemplate(emailParams),
+      });
 
-        // try {
-        //   const emailParams: emailParams = {
-        //     companyName: "GP Motors",
-        //     clientName: bookingData.firstName + " " + bookingData.lastName,
-        //     serviceDate: formatDate(bookingDateTime.date),
-        //     timeSlot: bookingDateTime.time,
-        //     serviceType: serviceType?.type as string,
-        //     carRegistrationNo: bookingData.registrationNo,
-        //     bookingId: bookingId,
-        //     companyContactNo: "0208 943 4103 / 0208 943 3588",
-        //     websiteUrl: "https://gpmotorstedd.co.uk/",
-        //     year: new Date().getFullYear().toString(),
-        //     logoUrl:
-        //       "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
-        //   };
-        //   const emailTemplate = getEmailTemplate(emailParams);
-        //   initEmailJS();
-        //   sendAutoReplyEmail({
-        //     to_name: "Admin",
-        //     to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-        //     reply_subject: "booking appointment confirmation",
-        //     reply_message_html: emailTemplate,
-        //   });
-        // } catch (error) {
-        //   console.log("email error", error);
-        // }
+      // try {
+      //   const emailParams: emailParams = {
+      //     companyName: "GP Motors",
+      //     clientName: bookingData.firstName + " " + bookingData.lastName,
+      //     serviceDate: formatDate(bookingDateTime.date),
+      //     timeSlot: bookingDateTime.time,
+      //     serviceType: serviceType?.type as string,
+      //     carRegistrationNo: bookingData.registrationNo,
+      //     bookingId: bookingId,
+      //     companyContactNo: "0208 943 4103 / 0208 943 3588",
+      //     websiteUrl: "https://gpmotorstedd.co.uk/",
+      //     year: new Date().getFullYear().toString(),
+      //     logoUrl:
+      //       "https://ik.imagekit.io/enxjuklx6/Group%2054.png?updatedAt=1750399283384",
+      //   };
+      //   const emailTemplate = getEmailTemplate(emailParams);
+      //   initEmailJS();
+      //   sendAutoReplyEmail({
+      //     to_name: "Admin",
+      //     to_email: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+      //     reply_subject: "booking appointment confirmation",
+      //     reply_message_html: emailTemplate,
+      //   });
+      // } catch (error) {
+      //   console.log("email error", error);
+      // }
 
-        // sending sms to client
-        const smsTemplate = getSMSTemplate(
-          bookingData.firstName + " " + bookingData.lastName,
-          formatDate(bookingDateTime.date),
-          bookingDateTime.time,
-          serviceType?.type as string,
-          bookingId
-        );
-        console.log(smsTemplate);
-        const sendSmsStatus = await sendSmsTemplate(
-          bookingData.phoneNo,
-          smsTemplate
-        );
-        console.log("send sms status", sendSmsStatus);
-      }
+      // sending sms to client
+      const smsTemplate = getSMSTemplate(
+        bookingData.firstName + " " + bookingData.lastName,
+        formatDate(bookingDateTime.date),
+        bookingDateTime.time,
+        serviceType?.type as string,
+        bookingId
+      );
+      console.log(smsTemplate);
+      const sendSmsStatus = await sendSmsTemplate(
+        bookingData.phoneNo,
+        smsTemplate
+      );
+      console.log("send sms status", sendSmsStatus);
     }
   };
 
@@ -636,10 +632,9 @@ const BookingClientDetails = ({
               Contact permission
             </label>
             <label className={`${inputLabelStyle} ${concatStatusLabelStyle}`}>
-              We like to send messages such as annual reminders for some of the
-              services you book online.
+              We send annual reminders for services and Mot&#39;s.
               <br />
-              Do you want to receive these?
+              If you would like to opt in for this option, please tick the box.
             </label>
             <div className="flex items-center gap-2">
               <input
@@ -648,7 +643,6 @@ const BookingClientDetails = ({
                 className={`w-5 h-5 accent-blue-500"
               }`}
               />
-              <span className={inputLabelStyle}>Yes</span>
             </div>
           </div>
           <button
