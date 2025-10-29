@@ -93,42 +93,49 @@ const brandColumns = [
     items: [
       { name: "Audi", link: "/brands/Audi" },
       { name: "Volks Wagen", link: "/brands/Volkswagen" },
+      { name: "Hyundai", link: "/brands/Hyundai" },
+      { name: "Kia", link: "/brands/Kia" },
+      { name: "Nissan", link: "/brands/Nissan" },
     ],
   },
   {
     items: [
       { name: "Ford", link: "/brands/Ford" },
       { name: "Mercedes", link: "/brands/Mercedes" },
+      { name: "Vauxhall", link: "/brands/Vauxhall" },
+      { name: "Aston Martin", link: "/brands/Aston-Martin" },
     ],
   },
   {
     items: [
       { name: "BMW", link: "/brands/BMW" },
       { name: "Land Rover", link: "/brands/Land-Rover" },
+      { name: "Polestar", link: "/brands/Polestar" },
+      { name: "Peugeot", link: "/brands/Peugeot" },
     ],
   },
   {
     items: [
       { name: "Skoda", link: "/brands/Skoda" },
       { name: "Toyota", link: "/brands/Toyota" },
+      { name: "Renault", link: "/brands/Renault" },
+      { name: "Lexus", link: "/brands/Lexus" },
     ],
   },
   {
     items: [
       { name: "Honda", link: "/brands/Honda" },
       { name: "Volvo", link: "/brands/Volvo" },
+      { name: "Bentley", link: "/brands/Bentley" },
+      { name: "Rolls Royce", link: "/brands/Rolls-Royce" },
     ],
   },
   {
     items: [
       { name: "Citroen", link: "/brands/Citroen" },
       { name: "Tesla", link: "/brands/Tesla" },
-    ],
-  },
-  {
-    items: [
-      { name: "Polestar", link: "/brands/Polestar" },
-      { name: "Peugeot", link: "/brands/Peugeot" },
+      { name: "Fiat", link: "/brands/Fiat" },
+      { name: "Porsche", link: "/brands/Porsche" },
     ],
   },
   {
@@ -408,7 +415,7 @@ export default function Navbar() {
                               <Link
                                 key={brand.name}
                                 href={brand.link}
-                                className="block px-3 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
+                                className="block px-2 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
                                 onClick={() => setSidebarOpen(false)}
                               >
                                 {brand.name}
