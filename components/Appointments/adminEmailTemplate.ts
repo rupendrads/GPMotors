@@ -151,7 +151,7 @@ const getAdminEmailTemplate = (adminEmailParams: adminEmailParams) => {
     <div class="footer">
       &copy; ${year} ${companyName} &nbsp;|&nbsp;
       <a href="${websiteUrl}">Visit Our Website</a><br/>
-      <a href="${websiteUrl}opt-out?id=${clientId}">Unsubscribe</a>
+      If you don't want to receive annual reminders for services and MOTs, please click <a href="${websiteUrl}opt-out?id=${clientId}">Unsubscribe</a>
     </div>
   </div>
 </body>
