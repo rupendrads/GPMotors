@@ -63,7 +63,7 @@ export default function Homepage() {
                     href="tel:02089434103"
                     className="text-white font-semibold text-lg hover:text-yellow-400 transition-colors"
                   >
-                    020 8943 4103
+                    020 8943 4103
                   </a>
                   /
                   <a

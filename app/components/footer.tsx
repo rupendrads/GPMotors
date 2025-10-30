@@ -49,7 +49,7 @@ export default function Footer() {
             <h3 className="font-semibold mb-3">Contact</h3>
             <ul className="space-y-2">
               <li className="footer-link">0208 943 4103 / 0208 943 3588</li>
-              <li className="footer-link">gpmotorstedd@gmail.com</li>
+              <li className="footer-link">info@gpmotorstedd.co.uk</li>
             </ul>
           </div>
           {/* Follow us & Address */}

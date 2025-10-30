@@ -62,12 +62,12 @@ export default function ContactUsPage() {
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="material-icons text-lg">email</span>
-                <span className="text-base">gpmotorstedd@gmail.com</span>
+                <span className="text-base">info@gpmotorstedd.co.uk</span>
               </div>
               <div className="flex items-center gap-3 mb-10">
                 <span className="material-icons text-lg">location_on</span>
                 <span className="text-base">
-                  132 Dartmouth Street teddington Ul.
+                  6 Alpha Rd, Teddington, England TW11 0QG, United Kingdom
                 </span>
               </div>
             </div>
