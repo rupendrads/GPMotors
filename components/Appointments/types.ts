@@ -12,6 +12,7 @@ export interface IFormInput {
   registrationNo: string;
   comments: string;
   phoneNo: string;
+  contactStatus: number;
 }
 
 export interface IBookingConfig {
@@ -49,6 +50,7 @@ export interface IBookingDB {
   PhoneNo: string;
   Type: string;
   Logic: number;
+  ContactStatus: number;
 }
 
 export interface IBookingFilled {

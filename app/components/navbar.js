@@ -14,7 +14,7 @@ import key from "../../public/icons/key.svg";
 import React from "react";
 import { usePathname } from "next/navigation";
 //import AdminMenuDetail from "@/components/AdminMenu";
-import AdminMenuLinks from "@/components/AdminMenuLinks";
+//import AdminMenuLinks from "@/components/AdminMenuLinks";
 
 const serviceColumns = [
   {
@@ -93,30 +93,49 @@ const brandColumns = [
     items: [
       { name: "Audi", link: "/brands/Audi" },
       { name: "Volks Wagen", link: "/brands/Volkswagen" },
+      { name: "Hyundai", link: "/brands/Hyundai" },
+      { name: "Kia", link: "/brands/Kia" },
+      { name: "Nissan", link: "/brands/Nissan" },
     ],
   },
   {
     items: [
       { name: "Ford", link: "/brands/Ford" },
       { name: "Mercedes", link: "/brands/Mercedes" },
+      { name: "Vauxhall", link: "/brands/Vauxhall" },
+      { name: "Aston Martin", link: "/brands/Aston-Martin" },
     ],
   },
   {
     items: [
       { name: "BMW", link: "/brands/BMW" },
       { name: "Land Rover", link: "/brands/Land-Rover" },
+      { name: "Polestar", link: "/brands/Polestar" },
+      { name: "Peugeot", link: "/brands/Peugeot" },
     ],
   },
   {
     items: [
       { name: "Skoda", link: "/brands/Skoda" },
       { name: "Toyota", link: "/brands/Toyota" },
+      { name: "Renault", link: "/brands/Renault" },
+      { name: "Lexus", link: "/brands/Lexus" },
     ],
   },
   {
     items: [
       { name: "Honda", link: "/brands/Honda" },
       { name: "Volvo", link: "/brands/Volvo" },
+      { name: "Bentley", link: "/brands/Bentley" },
+      { name: "Rolls Royce", link: "/brands/Rolls-Royce" },
+    ],
+  },
+  {
+    items: [
+      { name: "Citroen", link: "/brands/Citroen" },
+      { name: "Tesla", link: "/brands/Tesla" },
+      { name: "Fiat", link: "/brands/Fiat" },
+      { name: "Porsche", link: "/brands/Porsche" },
     ],
   },
 ];
@@ -147,7 +166,9 @@ export default function Navbar() {
   const handleBrandsLeave = () => setShowBrandsMegaMenu(false);
 
   const handleReminderEnter = () => setShowReminderMenu(true);
-  const handleReminderLeave = () => setShowReminderMenu(false);
+  const handleReminderLeave = () => {
+    setShowReminderMenu(false);
+  };
 
   const toggleAccordion = (key) => {
     setSidebarAccordions((prev) => ({
@@ -177,12 +198,14 @@ export default function Navbar() {
               <Bars3Icon className="w-7 h-7" />
             </button>
             <div className="flex items-center">
-              <Image
-                src={logo}
-                alt="Red Car"
-                className="w-32 h-auto object-cover rounded-b-lg"
-                style={{ objectPosition: "center bottom" }}
-              />
+              <Link href="/">
+                <Image
+                  src={logo}
+                  alt="Red Car"
+                  className="w-32 h-auto object-cover rounded-b-lg"
+                  style={{ objectPosition: "center bottom" }}
+                />
+              </Link>
             </div>
             <>
               <div className="hidden lg:flex flex-1 justify-center items-center space-x-8">
@@ -375,7 +398,7 @@ export default function Navbar() {
                               <Link
                                 key={brand.name}
                                 href={brand.link}
-                                className="block px-3 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
+                                className="block px-2 py-1 rounded hover:bg-gray-100 text-gray-700 text-sm"
                                 onClick={() => setSidebarOpen(false)}
                               >
                                 {brand.name}
@@ -410,7 +433,8 @@ export default function Navbar() {
                   </Link>
                 </>
               ) : (
-                <AdminMenuLinks closeSidebar={closeSidebar} />
+                // <AdminMenuLinks closeSidebar={closeSidebar} />
+                <></>
               )}
             </nav>
           </div>
@@ -588,12 +612,14 @@ export default function Navbar() {
             </button>
             <div className="mt-3">
               <div className="flex items-center">
-                <Image
-                  src={logo}
-                  alt="Red Car"
-                  className="w-32 h-auto object-cover rounded-b-lg"
-                  style={{ objectPosition: "center bottom" }}
-                />
+                <Link href="/">
+                  <Image
+                    src={logo}
+                    alt="Red Car"
+                    className="w-32 h-auto object-cover rounded-b-lg"
+                    style={{ objectPosition: "center bottom" }}
+                  />
+                </Link>
               </div>
             </div>
             <>
@@ -625,18 +651,14 @@ export default function Navbar() {
                   onMouseLeave={handleReminderLeave}
                 >
                   <button
-                    className={`flex px-3 py-2 items-center  hover:text-[#E33C30] transition ${
+                    className={`flex px-3 py-2 items-center cursor-pointer transition ${
                       showReminderMenu ? "text-[#E33C30]" : ""
                     }`}
                   >
                     Reminder <ChevronDownIcon className="w-4 h-4 ml-1" />
                   </button>
                   {showReminderMenu && (
-                    <div
-                      onMouseEnter={handleReminderEnter}
-                      onMouseLeave={handleReminderLeave}
-                      className="flex flex-col absolute left-0 top-full z-1000"
-                    >
+                    <div className="flex flex-col absolute left-0 top-full z-1000">
                       <Link
                         href="/admin/reminder"
                         className=" hover:text-[#E33C30] px-3 py-2 transition"
@@ -689,72 +711,68 @@ export default function Navbar() {
               </button>
             </div>
             <nav className="flex-1 flex flex-col mt-2 space-y-1 px-2 overflow-y-auto">
-              <div className="hidden lg:flex flex-1 justify-center space-x-8">
-                <Link
-                  href="/admin/booking-config"
-                  className=" hover:text-[#E33C30] px-3 py-2 transition"
-                  onClick={closeSidebar ?? closeSidebar}
+              {/* <div className="hidden lg:flex flex-1 justify-center space-x-8"> */}
+              <Link
+                href="/admin/booking-config"
+                className=" hover:text-[#E33C30] px-3 py-2 transition"
+                onClick={closeSidebar ?? closeSidebar}
+              >
+                Booking Configuration
+              </Link>
+              <Link
+                href="/admin/book-appointment-list"
+                className=" hover:text-[#E33C30] px-3 py-2 transition"
+                onClick={closeSidebar ?? closeSidebar}
+              >
+                Booking List
+              </Link>
+              <Link
+                href="/admin/client-detail-list"
+                className=" hover:text-[#E33C30] px-3 py-2 transition"
+                onClick={closeSidebar ?? closeSidebar}
+              >
+                Client Detail
+              </Link>
+              <div
+                className="w-[140px]"
+                onMouseEnter={handleReminderEnter}
+                onMouseLeave={handleReminderLeave}
+              >
+                <button
+                  className={`flex px-3 py-2 items-center  hover:text-[#E33C30] cursor-pointer transition ${
+                    showReminderMenu ? "text-[#E33C30]" : ""
+                  }`}
                 >
-                  Booking Configuration
-                </Link>
-                <Link
-                  href="/admin/book-appointment-list"
-                  className=" hover:text-[#E33C30] px-3 py-2 transition"
-                  onClick={closeSidebar ?? closeSidebar}
-                >
-                  Booking List
-                </Link>
-                <Link
-                  href="/admin/client-detail-list"
-                  className=" hover:text-[#E33C30] px-3 py-2 transition"
-                  onClick={closeSidebar ?? closeSidebar}
-                >
-                  Client Detail
-                </Link>
-                <div
-                  className="relative w-[140px]"
-                  onMouseEnter={handleReminderEnter}
-                  onMouseLeave={handleReminderLeave}
-                >
-                  <button
-                    className={`flex px-3 py-2 items-center  hover:text-[#E33C30] transition ${
-                      showReminderMenu ? "text-[#E33C30]" : ""
-                    }`}
-                  >
-                    Reminder <ChevronDownIcon className="w-4 h-4 ml-1" />
-                  </button>
-                  {showReminderMenu && (
-                    <div
-                      onMouseEnter={handleReminderEnter}
-                      onMouseLeave={handleReminderLeave}
-                      className="flex flex-col absolute left-0 top-full z-1000"
+                  Reminder X <ChevronDownIcon className="w-4 h-4 ml-1" />
+                </button>
+                {showReminderMenu && (
+                  <div className="flex flex-col px-2 py-2">
+                    <Link
+                      href="/admin/reminder"
+                      className=" hover:text-[#E33C30] px-3 py-2 transition"
+                      onClick={closeSidebar ?? closeSidebar}
                     >
-                      <Link
-                        href="/admin/reminder"
-                        className=" hover:text-[#E33C30] px-3 py-2 transition"
-                        onClick={closeSidebar ?? closeSidebar}
-                      >
-                        Appointment
-                      </Link>
-                      <Link
-                        href="/admin/mot-reminder"
-                        className=" hover:text-[#E33C30] px-3 py-2 transition"
-                        onClick={closeSidebar ?? closeSidebar}
-                      >
-                        MOT
-                      </Link>
-                    </div>
-                  )}
-                </div>
-                <div className="mt-1 mb-1 px-3 py-2">
-                  <Link
-                    href="/"
-                    className="px-3 py-2 border text-white rounded-lg bg-red-500 ml-4"
-                  >
-                    <span className="mr-1">🔒</span> Login
-                  </Link>
-                </div>
+                      Appointment
+                    </Link>
+                    <Link
+                      href="/admin/mot-reminder"
+                      className=" hover:text-[#E33C30] px-3 py-2 transition"
+                      onClick={closeSidebar ?? closeSidebar}
+                    >
+                      MOT
+                    </Link>
+                  </div>
+                )}
               </div>
+              <div className="mt-1 mb-1 px-3 py-2">
+                <Link
+                  href="/"
+                  className="px-3 py-2 border text-white rounded-lg bg-red-500"
+                >
+                  <span className="mr-1">🔒</span> Login
+                </Link>
+              </div>
+              {/* </div> */}
             </nav>
           </div>
         </nav>

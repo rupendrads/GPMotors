@@ -7,8 +7,6 @@ import {
   inputLabelBoxStyle,
   inputLabelStyle,
   inputStyle,
-  // errorStyle,
-  // errorInputStyle,
 } from "@/components/styles";
 import { formatDate } from "@/utils/formatter";
 import People from "./People";
@@ -18,7 +16,6 @@ function MOTReminder() {
   const [dateRange, setDateRange] = useState<string>("month");
   const [fromDate, setFromDate] = useState<Date>();
   const [toDate, setToDate] = useState<Date>();
-  //const [error, setError] = useState("");
   const [people, setPeople] = useState<person[]>([]);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -153,9 +150,9 @@ function MOTReminder() {
                 <option key="month" value="month">
                   Month
                 </option>
-                <option key="week" value="week">
+                {/* <option key="week" value="week">
                   Week
-                </option>
+                </option> */}
                 <option key="day" value="day">
                   Day
                 </option>

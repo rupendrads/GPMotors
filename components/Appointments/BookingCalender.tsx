@@ -26,7 +26,7 @@ const BookingCalender = ({
 
   const disabledDays = [
     { before: new Date() },
-    { dayOfWeek: [0] },
+    { dayOfWeek: [0, 6] },
     ...disabledDates,
   ];
   console.log("disabledDates", disabledDays);

@@ -64,6 +64,7 @@ const BookAppointmentForm = ({
         registrationNo: appointment.RegistrationNo,
         comments: appointment.Comments,
         phoneNo: appointment.PhoneNo,
+        contactStatus: appointment.ContactStatus,
       });
       console.log("appointment.BookingDate", appointment.BookingDate);
       updateBookingTimeSlots(appointment.BookingDate as Date, serviceType);
@@ -72,6 +73,7 @@ const BookAppointmentForm = ({
         time: appointment.BookingTime,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, appointment]);
 
   const getSlotsLimit = (serviceType: IServiceType) => {

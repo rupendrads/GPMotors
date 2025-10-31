@@ -192,13 +192,13 @@ function People({
     )}. 
     We will be closed from 25th December to January 3rd. 
     Opening in the new year Tuesday January 4th 2022.
-    Call us today to book your Annual MOT & Service 0208 943 4103. 
+    Call us today to book your Annual MOT & Service 0208 943 4103 / 0208 943 3588. 
     Thanks.
     Remember you can get your car MOT'd up to a month before your MOT renewal date 
     and still keep your original MOT date. You lose nothing.
     Please make sure your wheel locking nut key is in the car. 
     Thank you.
-    G.P. Motors (Teddington) LTD T:0208 943 4103`;
+    G.P. Motors (Teddington) LTD T:0208 943 4103 / 0208 943 3588`;
     return sms;
   };
 
@@ -219,15 +219,17 @@ function People({
     const intervalId = setInterval(async () => {
       i++;
       if (i < personList.length) {
-        console.log("processing id", personList[i].Id);
-        const sendSmsStatus = await sendSMSToPerson(personList[i]);
-        setPersonList((prevList) => {
-          const newList = [...prevList];
-          console.log("i value", i);
-          newList[i].SmsStatus = sendSmsStatus;
-          return [...newList];
-        });
-        progressRef.current?.incrementValue();
+        if (personList[i].IsChecked === true) {
+          console.log("processing id", personList[i].Id);
+          const sendSmsStatus = await sendSMSToPerson(personList[i]);
+          setPersonList((prevList) => {
+            const newList = [...prevList];
+            console.log("i value", i);
+            newList[i].SmsStatus = sendSmsStatus;
+            return [...newList];
+          });
+          progressRef.current?.incrementValue();
+        }
       } else {
         progressRef.current?.incrementValue();
         clearInterval(intervalId);
@@ -236,6 +238,12 @@ function People({
   };
 
   const sendWhatsApp = () => {};
+
+  const getServiceDate = (serviceDate: string): Date => {
+    const carServiceDate = new Date(serviceDate);
+    carServiceDate.setFullYear(new Date().getFullYear());
+    return carServiceDate;
+  };
 
   return (
     <>
@@ -249,12 +257,15 @@ function People({
             <div className="border border-gray-400 rounded">
               {personList.map((person, index) => {
                 return (
-                  <div key={person.PhoneNo}>
+                  <div key={person.Id}>
                     {index === 0 && (
                       <>
                         <div className="flex bg-gray-800 text-white">
                           <div className={checkCellHeaderStyle}></div>
                           <div className={nameCellHeaderStyle}>Name</div>
+                          <div className={serviceDateCellHeaderStyle}>
+                            Service date
+                          </div>
                           <div className={phoneNoCellHeaderStyle}>Phone No</div>
                           <div className={smsCellHeaderStyle}>SMS Status</div>
                           <div className={smsCellHeaderStyle}>
@@ -284,6 +295,9 @@ function People({
                       </div>
                       <div className={nameCellStyle}>
                         {person.FirstName.concat(" ").concat(person.LastName)}
+                      </div>
+                      <div className={serviceDateCellStyle}>
+                        {formatDate(getServiceDate(person.serviceDate))}
                       </div>
                       <div className={phoneNoCellStyle}>{person.PhoneNo}</div>
 
@@ -315,7 +329,10 @@ function People({
               <div className="flex justify-end">
                 <Progress
                   title={title}
-                  maxValue={personList.length}
+                  maxValue={
+                    personList.filter((person) => person.IsChecked === true)
+                      .length
+                  }
                   progressCompleted={processingCompleted}
                   ref={progressRef}
                 />
@@ -361,6 +378,9 @@ const checkCellStyle =
 
 const nameCellHeaderStyle = "p-2 w-[220px]";
 const nameCellStyle = "p-2 w-[220px]";
+
+const serviceDateCellHeaderStyle = "p-2 w-[140px] text-right";
+const serviceDateCellStyle = "p-2 w-[140px] text-right";
 
 const phoneNoCellHeaderStyle = "p-2 w-[140px]";
 const phoneNoCellStyle = "p-2 w-[140px] text-right";

@@ -38,12 +38,12 @@ export const POST = async (request: Request) => {
   try {
     const connection = await mysql.createConnection(connectionParams);
     const query = `INSERT INTO appointments (BookingDate, BookingTime, Title, FirstName, 
-    LastName, Email, PostCode, RegistrationNo, ServiceType, Comments, PhoneNo) 
+    LastName, Email, PostCode, RegistrationNo, ServiceType, Comments, PhoneNo, ContactStatus) 
     VALUES ('${params.BookingDate}', '${params.BookingTime}',
     '${params.Title}', '${params.FirstName}',
     '${params.LastName}', '${params.Email}',
     '${params.PostCode}', '${params.RegistrationNo}',
-    '${params.ServiceType}', '${params.Comments}','${params.PhoneNo}')`;
+    '${params.ServiceType}', '${params.Comments}','${params.PhoneNo}','${params.ContactStatus}')`;
     console.log("query", query);
     const [results] = await connection.execute(query);
     console.log("insert appointment result: ", results);

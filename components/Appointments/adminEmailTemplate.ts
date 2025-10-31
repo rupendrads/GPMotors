@@ -1,6 +1,7 @@
 export interface adminEmailParams {
   companyName: string;
   clientName: string;
+  clientId: string;
   serviceDate: string;
   timeSlot: string;
   serviceType: string;
@@ -10,12 +11,15 @@ export interface adminEmailParams {
   websiteUrl: string;
   year: string;
   logoUrl: string;
+  clientContactNo: string;
+  clientEmail: string;
 }
 
 const getAdminEmailTemplate = (adminEmailParams: adminEmailParams) => {
   const {
     companyName,
     clientName,
+    clientId,
     serviceDate,
     timeSlot,
     serviceType,
@@ -25,6 +29,8 @@ const getAdminEmailTemplate = (adminEmailParams: adminEmailParams) => {
     websiteUrl,
     year,
     logoUrl,
+    clientContactNo,
+    clientEmail,
   } = adminEmailParams;
   const template = `<!DOCTYPE html>
 <html lang="en">
@@ -119,15 +125,18 @@ const getAdminEmailTemplate = (adminEmailParams: adminEmailParams) => {
 
     <!-- Email Body -->
     <div class="content">
-      <p>Dear <strong>${clientName}</strong>,</p>
+      <p>Dear <strong>Admin</strong>,</p>
       <p>Thank you for choosing <strong>${companyName}</strong>. We're pleased to confirm your upcoming car service appointment.</p>
 
       <div class="highlight-box">
+        <p><strong>📅 Client : </strong> ${clientName}</p>
         <p><strong>📅 Date: </strong> ${serviceDate}</p>
         <p><strong>🕒 Time Slot: </strong> ${timeSlot}</p>
         <p><strong>🏢 Service Type: </strong>${serviceType}</p>
         <p><strong>🚘 Vehicle Registration Number: </strong>${carRegistrationNo}</p>
         <p><strong>🆔 Booking ID: </strong>${bookingId}</p>
+        <p><strong>📞 Contact Number: </strong> ${clientContactNo}</p>
+        <p><strong>✉️ Email: </strong> <a href="mailto:${clientEmail}">${clientEmail}</a></p>
       </div>
 
       <p>If you need to make changes or have any questions, feel free to contact us at <strong>${companyContactNo}</strong> or reply to this email.</p>
@@ -141,7 +150,8 @@ const getAdminEmailTemplate = (adminEmailParams: adminEmailParams) => {
     <!-- Footer -->
     <div class="footer">
       &copy; ${year} ${companyName} &nbsp;|&nbsp;
-      <a href="${websiteUrl}">Visit Our Website</a>
+      <a href="${websiteUrl}">Visit Our Website</a><br/>
+      If you don't want to receive annual reminders for services and MOTs, please click <a href="${websiteUrl}opt-out?id=${clientId}">Unsubscribe</a>
     </div>
   </div>
 </body>
