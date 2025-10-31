@@ -53,7 +53,7 @@ export default function FloatContact() {
     setStatus("");
 
     try {
-      const combinedMessage = `${form.message}\n\nPhone: ${form.phone}\n\nEmail: ${form.email}`;
+      const combinedMessage = `${form.message}\n\nPhone: ${form.phone}\n\nEmail: ${form.email}`; 
       await sendContactUsEmail({
         from_name: `${form.firstName} ${form.lastName}`,
         from_email: form.email,
