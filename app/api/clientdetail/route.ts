@@ -30,8 +30,36 @@ export async function GET() {
   }
 }
 
-//POST: Create new Client
+//POST: Create new Client or Delete by ID
 export const POST = async (request: NextRequest) => {
+  // Check if this is a delete operation (has ?id= parameter)
+  const { searchParams } = new URL(request.url);
+  const deleteId = searchParams.get("id");
+  
+  if (deleteId) {
+    // Handle delete operation
+    try {
+      const connection = await mysql.createConnection(connectionParams);
+      const query = `DELETE FROM clientdetail WHERE ID = ?`;
+      const [results] = await connection.execute(query, [deleteId]);
+      connection.end();
+
+      return NextResponse.json({
+        status: "success",
+        message: "Client data deleted successfully",
+        error: "",
+        results: results,
+      });
+    } catch (error) {
+      return NextResponse.json({
+        status: "error",
+        message: "Failed to delete client data",
+        error: error,
+      });
+    }
+  }
+
+  // Regular client creation (existing logic unchanged)
   const params = await request.json();
   console.log(params);
 

@@ -21,7 +21,7 @@ export default function OptOut() {
       setError("");
       try {
         const res = await fetch(`/api/clientdetail?id=${id}`, {
-          method: "DELETE",
+          method: "POST",
         });
 
         if (!res.ok) throw new Error(`Server returned ${res.status}`);
