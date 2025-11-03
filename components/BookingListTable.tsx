@@ -37,8 +37,23 @@ function BookingListTable() {
         const bookingData = await response.json();
         console.log(bookingData);
 
-        //Sort by ID descending
-        const sortedBookings = bookingData.sort((a, b) => b.ID - a.ID);
+        //Filter: show only today and future bookings
+        const todayDate = new Date();
+        todayDate.setHours(0, 0, 0, 0);
+
+        const upcomingBookings = bookingData.filter((b: IBookingDB) => {
+          if (!b.BookingDate) return false;
+          const bookingDate = new Date(b.BookingDate);
+          bookingDate.setHours(0, 0, 0, 0);
+          return bookingDate >= todayDate;
+        });
+
+        //Sort by date ascending
+        const sortedBookings = upcomingBookings.sort(
+          (a: IBookingDB, b: IBookingDB) =>
+            new Date(a.BookingDate || "").getTime() -
+            new Date(b.BookingDate || "").getTime()
+        );
 
         setBookings(sortedBookings);
         setFilteredBookings(sortedBookings);
@@ -51,27 +66,30 @@ function BookingListTable() {
 
     const fetchServiceTypes = async () => {
       console.log("fetch - request service types");
-
-      const response = await fetch("/api/servicetypes", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const result = await response.json();
-      console.log("fetch - response service types", result);
-      const data: IServiceType[] = [];
-      result.map((serviceType: IServiceTypeDB) => {
-        data.push({
-          id: serviceType.ID,
-          type: serviceType.Type,
-          logic: serviceType.Logic,
+      try {
+        const response = await fetch("/api/servicetypes", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
-      });
-      console.log("fetch - service types data", data);
-      setServiceTypes(data);
-      fetchBookings();
+
+        const result = await response.json();
+        console.log("fetch - response service types", result);
+        const data: IServiceType[] = [];
+        result.map((serviceType: IServiceTypeDB) => {
+          data.push({
+            id: serviceType.ID,
+            type: serviceType.Type,
+            logic: serviceType.Logic,
+          });
+        });
+        console.log("fetch - service types data", data);
+        setServiceTypes(data);
+        fetchBookings();
+      } catch (error) {
+        console.error("Error fetching service types:", error);
+      }
     };
 
     fetchServiceTypes();
@@ -82,11 +100,15 @@ function BookingListTable() {
 
     // Filter by Date
     if (filterDate.trim() !== "") {
-      filtered = filtered.filter((b) =>
-        b.BookingDate
-          ? new Date(b.BookingDate).toLocaleDateString().includes(filterDate)
-          : false
-      );
+      const selectedDate = new Date(filterDate);
+      selectedDate.setHours(0, 0, 0, 0);
+
+      filtered = filtered.filter((b) => {
+        if (!b.BookingDate) return false;
+        const bookingDate = new Date(b.BookingDate);
+        bookingDate.setHours(0, 0, 0, 0);
+        return bookingDate.getTime() === selectedDate.getTime();
+      });
     }
 
     // Filter by Reg. No.
@@ -100,23 +122,31 @@ function BookingListTable() {
     setCurrentPage(1);
   };
 
+  //If date field cleared, reset to default upcoming bookings
+  useEffect(() => {
+    if (filterDate === "") {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const upcomingB = bookings.filter((b) => {
+        if (!b.BookingDate) return false;
+        const bookingDate = new Date(b.BookingDate);
+        bookingDate.setHours(0, 0, 0, 0);
+        return bookingDate >= today;
+      });
+
+      setFilteredBookings(upcomingB);
+    }
+  }, [filterDate, bookings]);
+
   const totalPages = Math.ceil(filteredBookings.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentItems = filteredBookings.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
+  const currentItems = filteredBookings.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const goToFirst = () => setCurrentPage(1);
   const goToPrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const goToNext = () =>
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const goToNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const goToLast = () => setCurrentPage(totalPages);
-
-  // Extract unique Reg. Nos. for dropdown
-  // const uniqueRegNos = Array.from(
-  //   new Set(bookings.map((b) => b.RegistrationNo).filter(Boolean))
-  // );
 
   const getServiceType = (id: number) => {
     console.log("getServiceType id: ", id);
@@ -128,15 +158,15 @@ function BookingListTable() {
   return (
     <div className="p-6 mb-4 max-w-full">
       <h1 className={tableHeadingStyle}>Appointment List</h1>
-      <div className="flex w-[360px] gap-3 items-center justify-start mb-4 border border-gray-300 rounded-md p-2 bg-gray-50">
+      <div className="flex w-[405px] gap-3 items-center justify-start mb-4 border border-gray-300 rounded-md py-2 px-3 bg-gray-50">
         <div className="flex flex-col">
           <label className="text-sm font-semibold mb-1">Date</label>
           <input
-            type="text"
+            type="date"
             placeholder="Enter date"
             value={filterDate}
             onChange={(e) => setFilterDate(e.target.value)}
-            className="border border-gray-400 rounded px-3 py-2 text-sm w-30"
+            className="border border-gray-400 rounded px-3 py-2 text-sm w-40"
           />
         </div>
 
