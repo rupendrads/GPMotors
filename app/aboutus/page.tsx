@@ -4,6 +4,7 @@ import Whychoose from "./components/Features"
 import JourneyExcellence from "./components/Journey"
 import CarService from "./components/Service"
 import Banner from "./components/Banner"
+import CarBanner from "./components/CarBanner"
 export const metadata: Metadata = {
   title: "About Us | Car Repair",
   description: "Know who we are.",
@@ -19,6 +20,7 @@ export default function AboutUsPage() {
       <Whychoose />
       <JourneyExcellence />
       <CarService />
+      <CarBanner />
     </main>
   );
 }
