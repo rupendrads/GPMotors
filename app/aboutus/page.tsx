@@ -1,5 +1,10 @@
 import { Metadata } from "next";
-
+import Aboutus from "./components/Aboutus"
+import Whychoose from "./components/Features"
+import JourneyExcellence from "./components/Journey"
+import CarService from "./components/Service"
+import Banner from "./components/Banner"
+import CarBanner from "./components/CarBanner"
 export const metadata: Metadata = {
   title: "About Us | Car Repair",
   description: "Know who we are.",
@@ -10,7 +15,12 @@ export const metadata: Metadata = {
 export default function AboutUsPage() {
   return (
     <main>
-      <h1>About Us page</h1>
+      <Banner />
+      <Aboutus />
+      <Whychoose />
+      <JourneyExcellence />
+      <CarService />
+      <CarBanner />
     </main>
   );
 }
