@@ -248,7 +248,7 @@ export default function Navbar() {
                   Gallery
                 </Link>
                 <Link
-                  href="/"
+                  href="/aboutus"
                   className=" hover:text-[#E33C30] px-3 py-2 transition"
                 >
                   About
