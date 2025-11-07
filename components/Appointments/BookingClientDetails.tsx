@@ -25,7 +25,8 @@ type Props = {
 
 const titles = ["Mr", "Mrs", "Ms"];
 
-const PHONE_REGEX_VALIDATION = /^(44\d{10})$/;
+// Allows 10 or 11 digits (optionally starting with 0)
+const PHONE_REGEX_VALIDATION = /^(0?\d{10})$/;
 
 const BookingClientDetails = ({
   serviceType,
@@ -432,9 +433,23 @@ const BookingClientDetails = ({
   const bookAppointment = async (data: IFormInput) => {
     console.log(data);
     const bookingData = { ...data };
+    
+    // Normalize phone number before saving to DB
+    if (bookingData.phoneNo) {
+      const cleanedPhoneNo = bookingData.phoneNo.replace(/\D/g, ""); // remove non-digits
+      const formattedPhoneNo =
+        cleanedPhoneNo.startsWith("0") && cleanedPhoneNo.length === 11
+          ? "44" + cleanedPhoneNo.substring(1) // strip leading 0 and add 44
+          : cleanedPhoneNo.length === 10
+          ? "44" + cleanedPhoneNo
+          : cleanedPhoneNo; // fallback (already includes 44)
+      bookingData.phoneNo = formattedPhoneNo;
+    }
+
     console.log("bookingData", bookingData);
     console.log("bookingDateTime", bookingDateTime);
     console.log("formatted bookingDate", formatDate(bookingDateTime.date));
+    console.log("formatted phoneNo", bookingData.phoneNo);
     try {
       if (isEdit === true) {
         await updateAppointment(bookingData);
@@ -582,7 +597,7 @@ const BookingClientDetails = ({
               })}
               defaultValue=""
               className={errors.phoneNo ? errorInputStyle : inputStyle}
-              placeholder="441234567890"
+              placeholder="1234567890"
             />
           </div>
           <label className={headingStyle}>Service details</label>
