@@ -55,7 +55,7 @@ function BookingListTable() {
             new Date(b.BookingDate || "").getTime()
         );
 
-        setBookings(sortedBookings);
+        setBookings(bookingData);
         setFilteredBookings(sortedBookings);
       } catch (error) {
         console.error("Error fetching bookings:", error);
@@ -98,7 +98,7 @@ function BookingListTable() {
   const handleFilter = () => {
     let filtered = bookings;
 
-    // Filter by Date
+    // If user selects a date, include past/today/future
     if (filterDate.trim() !== "") {
       const selectedDate = new Date(filterDate);
       selectedDate.setHours(0, 0, 0, 0);
@@ -111,33 +111,52 @@ function BookingListTable() {
       });
     }
 
-    // Filter by Reg. No.
+    // If user filters by registration no, include all
     if (filterRegNo.trim() !== "") {
       filtered = filtered.filter((b) =>
         b.RegistrationNo?.toLowerCase().includes(filterRegNo.toLowerCase())
       );
     }
 
-    setFilteredBookings(filtered);
-    setCurrentPage(1);
-  };
-
-  //If date field cleared, reset to default upcoming bookings
-  useEffect(() => {
-    if (filterDate === "") {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      const upcomingB = bookings.filter((b) => {
+    // If no filters applied → revert to default (today + future)
+    if (filterDate.trim() === "" && filterRegNo.trim() === "") {
+      const todayDate = new Date();
+      todayDate.setHours(0, 0, 0, 0);
+      filtered = bookings.filter((b) => {
         if (!b.BookingDate) return false;
         const bookingDate = new Date(b.BookingDate);
         bookingDate.setHours(0, 0, 0, 0);
-        return bookingDate >= today;
+        return bookingDate >= todayDate;
       });
-
-      setFilteredBookings(upcomingB);
     }
-  }, [filterDate, bookings]);
+
+    // Sort ascending by date
+    const sortedBookings = filtered.sort(
+      (a: IBookingDB, b: IBookingDB) =>
+        new Date(a.BookingDate || "").getTime() -
+        new Date(b.BookingDate || "").getTime()
+    );
+
+    setFilteredBookings(sortedBookings);
+    setCurrentPage(1);
+  };
+
+  // //If date field cleared, reset to default upcoming bookings
+  // useEffect(() => {
+  //   if (filterDate === "") {
+  //     const today = new Date();
+  //     today.setHours(0, 0, 0, 0);
+
+  //     const upcomingB = bookings.filter((b) => {
+  //       if (!b.BookingDate) return false;
+  //       const bookingDate = new Date(b.BookingDate);
+  //       bookingDate.setHours(0, 0, 0, 0);
+  //       return bookingDate >= today;
+  //     });
+
+  //     setFilteredBookings(upcomingB);
+  //   }
+  // }, [filterDate, bookings]);
 
   const totalPages = Math.ceil(filteredBookings.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
