@@ -120,3 +120,25 @@ export const sendSmsTemplate = async (toNumber, templateId) => {
     return "failed";
   }
 };
+
+// Individual SMS status update - for single database updates
+export const updateSMSStatus = async (
+  clientId: number,
+  status: 'success' | 'failed' | 'pending'
+): Promise<void> => {
+  try {
+    await fetch('/api/update-sms-status', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        client_id: clientId,
+        status: status,
+      }),
+    });
+    console.log(`Updated SMS status for client ${clientId}: ${status}`);
+  } catch (error) {
+    console.error("Failed to update SMS status:", error);
+  }
+};

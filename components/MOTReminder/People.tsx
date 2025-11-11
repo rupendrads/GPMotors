@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { person } from "./types";
 import Progress from "../Progressbar/Progress";
 import Loading from "../Loading";
-import { sendSmsTemplate } from "@/utils/webex";
+import { sendSmsTemplate, updateSMSStatus } from "@/utils/webex";
 import { formatDate } from "@/utils/formatter";
 
 interface Props {
@@ -222,6 +222,17 @@ function People({
         if (personList[i].IsChecked === true) {
           console.log("processing id", personList[i].Id);
           const sendSmsStatus = await sendSMSToPerson(personList[i]);
+          
+          // Individual database update for each SMS
+          try {
+            await updateSMSStatus(
+              personList[i].Id, 
+              sendSmsStatus as 'success' | 'failed' | 'pending'
+            );
+          } catch (error) {
+            console.error("Failed to update SMS status:", error);
+          }
+          
           setPersonList((prevList) => {
             const newList = [...prevList];
             console.log("i value", i);
@@ -233,6 +244,7 @@ function People({
       } else {
         progressRef.current?.incrementValue();
         clearInterval(intervalId);
+        processingCompleted();
       }
     }, 5000);
   };
@@ -312,8 +324,13 @@ function People({
                               : "black"
                           }`,
                         }}
+                        title={`${person.SmsStatus === 'success' ? 'Success' : person.SmsStatus === 'failed' ? 'Failed' : 'Never'}${
+                          person.smsLastSent 
+                            ? ` - Last sent: ${new Date(person.smsLastSent).toLocaleDateString()}` 
+                            : ''
+                        }`}
                       >
-                        {person.SmsStatus}
+                        {person.SmsStatus === 'success' ? 'Success' : person.SmsStatus === 'failed' ? 'Failed' : 'Never'}
                       </div>
 
                       <div className={phoneNoCellStyle}>

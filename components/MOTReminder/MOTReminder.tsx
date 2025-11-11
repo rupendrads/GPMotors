@@ -85,12 +85,13 @@ function MOTReminder() {
         Address2: obj["Address2"],
         PostCode: obj["PostCode"],
         IsChecked: true,
-        SmsStatus: "",
+        SmsStatus: obj["SMS_Status"] || "",
         WhatsAppStatus: "",
         serviceDate: obj["ServiceDate"],
         CreationDate: obj["CreationDate"],
         serviceType: obj["ServiceType"],
         carRegistrationNo: obj["RegistrationNo"],
+        smsLastSent: obj["SMS_Timestamp"],
       });
     });
     setFiltering(false);
