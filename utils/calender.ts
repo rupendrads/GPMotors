@@ -71,3 +71,20 @@ export const getPendingDaysInMonth = () => {
   const pendingDaysInMonth = daysInMonth - today.getDate();
   return pendingDaysInMonth;
 };
+
+/**
+ * Predefined holiday dates that will be disabled for bookings
+ * Simply list all the dates you want to disable
+ */
+export const HOLIDAY_DATES = [
+  new Date(2025, 11, 24), // Dec 24, 2025
+  new Date(2025, 11, 25), // Dec 25, 2025
+  new Date(2025, 11, 26), // Dec 26, 2025
+  new Date(2025, 11, 27), // Dec 27, 2025
+  new Date(2025, 11, 28), // Dec 28, 2025
+  new Date(2025, 11, 29), // Dec 29, 2025
+  new Date(2025, 11, 30), // Dec 30, 2025
+  new Date(2025, 11, 31), // Dec 31, 2025
+  new Date(2026, 0, 1),   // Jan 1, 2026
+  new Date(2026, 0, 2),   // Jan 2, 2026
+];

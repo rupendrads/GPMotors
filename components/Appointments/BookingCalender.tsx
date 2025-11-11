@@ -3,6 +3,7 @@ import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { IDateTime } from "./types";
 import "react-day-picker/style.css";
 import { useEffect, useState } from "react";
+import { HOLIDAY_DATES } from "@/utils/calender";
 
 type Props = {
   bookingDateTime: IDateTime;
@@ -24,14 +25,15 @@ const BookingCalender = ({
     if (bookingDateTime.date) setMonth(bookingDateTime.date);
   }, [bookingDateTime.date]);
 
+  // Use holiday dates from utility file
+  const holidayDates = HOLIDAY_DATES;
+  
   const disabledDays = [
     { before: new Date() },
     { dayOfWeek: [0, 6] },
     ...disabledDates,
+    ...holidayDates,
   ];
-  console.log("disabledDates", disabledDays);
-
-  console.log("booking date time", bookingDateTime);
 
   return (
     <div className="mx-auto mb-2">
