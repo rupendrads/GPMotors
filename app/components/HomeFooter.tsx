@@ -21,9 +21,9 @@ export default function HomeFooter() {
           />
         </div>
       </div>
-      <div className="max-w-7xl mx-auto py-10 pt-40 px-4 grid grid-cols-1 md:grid-cols-5 gap-2 text-gray-800">
-        {/* Product */}
-        <div>
+      <div className="max-w-7xl mx-auto py-6 pt-40 px-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-4 gap-4 text-gray-800">
+         {/* Product */}
+        {/* <div>
           <h3 className="font-semibold mb-3">Product</h3>
           <ul className="space-y-2">
             <li className="footer-link">All Features</li>
@@ -32,7 +32,7 @@ export default function HomeFooter() {
             <li className="footer-link">System Cyber</li>
           </ul>
         </div>
-        {/* Support */}
+        // Support 
         <div>
           <h3 className="font-semibold mb-3">Support</h3>
           <ul className="space-y-2">
@@ -42,7 +42,7 @@ export default function HomeFooter() {
             <li className="footer-link">Forums</li>
           </ul>
         </div>
-        {/* Career */}
+        // Career 
         <div>
           <h3 className="font-semibold mb-3">Career</h3>
           <ul className="space-y-2">
@@ -50,7 +50,7 @@ export default function HomeFooter() {
             <li className="footer-link">Our team</li>
             <li className="footer-link">Hiring Process</li>
           </ul>
-        </div>
+        </div> */}
         {/* Contact */}
         <div>
           <h3 className="font-semibold mb-3">Contact</h3>
@@ -79,13 +79,14 @@ export default function HomeFooter() {
           </address>
         </div>
       </div>
-      <div className="border-t py-6 px-4 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto">
+      
+      <div className="max-w-7xl mx-auto border-t py-6 px-4 flex flex-col lg:flex-row xl:flex-row xxl:flex-row items-center justify-between">
         {/* Logo and company name */}
-        <div className="flex items-center space-x-2 mb-4 md:mb-0">
+        <div className="flex items-center space-x-2 mb-4 md:mb-2"> 
           <Image src={logo} alt="logo" className="w-50" />
         </div>
         {/* Footer links */}
-        <div className="flex space-x-6 text-sm text-gray-600">
+        <div className="flex space-x-4 text-sm text-gray-600">
           <a href="#">Privacy Policy</a>
           <span>|</span>
           <a href="#">Terms of Service</a>
@@ -95,7 +96,7 @@ export default function HomeFooter() {
           <a href="#">Data Record</a>
         </div>
         {/* Copyright */}
-        <div className="text-sm text-gray-500 mt-4 md:mt-0">
+        <div className="text-sm text-gray-500 mt-4 md:mt-2">
           © Gp motors 2023 <br />
           Developed by Technophile consultancy lt (07919453190)
         </div>

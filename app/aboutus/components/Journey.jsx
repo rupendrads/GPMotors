@@ -4,11 +4,11 @@ const JourneyExcellence = () => {
   const leftStats = [
     { label: 'Year Of\nExperience', value: '20' },
     { label: 'Hours Cars\nGet Done', value: '1' },
-    { label: 'Skilled\nTechnicians', value: '30' }
+    { label: 'Skilled\nTechnicians', value: '5' }
   ];
 
   const rightStats = [
-    { label: 'Average Service\nRating', value: '3.8' },
+    { label: 'Average Service\nRating', value: '4.7' },
     { label: 'Vehicle Parts\nIn Inventory', value: '2k' },
     { label: 'Customer\nSatisfaction', value: '100%' }
   ];

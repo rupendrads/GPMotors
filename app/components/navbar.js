@@ -19,7 +19,7 @@ import { usePathname } from "next/navigation";
 const serviceColumns = [
   {
     heading: "Maintanance/Services",
-    highlight: "Brake Repair",
+    highlight: "MOT",
     items: [
       { name: "MOT", link: "/mot-service" },
       { name: "Minor Service", link: "/minor-service" },
@@ -142,7 +142,7 @@ const brandColumns = [
 
 const getItemClass = (item, highlight) =>
   item === highlight ? "hover:text-[#E33C30]" : " hover:text-[#E33C30]";
-
+  
 export default function Navbar() {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [showBrandsMegaMenu, setShowBrandsMegaMenu] = useState(false);
@@ -438,7 +438,6 @@ export default function Navbar() {
               )}
             </nav>
           </div>
-
           {/* Services Mega Menu */}
           {showMegaMenu && (
             <div
@@ -464,18 +463,18 @@ export default function Navbar() {
                     <React.Fragment key={idx}>
                       <div key={idx} className="min-w-[180px]">
                         <div
-                          className={`text-[#838B80] ${
+                          className={`text-[#171717] -${
                             idx == 1 ? "flex-grow w-80" : "flex-shrink-0"
-                          } mb-2 text-[15px] tracking-wide`}
+                          } mb-2 px-1 text-[15px] tracking-wide`}
                         >
                           {col.heading}
                         </div>
-                        <ul className="mb-4 space-y-2">
+                        <ul className="mb-4 space-y-0">
                           {col.items.map((item, i) => (
                             <li key={i}>
                               <Link
                                 href={item.link}
-                                className={`block text-[15px] transition ${getItemClass(
+                                className={`block text-[15px] px-1 py-[3.5px] border-b border-gray-200 text-[#838B80] hover:bg-[#E8F3F2] transition ${getItemClass(
                                   item.name,
                                   col.highlight
                                 )}`}
@@ -487,15 +486,15 @@ export default function Navbar() {
                         </ul>
                         {col.subheading && (
                           <>
-                            <div className="text-[#838B80] mb-2 mt-4 text-[15px] tracking-wide">
+                            <div className="text-[#171717] px-1 mb-2 mt-4 text-[15px] tracking-wide">
                               {col.subheading}
                             </div>
-                            <ul className="space-y-2">
+                            <ul className="space-y-0">
                               {col.subitems.map((item, i) => (
                                 <li key={i}>
                                   <Link
                                     href={item.link}
-                                    className="block text-[15px] hover:text-[#E33C30] transition"
+                                    className="block text-[15px] px-1 py-[3.5px] border-b border-gray-200 text-[#838B80] hover:text-[#E33C30] hover:bg-[#E8F3F2] transition"
                                   >
                                     {item.name}
                                   </Link>
@@ -553,14 +552,14 @@ export default function Navbar() {
               onMouseLeave={handleBrandsLeave}
             >
               <div className="flex justify-center pt-8 pb-6 px-0">
-                <div className="mx-20 flex gap-16 w-full justify-between">
+                <div className="mx-20 flex gap-5 w-full justify-around">
                   {brandColumns.map((col, idx) => (
-                    <div key={idx} className="flex flex-col space-y-4">
+                    <div key={idx} className="flex flex-col space-y-0">
                       {col.items.map((brand, i) => (
                         <Link
                           key={i}
                           href={brand.link}
-                          className="text-[16px] text-gray-800 hover:text-[#E33C30] transition font-medium"
+                          className="text-[16px] px-2 py-2 border-b border-gray-200 text-[#838B80] hover:text-[#E33C30] hover:bg-[#E8F3F2] transition"
                         >
                           {brand.name}
                         </Link>
