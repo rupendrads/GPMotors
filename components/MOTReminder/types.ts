@@ -19,6 +19,7 @@ export type person = {
   CreationDate: string;
   serviceType: string;
   carRegistrationNo: string;
+  smsLastSent?: string;
 };
 
 //-----------
