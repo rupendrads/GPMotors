@@ -18,12 +18,12 @@ const ServiceSubHeader: React.FC<Props> = ({
   return (
     <div className="mt-8 w-full grid max-md:grid-cols-1 max-md:gap-8 grid-cols-2">
       <div className="flex flex-col gap-8 max-md:items-center">
-        <div className="w-[258px] md:w-[331px] lg:w-[480px] ">
+        <div className="w-[258px] md:w-[320px] lg:w-[410px] xl:w-[560px] xxl:w-[560px]">
           <span className="font-[600] text-[27px] lg:text-[40px] capitalize leading-[1.2] tracker-[0%] text-neutral-700">
             {title}
           </span>
         </div>
-        <div className="w-[258px] md:w-[331px] lg:w-[440px] flex flex-col gap-8 font-[400] text-[12px] lg:text-[18px] capitalize leading-[1.2] tracker-[0%] text-neutral-500">
+        <div className="w-[250px] md:w-[310px] lg:w-[410px] xl:w-[620px] xxl:w-[620px] flex flex-col gap-8 font-[400] text-[14px] lg:text-[18px] capitalize leading-[1.2] tracker-[0%] text-neutral-500">
           {desc.map((item, index) => {
             return <div key={index}>{item}</div>;
           })}

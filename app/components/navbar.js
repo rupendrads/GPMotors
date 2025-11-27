@@ -474,12 +474,12 @@ export default function Navbar() {
                             <li key={i}>
                               <Link
                                 href={item.link}
-                                className={`block text-[15px] px-1 py-[3.5px] border-b border-gray-200 text-[#838B80] hover:bg-[#E8F3F2] transition ${getItemClass(
+                                className={`block text-[15px] px-1 py-[3.5px] border-b border-gray-200 text-[#838B80] hover:bg-[#BBEDE9] transition ${getItemClass(
                                   item.name,
                                   col.highlight
                                 )}`}
                               >
-                                {item.name}
+                                {item.name} 
                               </Link>
                             </li>
                           ))}
@@ -494,7 +494,7 @@ export default function Navbar() {
                                 <li key={i}>
                                   <Link
                                     href={item.link}
-                                    className="block text-[15px] px-1 py-[3.5px] border-b border-gray-200 text-[#838B80] hover:text-[#E33C30] hover:bg-[#E8F3F2] transition"
+                                    className="block text-[15px] px-1 py-[3.5px] border-b border-gray-200 text-[#838B80] hover:text-[#E33C30] hover:bg-[#BBEDE9] transition"
                                   >
                                     {item.name}
                                   </Link>
@@ -552,19 +552,19 @@ export default function Navbar() {
               onMouseLeave={handleBrandsLeave}
             >
               <div className="flex justify-center pt-8 pb-6 px-0">
-                <div className="mx-20 flex gap-5 w-full justify-around">
+                <div className="mx-10 flex gap-0 w-full justify-around">
                   {brandColumns.map((col, idx) => (
                     <div key={idx} className="flex flex-col space-y-0">
                       {col.items.map((brand, i) => (
                         <Link
                           key={i}
                           href={brand.link}
-                          className="text-[16px] px-2 py-2 border-b border-gray-200 text-[#838B80] hover:text-[#E33C30] hover:bg-[#E8F3F2] transition"
+                          className="text-[16px] pl-2 pr-10 py-2 border-b border-gray-200 text-[#838B80] hover:text-[#E33C30] hover:bg-[#BBEDE9] transition"
                         >
                           {brand.name}
-                        </Link>
+                        </Link> 
                       ))}
-                    </div>
+                    </div> 
                   ))}
                 </div>
               </div>
@@ -779,3 +779,4 @@ export default function Navbar() {
     </>
   );
 }
+//  #E8F3F2
