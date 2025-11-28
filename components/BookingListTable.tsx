@@ -18,8 +18,10 @@ function BookingListTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [serviceTypes, setServiceTypes] = useState<IServiceType[]>([]);
+  const [showAll, setShowAll] = useState(false);
 
   // Filter states
+  const [filterName, setFilterName] = useState("");
   const [filterDate, setFilterDate] = useState("");
   const [filterRegNo, setFilterRegNo] = useState("");
 
@@ -36,6 +38,7 @@ function BookingListTable() {
         const response = await fetch("/api/booking");
         const bookingData = await response.json();
         console.log(bookingData);
+        setBookings(bookingData);
 
         //Filter: show only today and future bookings
         const todayDate = new Date();
@@ -55,7 +58,6 @@ function BookingListTable() {
             new Date(b.BookingDate || "").getTime()
         );
 
-        setBookings(bookingData);
         setFilteredBookings(sortedBookings);
       } catch (error) {
         console.error("Error fetching bookings:", error);
@@ -88,49 +90,148 @@ function BookingListTable() {
         setServiceTypes(data);
         fetchBookings();
       } catch (error) {
-        console.error("Error fetching service types:", error);
+        console.log("Error fetching service types:", error);
       }
     };
 
     fetchServiceTypes();
   }, []);
 
+  useEffect(() => {
+    if (showAll) {
+      // Show ALL bookings (full list)
+      const sorted = bookings
+        .slice()
+        .sort(
+          (a, b) =>
+            new Date(a.BookingDate || "").getTime() -
+            new Date(b.BookingDate || "").getTime()
+        );
+
+      setFilteredBookings(sorted);
+      setCurrentPage(1);
+      return;
+    }
+
+    // Default mode: today + future
+    const todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
+
+    const upcoming = bookings.filter((b) => {
+      if (!b.BookingDate) return false;
+      const d = new Date(b.BookingDate);
+      d.setHours(0, 0, 0, 0);
+      return d >= todayDate;
+    });
+
+    const sorted = upcoming.sort(
+      (a, b) =>
+        new Date(a.BookingDate || "").getTime() -
+        new Date(b.BookingDate || "").getTime()
+    );
+
+    setFilteredBookings(sorted);
+    setCurrentPage(1);
+  }, [showAll, bookings]);
+
   const handleFilter = () => {
+    //SHOW ALL → full dataset always, search filters still allowed
+    if (showAll) {
+      let filtered = bookings;
+      // Search inside full data (optional filters)
+      if (filterName.trim() !== "") {
+        const q = filterName.toLowerCase();
+
+        filtered = filtered.filter((b) => {
+          const first = b.FirstName?.toLowerCase() || "";
+          const last = b.LastName?.toLowerCase() || "";
+          const full = `${first} ${last}`.trim();
+
+          return first.includes(q) || last.includes(q) || full.includes(q);
+        });
+      }
+
+      if (filterRegNo.trim() !== "") {
+        filtered = filtered.filter((b) =>
+          b.RegistrationNo?.toLowerCase().includes(filterRegNo.toLowerCase())
+        );
+      }
+
+      if (filterDate.trim() !== "") {
+        const selectedDate = new Date(filterDate);
+        selectedDate.setHours(0, 0, 0, 0);
+
+        filtered = filtered.filter((b) => {
+          if (!b.BookingDate) return false;
+          const date = new Date(b.BookingDate);
+          date.setHours(0, 0, 0, 0);
+          return date.getTime() === selectedDate.getTime();
+        });
+      }
+
+      // Sort by date (ascending)
+      const sorted = filtered.sort(
+        (a: IBookingDB, b: IBookingDB) =>
+          new Date(a.BookingDate || "").getTime() -
+          new Date(b.BookingDate || "").getTime()
+      );
+
+      setFilteredBookings(sorted);
+      setCurrentPage(1);
+      return;
+    }
+
+    //SHOW ALL = FALSE → today + future is default behavior
+
     let filtered = bookings;
 
-    // If user selects a date, include past/today/future
+    // Apply filters only when user enters something
+    // Apply Name filter
+    if (filterName.trim() !== "") {
+      const q = filterName.toLowerCase();
+
+      filtered = filtered.filter((b) => {
+        const first = b.FirstName?.toLowerCase() || "";
+        const last = b.LastName?.toLowerCase() || "";
+        const full = `${first} ${last}`.trim();
+
+        return first.includes(q) || last.includes(q) || full.includes(q);
+      });
+    }
+
+    // Apply Reg No filter
+    if (filterRegNo.trim() !== "") {
+      filtered = filtered.filter((b) =>
+        b.RegistrationNo?.toLowerCase().includes(filterRegNo.toLowerCase())
+      );
+    }
+    // Apply Date filter
     if (filterDate.trim() !== "") {
       const selectedDate = new Date(filterDate);
       selectedDate.setHours(0, 0, 0, 0);
 
       filtered = filtered.filter((b) => {
         if (!b.BookingDate) return false;
-        const bookingDate = new Date(b.BookingDate);
-        bookingDate.setHours(0, 0, 0, 0);
-        return bookingDate.getTime() === selectedDate.getTime();
+        const date = new Date(b.BookingDate);
+        date.setHours(0, 0, 0, 0);
+        return date.getTime() === selectedDate.getTime();
       });
     }
 
-    // If user filters by registration no, include all
-    if (filterRegNo.trim() !== "") {
-      filtered = filtered.filter((b) =>
-        b.RegistrationNo?.toLowerCase().includes(filterRegNo.toLowerCase())
-      );
-    }
+    // Default behaviour: NO filters → show only today + future
+    if (!filterName && !filterRegNo && !filterDate) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-    // If no filters applied → revert to default (today + future)
-    if (filterDate.trim() === "" && filterRegNo.trim() === "") {
-      const todayDate = new Date();
-      todayDate.setHours(0, 0, 0, 0);
       filtered = bookings.filter((b) => {
         if (!b.BookingDate) return false;
         const bookingDate = new Date(b.BookingDate);
         bookingDate.setHours(0, 0, 0, 0);
-        return bookingDate >= todayDate;
+        return bookingDate >= today;
       });
     }
 
-    // Sort ascending by date
+    // Sort by date (ascending)
     const sortedBookings = filtered.sort(
       (a: IBookingDB, b: IBookingDB) =>
         new Date(a.BookingDate || "").getTime() -
@@ -141,30 +242,26 @@ function BookingListTable() {
     setCurrentPage(1);
   };
 
-  // //If date field cleared, reset to default upcoming bookings
-  // useEffect(() => {
-  //   if (filterDate === "") {
-  //     const today = new Date();
-  //     today.setHours(0, 0, 0, 0);
-
-  //     const upcomingB = bookings.filter((b) => {
-  //       if (!b.BookingDate) return false;
-  //       const bookingDate = new Date(b.BookingDate);
-  //       bookingDate.setHours(0, 0, 0, 0);
-  //       return bookingDate >= today;
-  //     });
-
-  //     setFilteredBookings(upcomingB);
-  //   }
-  // }, [filterDate, bookings]);
+  // const viewReports = () => {
+  //   // Build query string only with present filters
+  //   const params = new URLSearchParams();
+  //   if (filterDate.trim() !== "") params.set("date", filterDate);
+  //   if (filterRegNo.trim() !== "") params.set("reg", filterRegNo.trim());
+  //   const qs = params.toString();
+  //   router.push(`/reports${qs ? `?${qs}` : ""}`);
+  // };
 
   const totalPages = Math.ceil(filteredBookings.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentItems = filteredBookings.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentItems = filteredBookings.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   const goToFirst = () => setCurrentPage(1);
   const goToPrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const goToNext = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const goToNext = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const goToLast = () => setCurrentPage(totalPages);
 
   const getServiceType = (id: number) => {
@@ -177,38 +274,70 @@ function BookingListTable() {
   return (
     <div className="p-6 mb-4 max-w-full">
       <h1 className={tableHeadingStyle}>Appointment List</h1>
-      <div className="flex w-[405px] gap-3 items-center justify-start mb-4 border border-gray-300 rounded-md py-2 px-3 bg-gray-50">
-        <div className="flex flex-col">
-          <label className="text-sm font-semibold mb-1">Date</label>
+      <div className="flex items-center justify-start">
+        <div className="flex items-center justify-center gap-2 mr-4 border mb-0 border-gray-300 rounded-md px-3 py-3 bg-gray-50">
           <input
-            type="date"
-            placeholder="Enter date"
-            value={filterDate}
-            onChange={(e) => setFilterDate(e.target.value)}
-            className="border border-gray-400 rounded px-3 py-2 text-sm w-40"
-          />
+            type="checkbox"
+            className="h-5 w-5 p-1 bg-gray-400 hover:bg-green-300"
+            checked={showAll}   
+            onChange={(e) => {
+              setShowAll(e.target.checked);
+            }}
+          />  
+          <label className="text-green-600 hover:text-green-900  text-lg font-semibold">Show All</label>
         </div>
 
-        <div className="flex flex-col">
-          <label className="text-sm font-semibold mb-1">Reg. No.</label>
-          <input
-            type="text"
-            placeholder="Enter reg no"
-            value={filterRegNo}
-            onChange={(e) => setFilterRegNo(e.target.value)}
-            className="border border-gray-400 rounded px-3 py-2 text-sm w-30"
-          />
+        <div className="flex w-[575px] gap-3 items-center justify-start mb-3 border border-gray-300 rounded-md py-2 px-3 bg-gray-50">
+          <div className="flex flex-col">
+            <label className="text-sm font-semibold mb-1">Name</label>
+            <input
+              type="text"
+              placeholder="Enter name"
+              value={filterName}
+              onChange={(e) => setFilterName(e.target.value)}
+              className="border border-gray-400 rounded px-3 py-2 text-sm w-40"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="text-sm font-semibold mb-1">Date</label>
+            <input
+              type="date"
+              placeholder="Enter date"
+              value={filterDate}
+              onChange={(e) => setFilterDate(e.target.value)}
+              className="text-gray-400 border border-gray-400 rounded px-3 py-2 text-sm w-40"
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-sm font-semibold mb-1">Reg. No.</label>
+            <input
+              type="text"
+              placeholder="Enter reg no"
+              value={filterRegNo}
+              onChange={(e) => setFilterRegNo(e.target.value)}
+              className="border border-gray-400 rounded px-3 py-2 text-sm w-30"
+            />
+          </div>
+          <div>
+            <button
+              onClick={handleFilter}
+              className=" bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-2 mt-6 rounded-md transition"
+            >
+              Search
+            </button>
+          </div>
         </div>
-        <div>
+        {/* <div>
           <button
-            onClick={handleFilter}
-            className=" bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-2 mt-6 rounded-md transition"
+            onClick={viewReports}
+            className=" bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-2 mt-10 rounded-md transition"
+            title="View Reports"
           >
-            Search
+            View Reports
           </button>
-        </div>
+        </div> */}
       </div>
-
       {loading ? (
         <p>Loading...</p>
       ) : (
