@@ -3,7 +3,7 @@ import Alert from "@/components/Alert";
 import { formatDate } from "@/utils/formatter";
 import { inputLabelStyle } from "./styles";
 import { IClientFormInput, IDateTime, IFormInput, IServiceType } from "./types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChangeBookingDateTime from "./ChangeBookingDateTime";
 import ChangeService from "./ChangeService";
 import { useRouter } from "next/navigation";
@@ -49,8 +49,31 @@ const BookingClientDetails = ({
     formState: { errors },
     setError,
   } = useForm<IFormInput>({
-    defaultValues: { ...clientDetails },
+    defaultValues: {},
   });
+
+  const formatPhoneForEdit = (phoneNo: string) => {
+    if (!phoneNo) return "";
+    const cleaned = phoneNo.replace(/\D/g, "");
+
+    // Convert DB format (44XXXXXXXXXX) → UI format (0XXXXXXXXXX)
+    if (cleaned.startsWith("44") && cleaned.length > 2) {
+      return "0" + cleaned.substring(2);
+    }
+    return cleaned;
+  };
+
+  useEffect(() => {
+    if (clientDetails) {
+      reset({
+        ...clientDetails,
+        phoneNo: formatPhoneForEdit(clientDetails.phoneNo),
+      });
+    } else {
+      reset({});
+    }
+  }, [clientDetails, reset]);
+
   const router = useRouter();
 
   const handleShowAlert = (type: string, message: string) => {
@@ -148,7 +171,7 @@ const BookingClientDetails = ({
           Comments: bookingData.comments,
           PhoneNo: bookingData.phoneNo,
           ContactStatus:
-            bookingData.contactStatus.toString() === "true" ? 1 : 0,
+            (bookingData.contactStatus ?? false).toString() === "true" ? 1 : 0,
         }),
       });
 
@@ -326,7 +349,7 @@ const BookingClientDetails = ({
         serviceType: serviceType?.id,
         comments: bookingData.comments,
         phoneNo: bookingData.phoneNo,
-        ContactStatus: bookingData.contactStatus.toString() === "true" ? 1 : 0,
+        ContactStatus: (bookingData.contactStatus ?? false).toString() === "true" ? 1 : 0,
       }),
     });
 

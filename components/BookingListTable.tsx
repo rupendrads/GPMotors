@@ -29,7 +29,7 @@ function BookingListTable() {
 
   const onEdit = (booking: IBookingDB) => {
     console.log("Editing Booking ID:", booking.ID);
-    router.push(`/book-appointment?id=${booking.ID}`);
+    router.push(`/book-appointment-edit?id=${booking.ID}`);
   };
 
   useEffect(() => {

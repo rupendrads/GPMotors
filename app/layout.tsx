@@ -4,11 +4,12 @@ import "material-icons/iconfont/material-icons.css";
 import "../public/globals.css";
 // import "./globals.css";
 import Navbar from "./components/navbar";
+import AdminMenuDetail from "@/components/AdminMenu";
 import Footer from "./components/footer";
-import { usePathname } from "next/navigation";
 import FloatingWhatsApp from "./components/Whatsapp";
 import FloatContact from "./components/FloatContact";
 import ReviewWidget from "./components/FloatReview";
+import { usePathname } from "next/navigation";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
@@ -23,19 +24,27 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const isAdmin = () => {
-    return pathname.includes("/admin") ? true : false;
-  };
+  const isAdminPage =
+    pathname.startsWith("/book-appointment-edit") ||
+    pathname.startsWith("/admin");
 
   return (
     <html lang="en">
-      <body className={`${poppins.className}`} suppressHydrationWarning={true}>
-        <Navbar />
+      <body className={poppins.className} suppressHydrationWarning={true}>
+        
+        {/* Navbar Switch */}
+        {isAdminPage ? <AdminMenuDetail /> : <Navbar />}
+
         <FloatingWhatsApp />
         <ReviewWidget />
-        {isAdmin() ? <></> : <FloatContact />}
+
+        {/* Hide floating contact on admin pages */}
+        {!isAdminPage && <FloatContact />}
+
         <main className="max-w-full mx-auto">{children}</main>
-        {!isHomePage && <Footer />}
+
+        {/* Footer visible on public pages only */}
+        {!isAdminPage && !isHomePage && <Footer />}
       </body>
     </html>
   );

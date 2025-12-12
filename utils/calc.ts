@@ -1,5 +1,9 @@
-export const convertTimeToMinutes = (time: string) => {
+export const convertTimeToMinutes = (time: string ) => {
   console.log(time);
+  // if (!time || time.length < 5) {
+  //   console.warn("convertTimeToMinutes: Invalid time value:", time);
+  //   return 0; // fallback
+  // }
   const hours = time.substring(0, 2);
   console.log("hours", hours);
   console.log(time);
@@ -27,6 +31,7 @@ export const convertMinutesToTime = (totalMinutes: number) => {
 export const countOccurrences = (arr: string[], value: string): number => {
   console.log("bf arr", arr);
   console.log("bf value", value);
+  if (!Array.isArray(arr)) return 0;
   return arr.reduce((count, current) => {
     console.log("bf count", count);
     return current === value ? count + 1 : count;
