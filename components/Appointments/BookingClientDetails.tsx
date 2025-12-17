@@ -184,7 +184,7 @@ const BookingClientDetails = ({
 
         let clientId = undefined;
         // client detail update.....
-        if (bookingData.contactStatus.toString() === "true") {
+        if ((bookingData.contactStatus ?? false).toString() === "true") {
           // check if contact no is already exist
           const checkResponse = await fetch(
             `/api/clientdetail/iscontactexist?contactno='${bookingData.phoneNo}'`,
