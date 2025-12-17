@@ -333,7 +333,7 @@ const BookingClientDetails = ({
     console.log(bookingData);
 
     const response = await fetch(`/api/booking/${id}`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

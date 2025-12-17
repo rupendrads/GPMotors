@@ -39,8 +39,8 @@ export async function GET(
   }
 }
 
-// PUT: /api/booking/id
-export async function PUT(
+// POST: /api/booking/id (for updating appointment)
+export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
