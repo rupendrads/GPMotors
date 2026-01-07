@@ -389,9 +389,18 @@ function BookingListTable() {
                       {getServiceType(Number(booking.ServiceType))}
                     </td>
                     <td className={tdStyle}>
-                      {(booking.Comments || "").length > 15
-                        ? `${booking.Comments.slice(0, 15)}...`
-                        : booking.Comments}
+                      <div className="relative group">
+                        <span className="cursor-pointer">
+                          {(booking.Comments || "").length > 15
+                            ? `${booking.Comments.slice(0, 15)}...`
+                            : booking.Comments}
+                        </span>
+                        {(booking.Comments || "").length > 15 && (
+                          <div className="absolute right-0 top-full mt-1 hidden group-hover:block z-50 bg-white border border-gray-300 text-gray-700 rounded p-2 shadow-lg w-[500px] whitespace-normal">
+                            {booking.Comments}
+                          </div>
+                        )}
+                      </div>
                     </td>
                     <td className="flex items-center justify-center pt-3">
                       <button onClick={() => onEdit(booking)} title="Edit">
