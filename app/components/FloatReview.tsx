@@ -122,7 +122,7 @@ function ReviewFeedback({ feedback }: { feedback: string }) {
 
 export default function ReviewWidget() {
   const pathname = usePathname();
-  const isAdmin = pathname.startsWith("/admin");
+  const isAdmin = pathname?.startsWith("/admin");
   const [open, setOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>(fallbackTestimonials);
   const [globalRating,setGlobalRating] =  useState<string | number>('');

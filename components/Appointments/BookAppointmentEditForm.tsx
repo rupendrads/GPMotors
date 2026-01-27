@@ -53,36 +53,30 @@ const BookAppointmentEditForm = ({
   const [disabledDates, setDisabledDates] = useState<Date[]>([]);
 
   useEffect(() => {
-    if (!isEdit || !appointment) return; 
-      updateServiceType(appointment.ServiceType);
+    if (!isEdit || !appointment) return;
 
-      setClientDetails({
-        title: appointment.Title,
-        firstName: appointment.FirstName,
-        lastName: appointment.LastName,
-        postCode: appointment.PostCode,
-        email: appointment.Email,
-        registrationNo: appointment.RegistrationNo,
-        comments: appointment.Comments,
-        phoneNo: appointment.PhoneNo,
-        contactStatus: appointment.ContactStatus,
-      });
-      
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, appointment]);
+    updateServiceType(appointment.ServiceType);
+    setClientDetails({
+      title: appointment.Title,
+      firstName: appointment.FirstName,
+      lastName: appointment.LastName,
+      postCode: appointment.PostCode,
+      email: appointment.Email,
+      registrationNo: appointment.RegistrationNo,
+      comments: appointment.Comments,
+      phoneNo: appointment.PhoneNo,
+      contactStatus: appointment.ContactStatus,
+    });
 
-  useEffect(() => {
-    if (isEdit && appointment && serviceType) {
+    if (serviceType) {
       updateBookingTimeSlots(appointment.BookingDate as Date, serviceType);
-
       setBookingDateTime({
         date: appointment.BookingDate as Date,
         time: appointment.BookingTime,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [serviceType]);
-
+  }, [isEdit, appointment, serviceType]);
 
   const getSlotsLimit = (serviceType: IServiceType) => {
     return serviceType.logic === 1

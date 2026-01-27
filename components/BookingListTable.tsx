@@ -8,7 +8,9 @@ import {
   ChevronRightIcon,
   ChevronDoubleRightIcon,
   PencilIcon,
+  TrashIcon,
 } from "@heroicons/react/24/solid";
+import Alert from "./Alert";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -19,6 +21,12 @@ function BookingListTable() {
   const [loading, setLoading] = useState(true);
   const [serviceTypes, setServiceTypes] = useState<IServiceType[]>([]);
   const [showAll, setShowAll] = useState(false);
+  const [alert, setAlert] = useState({ message: "", type: ""});
+  const [bookingToDelete, setBookingToDelete] = useState<IBookingDB | null>(null);
+  const handleShowAlert = (type: string, message: string) => {
+    setAlert({ type, message });
+  };
+ 
 
   // Filter states
   const [filterName, setFilterName] = useState("");
@@ -31,6 +39,43 @@ function BookingListTable() {
     console.log("Editing Booking ID:", booking.ID);
     router.push(`/book-appointment-edit?id=${booking.ID}`);
   };
+
+  const onDelete = (booking: IBookingDB) => {
+    setBookingToDelete(booking);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!bookingToDelete) return;
+
+    try {
+      const response = await fetch(`/api/booking/${bookingToDelete.ID}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete booking.");
+      }
+      const result = await response.json();
+      console.log(result);
+
+      handleShowAlert(result["status"], result["message"]);
+
+      setFilteredBookings((prev) => prev.filter((b) => b.ID !== bookingToDelete.ID));
+      setBookings((prev) => prev.filter((b) => b.ID !== bookingToDelete.ID));
+    } catch (error) {
+      handleShowAlert("error", "Error deleting booking. Please try again.");
+      console.error("Error deleting booking:", error);
+    } finally {
+      setBookingToDelete(null);
+    }
+  };
+
+  const handleCancelDelete = () => setBookingToDelete(null);
+
+   const handleCloseAlert = () => {
+    setAlert({ message: "", type: "" });
+  };
+  
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -402,9 +447,12 @@ function BookingListTable() {
                         )}
                       </div>
                     </td>
-                    <td className="flex items-center justify-center pt-3">
+                    <td className="flex items-center justify-center pt-3 gap-1">
                       <button onClick={() => onEdit(booking)} title="Edit">
                         <PencilIcon className="h-5 w-5 text-blue-500 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
+                      </button>
+                      <button onClick={() => onDelete(booking)} title="Delete">
+                        <TrashIcon className="h-5 w-5 text-red-500 p-0.5 border border-gray-400 rounded-sm hover:bg-gray-200 transition duration-350 cursor-pointer" />
                       </button>
                     </td>
                   </tr>
@@ -454,7 +502,26 @@ function BookingListTable() {
           </div>
         </div>
       )}
+
+      {alert.message !== "" && (
+        <Alert
+          message={alert.message}
+          type={alert.type}
+          onClose={handleCloseAlert}
+        />
+      )}
+
+      {bookingToDelete && (
+        <Alert
+          message="Are you sure you want to delete this Appointment?"
+          type="warning"
+          showButtons={true}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
     </div>
+  
   );
 }
 

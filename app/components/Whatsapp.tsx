@@ -21,7 +21,7 @@ const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
   };
 
   const pathname = usePathname();
-  const isAdmin = pathname.startsWith("/admin");
+  const isAdmin = pathname?.startsWith("/admin");
   const encodedMessage: string = encodeURIComponent(message);
   const formattedPhone: string = formatPhoneNumber(phoneNumber);
   const whatsappUrl: string = `https://wa.me/${formattedPhone}?text=${encodedMessage}`;

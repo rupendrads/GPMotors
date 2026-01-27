@@ -178,7 +178,7 @@ export default function Navbar() {
   };
 
   const isAdmin = () => {
-    return pathname.includes("/admin") ? true : false;
+    return pathname?.includes("/admin") ? true : false;
   };
 
   const closeSidebar = () => {

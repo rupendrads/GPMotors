@@ -53,7 +53,7 @@ const BookAppointmentForm = ({
   const [disabledDates, setDisabledDates] = useState<Date[]>([]);
 
   useEffect(() => {
-    if (isEdit === true && appointment) {
+    if (isEdit && appointment) {
       updateServiceType(appointment.ServiceType);
       setClientDetails({
         title: appointment.Title,
@@ -73,7 +73,6 @@ const BookAppointmentForm = ({
         time: appointment.BookingTime,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, appointment]);
 
   const getSlotsLimit = (serviceType: IServiceType) => {

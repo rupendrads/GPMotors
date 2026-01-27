@@ -25,8 +25,8 @@ export default function RootLayout({
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const isAdminPage =
-    pathname.startsWith("/book-appointment-edit") ||
-    pathname.startsWith("/admin");
+    pathname?.startsWith("/book-appointment-edit") ||
+    pathname?.startsWith("/admin");
 
   return (
     <html lang="en">
