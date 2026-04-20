@@ -48,8 +48,8 @@ function BookingListTable() {
     if (!bookingToDelete) return;
 
     try {
-      const response = await fetch(`/api/booking/${bookingToDelete.ID}`, {
-        method: "DELETE",
+      const response = await fetch(`/api/booking/${bookingToDelete.ID}/delete`, {
+        method: "POST",
       });
 
       if (!response.ok) {
