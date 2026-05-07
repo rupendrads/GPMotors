@@ -244,7 +244,11 @@ function ClientDetailListTable() {
                     </td>
                     <td className={tdStyle}>{client.Address2}</td>
                     <td className={tdStyle}>{client.PostCode}</td>
-                    <td className={tdStyle}>{client.ContactNo}</td>
+                    <td className={tdStyle}>
+                      {client.ContactNo && !client.ContactNo.startsWith('+')
+                        ? `+${client.ContactNo}`
+                        : client.ContactNo}
+                    </td>
                     <td className={tdStyle}>{client.ServiceType}</td>
                     <td className={tdStyle}>
                       {client.ServiceDate

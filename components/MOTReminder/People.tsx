@@ -49,6 +49,25 @@ function People({
     setPersonList([...people]);
   };
 
+  const handleSelectAll = () => {
+    const updatedList = personList.map((person) => ({
+      ...person,
+      IsChecked: true,
+    }));
+    setPersonList(updatedList);
+  };
+
+  const handleDeselectAll = () => {
+    const updatedList = personList.map((person) => ({
+      ...person,
+      IsChecked: false,
+    }));
+    setPersonList(updatedList);
+  };
+
+  const allSelected = personList.length > 0 && personList.every((p) => p.IsChecked);
+  const noneSelected = personList.length > 0 && personList.every((p) => !p.IsChecked);
+
   // const sendEmail = () => {
   //   processingStart();
   //   setTitle("Email");
@@ -189,9 +208,7 @@ function People({
     const sms = `Hi ${person.FirstName} ${person.LastName}, 
     your vehicles MOT is due to expire on ${formatDate(
       new Date(person.serviceDate)
-    )}. 
-    We will be closed from 25th December to January 3rd. 
-    Opening in the new year Tuesday January 4th 2022.
+    )}.
     Call us today to book your Annual MOT & Service 0208 943 4103 / 0208 943 3588. 
     Thanks.
     Remember you can get your car MOT'd up to a month before your MOT renewal date 
@@ -273,7 +290,15 @@ function People({
                     {index === 0 && (
                       <>
                         <div className="flex bg-gray-800 text-white">
-                          <div className={checkCellHeaderStyle}></div>
+                          <div className={checkCellHeaderStyle}>
+                            <input
+                              type="checkbox"
+                              className={`w-5 h-5 accent-blue-500 ${processing === true && "pointer-events-none opacity-25"}`}
+                              checked={allSelected}
+                              onChange={() => allSelected ? handleDeselectAll() : handleSelectAll()}
+                              title={allSelected ? "Deselect All" : "Select All"}
+                            />
+                          </div>
                           <div className={nameCellHeaderStyle}>Name</div>
                           <div className={serviceDateCellHeaderStyle}>
                             Service date

@@ -11,8 +11,8 @@ const titles = ["Mr", "Mrs", "Ms"];
 const serviceTypes = ["MOT", "Oiling"];
 
 const PHONE_REGEX_VALIDATION =
-  /^(0\d{10}|44\d{9,11})$/;
-  // /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+441\s?\d{3}|\(?01\d{3}\)?)\s?\d{5})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/;
+  /^\+\d{10,14}$/;
+  // /^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+441\s?\d{3}|\(?01\d{3}\)?)\s?\d{5})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/
 
 // For Example, Mob No.is
 // 04474474859
@@ -244,10 +244,10 @@ function ClientDetailForm({ clientId }: ClientDetailFormProps) {
                 required: true,
                 pattern: PHONE_REGEX_VALIDATION,
               })}
-              placeholder="Your ContactNo"
+              placeholder="+44XXXXXXXXXX"
             />
             {errors.contactNo && (
-              <span className={errorStyle}>Use proper Mobile No format</span>
+              <span className={errorStyle}>Add country code with + (e.g. +44...)</span>
             )}
           </div>
 
