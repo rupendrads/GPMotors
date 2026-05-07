@@ -66,7 +66,6 @@ function People({
   };
 
   const allSelected = personList.length > 0 && personList.every((p) => p.IsChecked);
-  const noneSelected = personList.length > 0 && personList.every((p) => !p.IsChecked);
 
   // const sendEmail = () => {
   //   processingStart();
