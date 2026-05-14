@@ -203,11 +203,21 @@ function People({
   //   progressRef.current?.incrementValue();
   // };
 
+  const getUpcomingMOTDate = (serviceDate: string): Date => {
+    const motDate = new Date(serviceDate);
+    const today = new Date();
+    motDate.setFullYear(today.getFullYear());
+    // If the MOT date has already passed this year, use next year
+    if (motDate < today) {
+      motDate.setFullYear(today.getFullYear() + 1);
+    }
+    return motDate;
+  };
+
   const getSMSTemplate = (person: person) => {
+    const upcomingMOTDate = getUpcomingMOTDate(person.serviceDate);
     const sms = `Hi ${person.FirstName} ${person.LastName}, 
-    your vehicles MOT is due to expire on ${formatDate(
-      new Date(person.serviceDate)
-    )}.
+    your vehicles MOT is due to expire on ${formatDate(upcomingMOTDate)}.
     Call us today to book your Annual MOT & Service 0208 943 4103 / 0208 943 3588. 
     Thanks.
     Remember you can get your car MOT'd up to a month before your MOT renewal date 
