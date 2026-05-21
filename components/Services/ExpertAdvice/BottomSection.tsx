@@ -39,24 +39,7 @@ function BottomSection() {
             Request a Call
           </button>
         </div>
-        <div className="flex flex-col gap-1 md:gap-3 lg:gap-1">
-          <div
-            className="font-[600] text-[17.53px] md:text-[38.72px] lg:text-[22px] 
-          leading-[19.28px] md:leading-[42.59px] lg:leading-[24.2px] 
-          tracking-[-0.32px] md:tracking-[-0.7px] lg:tracking-[-0.4px] 
-          flex lg:justify-center max-md:text-yellow-300"
-          >
-            +44 (0) 20 1234 5678
-          </div>
-          <div
-            className="font-[400] text-[8.25px] md:text-[18.22px] lg:text-[12px] 
-          leading-[4.95px] md:leading-[10.93px] lg:leading-[13.2px] 
-          tracking-[-0.15px] md:tracking-[-0.33px] lg:tracking-[-0.4px] 
-          text-slate-300 flex lg:justify-center"
-          >
-            Available 7 days a week
-          </div>
-        </div>
+
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import img1 from "../../public/images/oilChange.png"
-import img2 from "../../public/images/poorAcceleration.png"
-import img3 from "../../public/images/Rattling.png"
-import img4 from "../../public/images/TransmissionService.png"
+import img1 from "@/public/images/oilChange.png"
+import img2 from "@/public/images/poorAcceleration.png"
+import img3 from "@/public/images/Rattling.png"
+import img4 from "@/public/images/TransmissionService.png"
 
 const WhyTrustUs = ({data}) => {
   const services = [
@@ -95,18 +95,7 @@ const WhyTrustUs = ({data}) => {
       Our friendly team is here to help. Call now for instant assistance and expert recommendations.
     </p>
     
-    {/* Phone Number */}
-    <div className="mb-6">
-      <a 
-        href="tel:+442012345678" 
-        className="text-white font-bold text-3xl md:text-4xl hover:text-white/90 transition-colors duration-300 block"
-      >
-        +44 (0) 20 1234 5678
-      </a>
-      <p className="text-white/80 text-sm mt-2">
-        Available 7 days a week
-      </p>
-    </div>
+
     
     {/* CTA Button */}
     <button className="bg-white text-red-500 font-semibold px-8 py-3 rounded-md hover:bg-gray-100 transition-colors duration-300 text-lg">
@@ -130,13 +119,6 @@ const WhyTrustUs = ({data}) => {
     <button className="bg-white text-black font-semibold px-6 py-2 rounded-md hover:bg-gray-100 transition-colors duration-300">
       Request a Call
     </button>
-    <a 
-      href="tel:+442012345678" 
-      className="text-white font-bold text-lg md:text-xl hover:text-white/90 transition-colors duration-300"
-    >
-      +44 (0) 20 1234 5678 <br/>
-      <span className='text-white/80 text-xs font-light text-center'>Available 7 days a week</span>
-    </a>
   </div>
 </div>
 
