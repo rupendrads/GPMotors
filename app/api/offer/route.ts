@@ -72,7 +72,7 @@ async function ensureTableExists(connection: mysql.Connection) {
   
   // Check if table has any data
   const [rows] = await connection.execute("SELECT COUNT(*) as count FROM offer_content");
-  const count = (rows as any[])[0].count;
+  const count = (rows as { count: number }[])[0].count;
   
   // Insert default data if empty
   if (count === 0) {
@@ -93,7 +93,7 @@ export async function GET() {
 
     connection.end();
 
-    const rows = results as any[];
+    const rows = results as mysql.RowDataPacket[];
     
     if (rows.length === 0) {
       return NextResponse.json({ 

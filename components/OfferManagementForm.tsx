@@ -100,14 +100,14 @@ export default function OfferManagementForm() {
       } else {
         setMessage({ type: "error", text: data.message || "Failed to save offer content" });
       }
-    } catch (error) {
+    } catch {
       setMessage({ type: "error", text: "Failed to save offer content" });
     } finally {
       setSaving(false);
     }
   };
 
-  const handleChange = (field: keyof OfferContent, value: any) => {
+  const handleChange = (field: keyof OfferContent, value: string | number | boolean | string[]) => {
     setContent((prev) => ({ ...prev, [field]: value }));
   };
 
