@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Services from "./Services";
 import Image from "next/image";
@@ -9,9 +11,12 @@ import FAQ from "./FAQ";
 import Link from "next/link";
 import HomeFooter from "../components/HomeFooter";
 import WhatWeOffer from "./WhatWeOffer";
+import { OfferModal } from "@/components/OfferModal";
+
 export default function Homepage() {
   return (
     <div className="min-h-screen">
+      <OfferModal />
       {/* Hero Section */}
       <section className="relative bg-black text-white overflow-hidden">
         <div className="absolute inset-0">

@@ -188,7 +188,7 @@ export default function Navbar() {
   return (
     <>
       {!isAdmin() ? (
-        <nav className="relative z-50 w-full border-b border-gray-300">
+        <nav className="relative z-[100] w-full border-b border-gray-300">
           <div className="w-full bg-[#fff] flex items-center justify-between px-4 lg:px-10 poppins-font">
             <button
               className="lg:hidden p-2"
@@ -441,7 +441,7 @@ export default function Navbar() {
           {/* Services Mega Menu */}
           {showMegaMenu && (
             <div
-              className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-40 hidden lg:block"
+              className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-[100] hidden lg:block"
               onMouseEnter={handleEnter}
               onMouseLeave={handleLeave}
             >
@@ -547,7 +547,7 @@ export default function Navbar() {
           {/* Brands Mega Menu */}
           {showBrandsMegaMenu && (
             <div
-              className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-40 hidden lg:block"
+              className="absolute left-0 top-full w-full border-t bg-[#F8FCFF] shadow-2xl z-[100] hidden lg:block"
               onMouseEnter={handleBrandsEnter}
               onMouseLeave={handleBrandsLeave}
             >

@@ -60,6 +60,13 @@ function AdminMenuLinks({ closeSidebar }: { closeSidebar?: () => void }) {
           >
             Client Detail
           </Link>
+          <Link
+            href="/admin/offer"
+            className=" hover:text-[#E33C30] px-3 py-2 transition"
+            onClick={closeSidebar ?? closeSidebar}
+          >
+            Offer
+          </Link>
 
           <ul className="px-3 py-2 transition relative cursor-pointer">
             {reminderMenuItems.map((item, index) => (
