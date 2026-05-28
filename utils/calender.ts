@@ -87,4 +87,14 @@ export const HOLIDAY_DATES = [
   new Date(2025, 11, 31), // Dec 31, 2025
   new Date(2026, 0, 1),   // Jan 1, 2026
   new Date(2026, 0, 2),   // Jan 2, 2026
+  // MOT Closed Period - June 2026
+  new Date(2026, 5, 8),   // Jun 8, 2026
+  new Date(2026, 5, 9),   // Jun 9, 2026
+  new Date(2026, 5, 10),  // Jun 10, 2026
+  new Date(2026, 5, 11),  // Jun 11, 2026
+  new Date(2026, 5, 12),  // Jun 12, 2026
+  new Date(2026, 5, 13),  // Jun 13, 2026
+  new Date(2026, 5, 14),  // Jun 14, 2026
+  new Date(2026, 5, 15),  // Jun 15, 2026
+  new Date(2026, 5, 16),  // Jun 16, 2026
 ];
