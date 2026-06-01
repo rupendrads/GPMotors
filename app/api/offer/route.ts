@@ -162,25 +162,31 @@ export async function POST(request: Request) {
       ? data.perks 
       : JSON.stringify(data.perks || []);
 
+    // Ensure numeric values are valid (not null/NaN)
+    const safeNumber = (val: unknown, defaultVal: number): number => {
+      const num = Number(val);
+      return isNaN(num) || val === null || val === undefined ? defaultVal : num;
+    };
+
     const values = [
-      data.heading_line1,
-      data.heading_line2,
-      data.description,
-      data.original_price,
-      data.offer_price,
-      data.discount_percent,
+      data.heading_line1 || '',
+      data.heading_line2 || '',
+      data.description || '',
+      safeNumber(data.original_price, 0),
+      safeNumber(data.offer_price, 0),
+      safeNumber(data.discount_percent, 0),
       perksJson,
-      data.testimonial_text,
-      data.testimonial_author,
-      data.rating,
-      data.review_count,
-      data.cta_button_text,
-      data.cta_button_link,
-      data.phone_number,
-      data.badge_text,
-      data.image_url,
+      data.testimonial_text || '',
+      data.testimonial_author || '',
+      safeNumber(data.rating, 0),
+      safeNumber(data.review_count, 0),
+      data.cta_button_text || '',
+      data.cta_button_link || '',
+      data.phone_number || '',
+      data.badge_text || '',
+      data.image_url || '',
       data.is_active ? 1 : 0,
-      data.show_delay_ms,
+      safeNumber(data.show_delay_ms, 800),
       data.id || 1
     ];
 

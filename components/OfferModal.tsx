@@ -123,7 +123,7 @@ export function OfferModal() {
     return (
       <button
         onClick={() => { setOpen(true); setDismissed(false); }}
-        className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-red-600 px-4 py-3 text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-red-700 md:px-5 md:py-3.5 animate-bounce"
+        className="fixed bottom-5 right-5 z-[150] flex items-center gap-2 rounded-full bg-red-600 px-4 py-3 text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-red-700 md:px-5 md:py-3.5 animate-bounce"
         aria-label="Reopen welcome offer"
       >
         <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20">
@@ -131,7 +131,12 @@ export function OfferModal() {
         </span>
         <span className="flex flex-col items-start leading-tight">
           <span className="text-[9px] font-bold uppercase tracking-widest opacity-90">Welcome Offer</span>
-          <span className="text-sm font-black uppercase">{content.discount_percent}% Off — £{content.offer_price}</span>
+          {content.offer_price > 0 && content.discount_percent > 0 && (
+            <span className="text-sm font-black uppercase">{content.discount_percent}% Off — £{content.offer_price}</span>
+          )}
+          {content.offer_price > 0 && content.discount_percent === 0 && (
+            <span className="text-sm font-black uppercase">£{content.offer_price}</span>
+          )}
         </span>
       </button>
     );
@@ -164,7 +169,7 @@ export function OfferModal() {
       `}</style>
 
       <div
-        className="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center p-4"
+        className="fixed top-0 left-0 right-0 bottom-0 z-[200] flex items-center justify-center p-4"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.85)",
           backdropFilter: "blur(8px)",
@@ -178,7 +183,7 @@ export function OfferModal() {
         aria-labelledby="offer-title"
       >
         <div
-          className="relative grid w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white md:grid-cols-[1fr_1fr] md:max-h-[85vh]"
+          className="relative grid w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-3xl bg-white md:grid-cols-[1fr_1fr] md:max-h-[85vh]"
           style={{
             boxShadow: "0 25px 80px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)",
             animation: "modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -196,7 +201,7 @@ export function OfferModal() {
           </button>
 
           {/* Content side */}
-          <div className="relative order-2 flex flex-col gap-4 overflow-y-auto overflow-x-hidden bg-gradient-to-br from-white via-gray-50 to-red-50 p-5 pt-12 md:order-1 md:gap-5 md:p-8 md:pt-8">
+          <div className="relative order-2 flex flex-col gap-4 overflow-y-auto overflow-x-hidden bg-gradient-to-br from-white via-gray-50 to-red-50 p-5 pt-12 md:order-1 md:gap-5 md:p-8 md:pt-8 rounded-3xl md:rounded-r-none">
             {/* Decorative background elements */}
             <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-yellow-400/10 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-red-500/10 blur-3xl" />
@@ -221,23 +226,33 @@ export function OfferModal() {
             </div>
 
             {/* Price reveal */}
-            <div className="flex flex-col gap-3 rounded-2xl border-2 border-red-100 bg-gradient-to-r from-red-50 to-yellow-50 px-5 py-4 md:flex-row md:items-center md:gap-5">
-              <div className="flex items-center gap-5">
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Was</p>
-                  <p className="text-xl font-bold text-gray-400 line-through">£{content.original_price}</p>
+            {(content.original_price > 0 || content.offer_price > 0) && (
+              <div className="flex flex-col gap-3 rounded-2xl border-2 border-red-100 bg-gradient-to-r from-red-50 to-yellow-50 px-5 py-4 md:flex-row md:items-center md:gap-5">
+                <div className="flex items-center gap-5">
+                  {content.original_price > 0 && (
+                    <>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Was</p>
+                        <p className="text-xl font-bold text-gray-400 line-through">£{content.original_price}</p>
+                      </div>
+                      <div className="h-12 w-px bg-red-200" />
+                    </>
+                  )}
+                  {content.offer_price > 0 && (
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-red-600">{content.original_price > 0 ? 'Now Only' : 'Price'}</p>
+                      <p className="text-3xl font-black leading-none text-red-600 md:text-4xl">£{content.offer_price}</p>
+                    </div>
+                  )}
                 </div>
-                <div className="h-12 w-px bg-red-200" />
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-red-600">Now Only</p>
-                  <p className="text-3xl font-black leading-none text-red-600 md:text-4xl">£{content.offer_price}</p>
-                </div>
+                {content.discount_percent > 0 && (
+                  <span className="w-fit inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-red-600 to-red-500 px-4 py-2 text-sm font-black uppercase text-white shadow-lg md:ml-auto">
+                    <Tag className="h-4 w-4" />
+                    Save {content.discount_percent}%
+                  </span>
+                )}
               </div>
-              <span className="w-fit inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-red-600 to-red-500 px-4 py-2 text-sm font-black uppercase text-white shadow-lg md:ml-auto">
-                <Tag className="h-4 w-4" />
-                Save {content.discount_percent}%
-              </span>
-            </div>
+            )}
 
             {/* Perks list */}
             <ul className="space-y-3 text-sm font-medium text-gray-700">
@@ -297,7 +312,7 @@ export function OfferModal() {
           </div>
 
           {/* Visual side */}
-          <div className="relative order-1 hidden h-full max-h-[85vh] overflow-hidden md:order-2 md:block">
+          <div className="relative order-1 hidden h-full max-h-[85vh] overflow-hidden md:order-2 md:block rounded-3xl md:rounded-l-none">
             <img
               src={content.image_url}
               alt="GP Motors workshop"
@@ -316,17 +331,19 @@ export function OfferModal() {
             </div>
 
             {/* Floating discount badge */}
-            <div
-              className="absolute right-6 top-24 flex h-28 w-28 flex-col items-center justify-center rounded-full text-center text-white shadow-2xl"
-              style={{
-                background: "linear-gradient(135deg, #ef4444, #dc2626)",
-                animation: "float 3s ease-in-out infinite",
-              }}
-            >
-              <span className="text-[10px] font-bold uppercase tracking-widest opacity-90">Enjoy</span>
-              <span className="text-4xl font-black leading-none">{content.discount_percent}</span>
-              <span className="text-sm font-bold leading-none">% OFF</span>
-            </div>
+            {content.discount_percent > 0 && (
+              <div
+                className="absolute right-6 top-24 flex h-28 w-28 flex-col items-center justify-center rounded-full text-center text-white shadow-2xl"
+                style={{
+                  background: "linear-gradient(135deg, #ef4444, #dc2626)",
+                  animation: "float 3s ease-in-out infinite",
+                }}
+              >
+                <span className="text-[10px] font-bold uppercase tracking-widest opacity-90">Enjoy</span>
+                <span className="text-4xl font-black leading-none">{content.discount_percent}</span>
+                <span className="text-sm font-bold leading-none">% OFF</span>
+              </div>
+            )}
 
             {/* Testimonial */}
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-8 pt-16">

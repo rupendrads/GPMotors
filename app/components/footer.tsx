@@ -67,9 +67,14 @@ export default function Footer() {
               </a>
               {/* <a href="#" className="bg-[#3F662B] rounded-full p-2 text-white">f</a> */}
             </div>
-            <address className="not-italic foter-link xl:whitespace-nowrap xxl:whitespace-nowrap">
+            <a 
+              href="https://maps.app.goo.gl/njfyJFfyhD6LqhTC9?g_st=aw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="not-italic foter-link xl:whitespace-nowrap xxl:whitespace-nowrap hover:underline"
+            >
               GP Motors (Teddington) Ltd, 6 Alpha Rd, Teddington, England TW11 0QG, United Kingdom
-            </address>
+            </a>
           </div>
         </div>
       )}

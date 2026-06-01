@@ -32,14 +32,21 @@ export default function ContactUsPage() {
         </div>
         {/* Map Overlay */}
         <div className="absolute left-1/2 transform -translate-x-1/2 bottom-[-130px] w-3/4 shadow-lg rounded-lg overflow-hidden z-10">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2487.5734314597703!2d-0.35209019999999996!3d51.4292621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760b5fde736955%3A0x72410f96077918a6!2sAlpha%20Rd%2C%20Teddington%20TW11%200QG%2C%20UK!5e0!3m2!1sen!2sin!4v1750788136165!5m2!1sen!2sin"
-            width="100%"
-            height="200"
-            style={{ border: 0 }}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          <a 
+            href="https://maps.app.goo.gl/njfyJFfyhD6LqhTC9?g_st=aw"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2487.5734314597703!2d-0.35209019999999996!3d51.4292621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760b60757abfa3%3A0x85aaf42d11a7299b!2sGP%20Motors%20(Teddington)%20Ltd!5e0!3m2!1sen!2suk!4v1750788136165!5m2!1sen!2suk"
+              width="100%"
+              height="200"
+              style={{ border: 0, pointerEvents: 'none' }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </a>
         </div>
       </div>
       {/* Contact Info & Form Section */}
@@ -66,9 +73,14 @@ export default function ContactUsPage() {
               </div>
               <div className="flex items-center gap-3 mb-10">
                 <span className="material-icons text-lg">location_on</span>
-                <span className="text-base">
-                  6 Alpha Rd, Teddington, England TW11 0QG, United Kingdom
-                </span>
+                <a 
+                  href="https://maps.app.goo.gl/njfyJFfyhD6LqhTC9?g_st=aw"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-base hover:underline"
+                >
+                  GP Motors (Teddington) Ltd, 6 Alpha Rd, Teddington, England TW11 0QG, United Kingdom
+                </a>
               </div>
             </div>
             <div className="flex gap-4 mt-auto relative z-10">
